@@ -1,0 +1,22 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <div class="row">
+        <% qns.forEach(function(questionno){ %>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%= questionno.name %></h5>
+                    <p class="card-text">Created By: <%=questionno.userid.name%>
+                        <br>
+                        Created On: <%= questionno.created.toDateString() %></p>
+                    <a href="/display/<%= questionno._id%>" class="btn btn-primary">Open</a>
+                </div>
+            </div>
+            <p><br></p>
+        </div>
+        <% })%>
+    </div>
+</div>
+
+<% include ./partials/footer %>

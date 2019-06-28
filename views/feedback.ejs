@@ -1,0 +1,33 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col-6">
+            <h3>Feedback</h3>
+            <p></p>
+
+            <form action="/display/<%=foundset._id%>/feedback" method="POST">
+                <div class="form-group">
+                    <label for="name"></label>
+                    <input type="text" class="form-control-plaintext" id="name"
+                        placeholder="Enter Name of Question Bank" value="<%=foundset.name%>">
+                    <small id="emailHelp" class="form-text text-muted"></small>
+                </div>
+                <%    for(var i = 0; i < foundset.question.length; i++){ %>
+                <div class="form-group">
+                    <label for="answer"><%= i+1 %>:<%= foundset.question[i] %></label>
+                    <input type="text" name="answer" class="form-control" id="answer" placeholder="Type Here" required>
+                </div>
+                <%    } %>
+                <button type="submit" class="btn btn-primary">Submit Changes</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+
+</div>
+
+<% include ./partials/footer %>

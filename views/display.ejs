@@ -1,0 +1,79 @@
+<% include ./partials/header %>
+
+<div class="container">
+<table class="table table-bordered table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <% for(var i=0;i<foundset.question.length ;i++){ %>
+      <th scope="col"><%= foundset.question[i] %></th>
+      <% }%>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(var i=0;i<foundset.answer.length ;i++){ %>
+    <tr>
+      <th scope="row"><%=i+1%></th>
+      <% for(var j=0;j<foundset.answer[i].answer.length ;j++){ %>
+      <td><%= foundset.answer[i].answer[j] %></td>
+      <% }%>
+    </tr>
+    <% }%>
+  </tbody>
+</table>
+<a href="/display/<%=foundset._id%>/edit" class="btn btn-warning" >Edit</a>
+<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletion" data-whatever="@fat">Delete</button>
+
+<!--<div class="modal fade" id="editing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--  <div class="modal-dialog" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="exampleModalLabel">Edit: <%=foundset.name%></h5>-->
+<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form>-->
+<!--          <div class="form-group">-->
+<!--            <p>Do you really want to delete these records? This process cannot be undone.</p>-->
+<!--          </div>-->
+<!--          <div class="form-group">-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--      <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--        <button type="button" class="btn btn-primary">Send message</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<div class="modal fade" id="deletion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deletion"><%=foundset.name%></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/display/<%=foundset._id%>?_method=DELETE"method="POST">
+          <div class="form-group">
+            <p>Do you really want to delete these records? This process cannot be undone.</p>
+          </div>
+          <div class="form-group">
+          </div>
+          <div class="modal-footer">
+        <button  class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button  class="btn btn-primary">Confirm</button>
+      </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<% include ./partials/footer %>

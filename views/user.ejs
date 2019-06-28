@@ -1,0 +1,60 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <div class="row">
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcoy8tQBj_I2vK6G6iq7m2q7PB4KjMGMr7V0XCLo02w4JZv8RrA" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><%=currentuser.name%></h5>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><strong>Username: </strong><%=currentuser.username%></li>
+    <li class="list-group-item"><strong>Registration No: </strong><%=currentuser.registrationno%></li>
+    <li class="list-group-item"><strong>Email: </strong><%=currentuser.email%></li>
+    <li class="list-group-item"><strong>Phone No: </strong><%=currentuser.phone%></li>
+  </ul>
+  <!--<div class="card-body">-->
+  <!--  <a href="#" class="card-link">Card link</a>-->
+  <!--  <a href="#" class="card-link">Another link</a>-->
+  <!--</div>-->
+</div>
+    </div>
+    <div class="col-6">
+      <div class="row">
+        <% foundqn.forEach(function(questionno){ %>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%= questionno.name %></h5>
+                    <p class="card-text">Created By: <%=questionno.userid.name%>
+                        <br>
+                        Created On: <%= questionno.created.toDateString() %></p>
+                    <a href="/display/<%= questionno._id%>" class="btn btn-primary">Open</a>
+                </div>
+            </div>
+            <p><br></p>
+        </div>
+        <% })%>
+    </div>
+    </div>
+    <div class="col">
+      
+    </div>
+  </div>
+  <!--<div class="row">-->
+  <!--  <div class="col">-->
+  <!--    1 of 3-->
+  <!--  </div>-->
+  <!--  <div class="col-5">-->
+  <!--    2 of 3 (wider)-->
+  <!--  </div>-->
+  <!--  <div class="col">-->
+  <!--    3 of 3-->
+  <!--  </div>-->
+  <!--</div>-->
+    
+    
+</div>
+
+<% include ./partials/footer %>
