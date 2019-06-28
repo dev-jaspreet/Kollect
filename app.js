@@ -13,7 +13,9 @@ var express = require("express"),
     User = require("./models/user"),
     session = require("express-session");
 
-mongoose.connect("mongodb://localhost/Questionnaire", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
+mongoose.connect("mongodb+srv://jaspreet:singh@cluster0-aw4yr.mongodb.net/Questionnaire?retryWrites=true&w=majority", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
+
+// mongoose.connect("mongodb://localhost/Questionnaire", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
 
 // passport.use(new LocalStrategy(
 //     function(username, password, done) {
