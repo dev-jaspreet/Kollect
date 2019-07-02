@@ -1,15 +1,24 @@
 <% include ./partials/header %>
 
-<h1>Create A New Question Bank</h1>
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h1>Create A New Question Bank</h1>
 
-<form action = "/new" method = "POST">
+<form action="/new" method="POST">
     <div>
-        <input type = "text" name = "name" placeholder = "Enter Name" required>
-    <%    for(var i = 0; i < count; i++){ %>
-        <input type = "text" name = "question" placeholder = "Enter Your Question" required>
-    <%    } %>
+        <input type="text" name="name" placeholder="Enter Name" required>
+        <% for(var i = 0; i < count; i++){ %>
+        <input type="text" name="question" placeholder="Enter Your Question" required>
+        <% } %>
         <button>Create</button>
     </div>
 </form>
-
+        </div>
+      </div>
+    </div>
+  </div>
 <% include ./partials/footer %>

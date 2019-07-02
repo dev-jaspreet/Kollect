@@ -1,13 +1,11 @@
 <% include ./partials/header %>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-        </div>
-        <div class="col-6">
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 border border-secondary rounded">
             <h3>Feedback</h3>
-            <p></p>
-
             <form action="/display/<%=foundset._id%>/feedback" method="POST">
                 <div class="form-group">
                     <label for="name"></label>
@@ -17,17 +15,17 @@
                 </div>
                 <%    for(var i = 0; i < foundset.question.length; i++){ %>
                 <div class="form-group">
-                    <label for="answer"><%= i+1 %>:<%= foundset.question[i] %></label>
+                    <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
                     <input type="text" name="answer" class="form-control" id="answer" placeholder="Type Here" required>
                 </div>
                 <%    } %>
                 <button type="submit" class="btn btn-primary">Submit Changes</button>
+                <p></p>
             </form>
         </div>
-        <div class="col">
-        </div>
+        <div class="col-md-3"></div>
+      </div>
     </div>
-
-</div>
+  </div>
 
 <% include ./partials/footer %>

@@ -7,10 +7,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="icon" 
+      type="image/png" 
+      href="https://developer.android.com/preview/images/q-logo.png">
     <title><%=pageTitle%></title>
 </head>
 <body>
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark navbar-custom">
   <a class="navbar-brand" href="#">Questionnaire</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -21,9 +25,13 @@
       <li class="nav-item active">
         <a class="nav-link" href="/">Home</a>
       </li>
+      <%if(currentuser){%>
+      <% if(currentuser.type == "faculty"){ %>
       <li class="nav-item">
         <a class="nav-link" href="/new">New Entry</a>
       </li>
+      <% } %>
+      <% } %>
     </ul>
     <div class="d-flex justify-content-end">
       <ul class="navbar-nav mr-auto">
@@ -33,12 +41,18 @@
         <a class="nav-link" href="/login">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/register">SignUp</a>
+        <a class="nav-link" href="/studentregister">SignUp</a>
       </li>
                   <% } else{ %>
                    <li class="nav-item">
+                     <%if(currentuser.type == "student"){%>
         <a class="nav-link" href="/student/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
       </li>
+      <% }%>
+      <%if(currentuser.type == "faculty"){%>
+        <a class="nav-link" href="/faculty/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
+      </li>
+      <% }%>
 
       <li class="nav-item">
         <a class="nav-link" href="/logout">LogOut</a>

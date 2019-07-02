@@ -1,0 +1,124 @@
+<% include ./partials/header %>
+
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card animated pulse mystyle">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcoy8tQBj_I2vK6G6iq7m2q7PB4KjMGMr7V0XCLo02w4JZv8RrA"
+                        class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><%=currentuser.name%></h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item mystyle"><strong>Username: </strong><%=currentuser.username%></li>
+                        <li class="list-group-item mystyle"><strong>Registration No: </strong><%=currentuser.registrationno%>
+                        </li>
+                        <li class="list-group-item mystyle"><strong>Email: </strong><%=currentuser.email%></li>
+                        <li class="list-group-item mystyle"><strong>Phone No: </strong><%=currentuser.phone%></li>
+                    </ul>
+                    <!--<div class="card-body">-->
+                    <!--  <a href="#" class="card-link">Card link</a>-->
+                    <!--  <a href="#" class="card-link">Another link</a>-->
+                    <!--</div>-->
+                </div>
+                <p></p>
+            </div>
+            <div class="col-md-8">
+                <% if(founduser.questionresponse.length){%>
+                <div class="alert alert-success animated flash" role="alert">
+                    Submitted Responses
+                </div>
+                <div class="accordion" id="accordionExample">
+                    <% for(var i=0;i<founduser.answer.length;i++){%>
+                    <div class="card">
+                        <div class="card-header animated slideInUp mystyle" id="headingOne<%=i%>s">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne<%=i%>s" aria-expanded="true"
+                                    aria-controls="collapseOne<%=i%>s">
+                                    <%=founduser.questionresponse[i].name%>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseOne<%=i%>s" class="collapse toggle mystyle" aria-labelledby="headingOne<%=i%>s"
+                            data-parent="#accordionExample">
+                            <div class="card-body mystyle">
+                                <table id="testTable" class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <% for(var j=0;j<founduser.questionresponse[i].question.length;j++){%>
+                                            <th scope="col"><%= founduser.questionresponse[i].question[j] %></th>
+                                            <% }%>
+                                            <th scope="col">Registration No</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Result:</th>
+                                            <% for(var k=0;k<founduser.answer[i].answer.length ;k++){ %>
+                                            <td><%= founduser.answer[i].answer[k]%></td>
+                                            <% }%>
+                                            <td><%= founduser.registrationno %></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="float-right">
+                                    <a href="/feedbackedit/<%=founduser.questionresponse[i].id%>"
+                                        class="btn btn-success">Edit
+                                        Feedback</a>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                </div>
+                <p></p>
+                <% } %>
+                <% if(founduser.questionpending.length){%>
+                <div class="alert alert-danger animated flash" role="alert">
+                    Submitted Responses
+                </div>
+                <div class="accordion" id="accordionExample">
+                    <% for(var i=0;i<founduser.questionpending.length;i++){%>
+                    <div class="card">
+                        <div class="card-header animated slideInUp mystyle" id="headingOne<%=i%>p">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse"
+                                    data-target="#collapseOne<%=i%>p" aria-expanded="true"
+                                    aria-controls="collapseOne<%=i%>p">
+                                    <%=founduser.questionpending[i].name%>
+                                </button>
+                            </h2>
+                        </div>
+                        <div id="collapseOne<%=i%>p" class="collapse toggle mystyle" aria-labelledby="headingOne<%=i%>p"
+                            data-parent="#accordionExample">
+                            <div class="card-body mystyle">
+                                <% for(var j=0;j<founduser.questionpending[i].question.length;j++){ %>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><%=founduser.questionpending[i].question[j]%></li>
+                                </ul>
+                                <% } %>
+                                <p></p>
+                                <div class="float-right">
+                                    <a href="/display/<%=founduser.questionpending[i].id%>/feedback"
+                                        class="btn btn-success">Give
+                                        Feedback</a>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <% }%>
+        </div>
+        <!--<div class="col-md-4"></div>-->
+    </div>
+</div>
+</div>
+
+<% include ./partials/footer %>

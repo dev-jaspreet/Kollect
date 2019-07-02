@@ -1,14 +1,61 @@
 <% include ./partials/header %>
-
-<div class="container">
-    <div class="row">
-        <div class="col">
+<!---->
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+          <% if(!filter){ %>
+          
+        <div class="col-md-4  border border-secondary rounded animated pulse mystyle">
+            
+            <!---->
+            <h3>Select Branch: Section: Year</h3>
+            <form action="/filter" method="POST">
+                <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="department">Select Department:</label>
+                    <select name="department" class="custom-select" required>
+                        <option selected>Department:</option>
+                        <option value="cse">CSE</option>
+                        <option value="it">IT</option>
+                        <option value="cce">CCE</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="section">Select SECTION:</label>
+                    <select name="section" class="custom-select" required>
+                        <option selected>SECTION:</option>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="year">Select Current Year:</label>
+                    <select name="year" class="custom-select" required>
+                        <option selected>Year:</option>
+                        <option value="1">First</option>
+                        <option value="2">Second</option>
+                        <option value="3">Third</option>
+                        <option value="4">Fourth</option>
+                    </select>
+                </div>
+            </div>
+                <button type="submit" class="btn btn-primary">Next</button>
+                <p></p>
+            </form>
+            <!---->
+            
+            
         </div>
-        <div class="col-6">
-            <h3>Create A New Question Bank</h3>
-            <p></p>
-            <% if(!count){ %>
-            <!--<h5>Enter Number Of Questions</h5>-->
+        <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <% } %>
+        <% if(!count && filter){ %>
+        <div class="col-md-4"></div>
+        <div class="col-md-4 border border-secondary rounded animated pulse mystyle">
+            
+            <h3>How Many Question(s) Would Like To Create?</h3>
             <form action="/count" method="POST">
                 <div class="form-group">
                     <label for="count">Number Of Questions:</label>
@@ -18,8 +65,18 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-            <% } %>
-            <% if(count){ %>
+            
+            <!--<div class="col-md-4"></div>-->
+            
+        </div>
+        <div class="col-md-4"></div>
+        <% } %>
+        <% if(count){ %>
+        <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+        <div class="col-md-4 border border-secondary rounded animated pulse mystyle">
+            
+            <h3>Enter Your Desired Questions.</h3>
             <form action="/new" method="POST">
                 <div class="form-group">
                     <label for="name">Set Question Bank Name</label>
@@ -35,12 +92,21 @@
                 <%    } %>
                 <button type="submit" class="btn btn-primary">Create</button>
             </form>
-            <% } %>
+            
+            
         </div>
-        <div class="col">
-        </div>
+        <% } %>
+        
+        
+        
+        
+      </div>
     </div>
+  </div>
+<!---->
 
-</div>
+
+
+
 
 <% include ./partials/footer %>

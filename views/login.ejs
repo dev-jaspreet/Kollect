@@ -1,9 +1,12 @@
 <% include ./partials/header %>
-<div class="container">
-    <div class="row">
-        <div class="col">
+
+<div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+            
         </div>
-        <div class="col-6">
+        <div class="col-md-4 border border-secondary rounded animated pulse mystyle">
             <h3>Log In</h3>
             <form action="/login" method="POST">
                 <div class="form-group">
@@ -20,12 +23,10 @@
                     <label class="form-check-label" for="exampleCheck1">Confirm Check</label>
                 </div>
                 <button type="submit" class="btn btn-primary">Log In</button>
+                <p></p>
             </form>
         </div>
-        <div class="col">
-        </div>
+      </div>
     </div>
-
-</div>
-
+  </div>
 <% include ./partials/footer %>

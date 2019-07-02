@@ -9,7 +9,24 @@ var userSchema = mongoose.Schema({
     gender: String,
     email: String,
     phone: Number,
-    password: String
+    password: String,
+    uniqueid:String,
+    answer: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Answer"
+    }],
+    questioncreator: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question"
+    }],
+    questionresponse: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question"
+    }],
+    questionpending: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question"
+    }]
 })
 
 userSchema.plugin(passportlocalmongoose);

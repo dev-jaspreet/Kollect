@@ -1,79 +1,228 @@
 <% include ./partials/header %>
 
-<div class="container">
-<table class="table table-bordered table-hover">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">#</th>
-      <% for(var i=0;i<foundset.question.length ;i++){ %>
-      <th scope="col"><%= foundset.question[i] %></th>
-      <% }%>
-    </tr>
-  </thead>
-  <tbody>
-    <% for(var i=0;i<foundset.answer.length ;i++){ %>
-    <tr>
-      <th scope="row"><%=i+1%></th>
-      <% for(var j=0;j<foundset.answer[i].answer.length ;j++){ %>
-      <td><%= foundset.answer[i].answer[j] %></td>
-      <% }%>
-    </tr>
-    <% }%>
-  </tbody>
-</table>
-<a href="/display/<%=foundset._id%>/edit" class="btn btn-warning" >Edit</a>
-<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletion" data-whatever="@fat">Delete</button>
-
-<!--<div class="modal fade" id="editing" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--  <div class="modal-dialog" role="document">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-header">-->
-<!--        <h5 class="modal-title" id="exampleModalLabel">Edit: <%=foundset.name%></h5>-->
-<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--          <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--      <div class="modal-body">-->
-<!--        <form>-->
-<!--          <div class="form-group">-->
-<!--            <p>Do you really want to delete these records? This process cannot be undone.</p>-->
-<!--          </div>-->
-<!--          <div class="form-group">-->
-<!--          </div>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--      <div class="modal-footer">-->
-<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--        <button type="button" class="btn btn-primary">Send message</button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<div class="modal fade" id="deletion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deletion"><%=foundset.name%></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="/display/<%=foundset._id%>?_method=DELETE"method="POST">
-          <div class="form-group">
-            <p>Do you really want to delete these records? This process cannot be undone.</p>
-          </div>
-          <div class="form-group">
-          </div>
-          <div class="modal-footer">
-        <button  class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button  class="btn btn-primary">Confirm</button>
-      </div>
-        </form>
-      </div>
+<% if(currentuser && foundset.creator.equals(currentuser._id)){ %>
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-header mystyleother">
+                        <%=foundset.name%>
+                    </div>
+                    <div class="card-body mystyle">
+                        <h5 class="card-title">Created By: <%=foundset.creator.name%></h5>
+                        <p class="card-text">Created For: <%=foundset.uniqueid.substring(0,3).toUpperCase()%> /
+                            <%=foundset.uniqueid.substring(3,4).toUpperCase()%> /
+                            <%=foundset.uniqueid.substring(4,5).toUpperCase()%></p>
+                        <% if(currentuser && foundset.creator.equals(currentuser._id)){ %>
+                        <a href="/display/<%=foundset._id%>/edit" class="btn btn-warning">Edit</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletion"
+                            data-whatever="@fat">Delete</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#link"
+                            data-whatever="@fat">View Pending</button>
+                        <button id="btnExport" class="btn btn-dark"
+                            onclick="javascript:xport.toCSV('testTable', '<%=foundset.name%>#<%=foundset.uniqueid%>');">
+                            Export to CSV</button>
+                        <% } %>
+                    </div>
+                    <div class="card-footer text mystyleother">
+                        Created on: <%= foundset.created.toDateString() %>
+                    </div>
+                    
+                </div>
+                <p></p>
+            </div>
+            <div class="col-md-8">
+                <div class="table-responsive">
+                    <table id="testTable" class="table table-bordered">
+                        <thead class="mystyle">
+                            <tr>
+                                <th scope="col">#</th>
+                                <% for(var i=0;i<foundset.question.length ;i++){ %>
+                                <th scope="col"><%= foundset.question[i] %></th>
+                                <% }%>
+                                <th scope="col">Registration No</th>
+                            </tr>
+                        </thead>
+                        <tbody class="mystyle">
+                            <% for(var i=0;i<foundset.answer.length ;i++){ %>
+                            <tr>
+                                <th scope="row"><%=i+1%></th>
+                                <% for(var j=0;j<foundset.answer[i].answer.length ;j++){ %>
+                                <td><%= foundset.answer[i].answer[j] %></td>
+                                <% }%>
+                                <td><%= foundset.answer[i].registrationno %></td>
+                            </tr>
+                            <% }%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-</div>
+<% }else{ %>
+<!---->
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcoy8tQBj_I2vK6G6iq7m2q7PB4KjMGMr7V0XCLo02w4JZv8RrA"
+                        class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title"><%=foundset.creator.name%></h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Username: </strong><%=foundset.creator.name%></li>
+                        <li class="list-group-item"><strong>Registration No:
+                            </strong><%=foundset.creator.registrationno%></li>
+                        <li class="list-group-item"><strong>Email: </strong><%=foundset.creator.email%></li>
+                        <li class="list-group-item"><strong>Phone No: </strong><%=foundset.creator.phone%></li>
+                    </ul>
+                    <!--<div class="card-body">-->
+                    <!--  <a href="#" class="card-link">Card link</a>-->
+                    <!--  <a href="#" class="card-link">Another link</a>-->
+                    <!--</div>-->
+                </div>
+                <p></p>
+            </div>
+            <div class="col-md-8">
+                <div class="card text-center">
+                    <div class="card-header">
+                        <%=foundset.name%>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Created By: <%=foundset.creator.name%></h5>
+                        <p class="card-text">Created For: <%=foundset.uniqueid.substring(0,3).toUpperCase()%> /
+                            <%=foundset.uniqueid.substring(3,4).toUpperCase()%> /
+                            <%=foundset.uniqueid.substring(4,5).toUpperCase()%></p>
+                        <% if(currentuser && foundset.creator.equals(currentuser._id)){ %>
+                        <a href="/display/<%=foundset._id%>/edit" class="btn btn-warning">Edit</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletion"
+                            data-whatever="@fat">Delete</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#link"
+                            data-whatever="@fat">View Pending</button>
+                        <button id="btnExport" class="btn btn-dark"
+                            onclick="javascript:xport.toCSV('testTable', '<%=foundset.name%>#<%=foundset.uniqueid%>');">
+                            Export to CSV</button>
+                        <% } %>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Created on: <%= foundset.created.toDateString() %>
+                    </div>
+                </div>
+                <P></P>
+                <div class="table-responsive">
+                    <table id="testTable" class="table table-bordered table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <% for(var i=0;i<foundset.question.length ;i++){ %>
+                                <th scope="col"><%= foundset.question[i] %></th>
+                                <% }%>
+                                <th scope="col">Registration No</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i=0;i<foundset.answer.length ;i++){ %>
+                            <tr>
+                                <th scope="row"><%=i+1%></th>
+                                <% for(var j=0;j<foundset.answer[i].answer.length ;j++){ %>
+                                <td><%= foundset.answer[i].answer[j] %></td>
+                                <!--<td><%= foundset.answer[i].registrationno %></td>-->
+                                <% }%>
+                                <td><%= foundset.answer[i].registrationno %></td>
 
+                            </tr>
+                            <% }%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--<div class="col-md-4"></div>-->
+        </div>
+    </div>
+</div>
+<% } %>
+<div class="modal fade" id="link" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Pending Responses: <%=foundset.name%></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group ">
+                        <table id="pendingTable" class="table  table-bordered table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th class="bg-danger" scope="col">#</th>
+                                    <th class="bg-danger" scope="col">Name</th>
+                                    <th class="bg-danger" scope="col">Registration No.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% var count = 0 %>
+                                <% for(var i=0;i<foundusers.length ;i++){ %>
+                                <tr>
+                                    <% if(foundusers[i].questionpending.length){ %>
+                                    <% for(var j=0;j<foundusers[i].questionpending.length ;j++){ %>
+                                    <% console.log(typeof(foundusers[i].questionpending[j].id)) %>
+                                    <% if(foundset._id.equals(foundusers[i].questionpending[j]._id)){ %>
+                                    <td scope="col"><%= count+1%></td>
+                                    <td scope="col"><%= foundusers[i].name%></td>
+                                    <td scope="col"><%= foundusers[i].registrationno%></td>
+                                    <% count++%>
+                                    <% }%>
+                                    <% }%>
+                                    <% }%>
+                                </tr>
+                                <% }%>
+                                <% count = 0%>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="btnExport" class="btn btn-dark"
+                    onclick="javascript:xport.toCSV('pendingTable', '<%=foundset.name%>#<%=foundset.uniqueid%>PENDING');">
+                    Export to CSV</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deletion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletion"><%=foundset.name%></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/display/<%=foundset._id%>?_method=DELETE" method="POST">
+                    <div class="form-group">
+                        <p>Do you really want to delete these records? This process cannot be undone.</p>
+                    </div>
+                    <div class="form-group">
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary">Confirm</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <% include ./partials/footer %>

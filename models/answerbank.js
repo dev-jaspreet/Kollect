@@ -1,14 +1,14 @@
 var mongoose = require("mongoose");
 
 var answerSchema = mongoose.Schema({
-    created: { type: Date, default: Date.now },
+    created: {
+        type: Date,
+        default: Date.now
+    },
     questionid:{
-        id:{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Question"
-        }
-    }
-    ,
+    },
     registrationno: Number,
     answer: []
 })
