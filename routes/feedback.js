@@ -2,9 +2,10 @@ var express = require("express"),
     router = express.Router(),
     Question = require("../models/questionbank"),
     User = require("../models/user"),
-    Answer = require("../models/answerbank");
+    Answer = require("../models/answerbank"),
+    middleware = require("../middleware/functions");
 
-router.get("/display/:id/feedback", function(req, res) {
+router.get("/display/:id/feedback",middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id, function(err, foundset) {
         if (err) {
             console.log(err)
@@ -60,7 +61,7 @@ router.post("/display/:id/feedback", function(req, res) {
     })
 })
 
-router.get("/feedbackedit/:id", function(req, res) {
+router.get("/feedbackedit/:id",middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id).populate("answer").exec(function(err, foundqn) {
         if (err) {
             console.log(err)
@@ -93,4 +94,5 @@ router.put("/feedback/:id", function(req, res) {
         }
     })
 })
+
 module.exports = router;

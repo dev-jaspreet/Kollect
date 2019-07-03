@@ -3,33 +3,14 @@ var express = require("express"),
     User = require("../models/user"),
     Question = require("../models/questionbank"),
     passport = require('passport'),
-    middleware = require("../middleware/functions");;
+    multer = require('multer'),
+    fs = require("fs"),
+    upload = multer({ dest: 'uploads/' }),
+    middleware = require("../middleware/functions");
 
 
-router.get("/", middleware.isLoggedIn, function(req, res) {
-    User.findById(req.user.id, function(err, founduser) {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            if (!founduser.questionresponse.length && !founduser.questionpending.length && founduser.type == "student") {
-                Question.find({ uniqueid: founduser.uniqueid }, function(err, foundset) {
-                    if (err) {
-                        console.log(err)
-                    }
-                    else {
-                        console.log(foundset)
-                        for (var i = 0; i < foundset.length; i++) {
-                            console.log("$$$$")
-                            founduser.questionpending.push(foundset[i])
-                        }
-                        founduser.save()
-                    }
-                })
-            }
-        }
-    })
-    res.redirect("/index");
+router.get("/", function(req, res) {
+    res.render("cover",{pageTitle:"Questionnaire"});
 })
 
 // HOMEPAGE
@@ -39,6 +20,28 @@ router.get("/index", middleware.isLoggedIn, function(req, res) {
             console.log(err);
         }
         else {
+            User.findById(req.user.id, function(err, founduser) {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    if (!founduser.questionresponse.length && !founduser.questionpending.length && founduser.type == "student") {
+                        Question.find({ uniqueid: founduser.uniqueid }, function(err, foundset) {
+                            if (err) {
+                                console.log(err)
+                            }
+                            else {
+                                console.log(foundset)
+                                for (var i = 0; i < foundset.length; i++) {
+                                    console.log("$$$$")
+                                    founduser.questionpending.push(foundset[i])
+                                }
+                                founduser.save()
+                            }
+                        })
+                    }
+                }
+            })
             res.render("index", { qns: qns, pageTitle: "Homepage" })
         }
     })
@@ -82,7 +85,7 @@ router.post("/facultyregister", function(req, res) {
 });
 
 // STUDENT REGISTER
-router.post("/studentregister", function(req, res) {
+router.post("/studentregister", upload.single('avatar'), function(req, res) {
     User.register(new User({
             username: req.body.username,
             name: req.body.name,
@@ -100,7 +103,6 @@ router.post("/studentregister", function(req, res) {
                 res.redirect("/studentregister");
             }
             else {
-                console.log(newUser);
                 res.redirect("/login");
             }
         })
@@ -115,7 +117,7 @@ router.get("/login", function(req, res) {
 
 router.post('/login',
     passport.authenticate('local', {
-        successRedirect: '/',
+        successRedirect: '/index',
         failureRedirect: '/login'
     }),
     function(req, res) {}

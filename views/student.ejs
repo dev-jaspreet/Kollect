@@ -16,6 +16,14 @@
                         </li>
                         <li class="list-group-item mystyle"><strong>Email: </strong><%=currentuser.email%></li>
                         <li class="list-group-item mystyle"><strong>Phone No: </strong><%=currentuser.phone%></li>
+                        <form>
+                            <li class="list-group-item mystyle">
+                            <a href="/studentedit/<%=currentuser._id%>"
+                                        class="btn btn-success">Edit
+                                        Profile</a>
+                            </li>
+                            
+                        </form>
                     </ul>
                     <!--<div class="card-body">-->
                     <!--  <a href="#" class="card-link">Card link</a>-->
@@ -30,7 +38,7 @@
                     Submitted Responses
                 </div>
                 <div class="accordion" id="accordionExample">
-                    <% for(var i=0;i<founduser.answer.length;i++){%>
+                    <% for(var i=0;i<founduser.questionresponse.length;i++){%>
                     <div class="card">
                         <div class="card-header animated slideInUp mystyle" id="headingOne<%=i%>s">
                             <h2 class="mb-0">
@@ -79,7 +87,7 @@
                 <% } %>
                 <% if(founduser.questionpending.length){%>
                 <div class="alert alert-danger animated flash" role="alert">
-                    Submitted Responses
+                    Pending Responses
                 </div>
                 <div class="accordion" id="accordionExample">
                     <% for(var i=0;i<founduser.questionpending.length;i++){%>
@@ -111,14 +119,15 @@
                             </div>
                         </div>
                     </div>
+                    <% } %>
                 </div>
-                <% } %>
+                
+                <% }%>
             </div>
-            <% }%>
+            
         </div>
         <!--<div class="col-md-4"></div>-->
     </div>
-</div>
 </div>
 
 <% include ./partials/footer %>

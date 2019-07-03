@@ -2,7 +2,7 @@ var mongoose = require("mongoose"),
     passportlocalmongoose = require("passport-local-mongoose");
 
 var userSchema = mongoose.Schema({
-    username:String,
+    username: String,
     name: String,
     type: String,
     registrationno: Number,
@@ -10,7 +10,7 @@ var userSchema = mongoose.Schema({
     email: String,
     phone: Number,
     password: String,
-    uniqueid:String,
+    uniqueid: String,
     answer: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Answer"

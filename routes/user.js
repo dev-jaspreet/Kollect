@@ -30,4 +30,14 @@ router.get("/faculty/:id",middleware.isLoggedIn,function(req,res){
     })
 })
 
+router.get("/studentedit/:id",middleware.isLoggedIn,function(req,res){
+    User.findById(req.params.id,function(err,founduser){
+        if(err){
+            console.log(err)
+        }else{
+            res.render("studentedit",{founduser:founduser,pageTitle:"Edit Profile"})
+        }
+    })
+})
+
 module.exports = router;
