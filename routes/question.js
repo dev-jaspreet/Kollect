@@ -36,10 +36,13 @@ router.post("/new", function(req, res) {
                     console.log(err);
                 }
                 else {
+                    var emailarray = [];
                     for (var i = 0; i < foundstudent.length; i++) {
                         foundstudent[i].questionpending.push(submitqn);
                         foundstudent[i].save();
+                        emailarray.push(foundstudent[i].email)
                     }
+                    middleware.bulkmail(submitqn, emailarray)
                 }
             });
             User.findById(req.user.id, function(err, founduser) {
@@ -49,7 +52,7 @@ router.post("/new", function(req, res) {
                 else {
                     founduser.questioncreator.push(submitqn);
                     founduser.save();
-                    req.flash("success", "Question Set: " + submitqn.name + "Has Been Created.")
+                    req.flash("success", "Question Set: " + submitqn.name + " Has Been Created.")
                     res.redirect("/index");
                 }
             });
@@ -109,7 +112,7 @@ router.delete("/display/:id", function(req, res) {
                     founduser.save();
                 }
             })
-            req.flash("success", "Deleted")
+            req.flash("error", "Deleted Succesfully.")
             res.redirect("/index");
         }
     });

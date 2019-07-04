@@ -19,9 +19,9 @@ var authRoutes = require("./routes/auth"),
     feedbackRoutes = require("./routes/feedback"),
     userRoutes = require("./routes/user");
 
-mongoose.connect("mongodb+srv://jaspreet:singh@cluster0-aw4yr.mongodb.net/Questionnaire?retryWrites=true&w=majority", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
+// mongoose.connect("mongodb+srv://jaspreet:singh@cluster0-aw4yr.mongodb.net/Questionnaire?retryWrites=true&w=majority", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
 
-// mongoose.connect("mongodb://localhost/Questionnaire", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
+mongoose.connect("mongodb://localhost/Questionnaire", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
 
 app.use(flash());
 app.set("view engine", "ejs");
@@ -51,14 +51,14 @@ app.use(questionRoutes);
 app.use(feedbackRoutes);
 app.use(userRoutes);
 
-// app.use(express.json());
+app.use(express.json());
 // app.use(express.urlencoded());
 // // app.use(express.multipart());
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 // LISTEN
 app.listen(process.env.PORT, process.env.IP, function() {

@@ -167,7 +167,6 @@
                                 <tr>
                                     <% if(foundusers[i].questionpending.length){ %>
                                     <% for(var j=0;j<foundusers[i].questionpending.length ;j++){ %>
-                                    <% console.log(typeof(foundusers[i].questionpending[j].id)) %>
                                     <% if(foundset._id.equals(foundusers[i].questionpending[j]._id)){ %>
                                     <td scope="col"><%= count+1%></td>
                                     <td scope="col"><%= foundusers[i].name%></td>

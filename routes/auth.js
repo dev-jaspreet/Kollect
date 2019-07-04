@@ -10,13 +10,6 @@ var express = require("express"),
     upload = multer({ dest: 'uploads/' }),
     middleware = require("../middleware/functions");
 
-// var auth = {
-//     type: 'oauth2',
-//     user: 'jaspreet.master7@gmail.com',
-//     clientId: '712663126293-15pnbgef1227bnr9lg62vponp8np5cj1.apps.googleusercontent.com',
-//     clientSecret: 'dWi73rRCVIlqor4wXGFVxxNA',
-//     refreshToken: '1/qaWUdsIDYS8DvlToXGNas2t4TynHNtzHiR6mY65XwqPnQbaia1doJb72TcvU7ZmZ',
-// };
 
 router.get("/", function(req, res) {
     res.render("cover", { pageTitle: "Questionnaire" });
@@ -40,9 +33,7 @@ router.get("/index", middleware.isLoggedIn, function(req, res) {
                                 console.log(err)
                             }
                             else {
-                                console.log(foundset)
                                 for (var i = 0; i < foundset.length; i++) {
-                                    console.log("$$$$")
                                     founduser.questionpending.push(foundset[i])
                                 }
                                 founduser.save()
@@ -51,7 +42,6 @@ router.get("/index", middleware.isLoggedIn, function(req, res) {
                     }
                 }
             })
-            // req.flash("success","Welcome")
             res.render("index", { qns: qns, pageTitle: "Homepage" })
         }
     })
@@ -90,6 +80,7 @@ router.post("/facultyregister", function(req, res) {
                     res.redirect("/facultyregister");
                 }
                 else {
+                    middleware.mail(req.body)
                     req.flash("success", "Registration Complete.")
                     res.redirect("/login");
                 }
@@ -104,7 +95,6 @@ router.post("/facultyregister", function(req, res) {
 // STUDENT REGISTER
 router.post("/studentregister", upload.single('avatar'), function(req, res) {
     if (req.body.password === req.body.passwordconfirm) {
-
         User.register(new User({
                 username: req.body.username,
                 name: req.body.name,
@@ -122,25 +112,7 @@ router.post("/studentregister", upload.single('avatar'), function(req, res) {
                     res.redirect("/studentregister");
                 }
                 else {
-                    // var mailOptions = {
-                    //     from: req.body.name,
-                    //     to: req.body.email,
-                    //     subject: "REGISTRATION COMPLETE @ QUESTIONNAIRE",
-                    //     // text: req.body.message,
-                    //     // html: 'Message from: ' + req.body.name + '<br></br> Email: ' + req.body.email + '<br></br> Message: ' + req.body.message,
-                    // };
-                    // var transporter = nodemailer.createTransport({
-                    //     service: 'gmail',
-                    //     auth: auth,
-                    // });
-                    // transporter.sendMail(mailOptions, (err, res) => {
-                    //     if (err) {
-                    //         return console.log(err);
-                    //     }
-                    //     else {
-                    //         console.log(JSON.stringify(res));
-                    //     }
-                    // });
+                    middleware.mail(req.body)
                     req.flash("success", "Registration Complete.")
                     res.redirect("/login");
                 }
@@ -154,7 +126,6 @@ router.post("/studentregister", upload.single('avatar'), function(req, res) {
 
 // LOGIN
 router.get("/login", function(req, res) {
-    // req.flash("error", "Back To Login Page.")
     res.render("login", {
         pageTitle: "Login Page"
     });
