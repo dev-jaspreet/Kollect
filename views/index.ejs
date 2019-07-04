@@ -1,38 +1,52 @@
 <% include ./partials/header %>
 
 <div class="py-5">
-    <div class="container">
-      <div class="row">
-          <% var i = 0%>
-          <% qns.forEach(function(questionno){ %>
-        <div class="col-md-4">
-            <div class="card mystyle animated pulse delay-<%=i%>s">
-                <div class="card-header mystyleother"><h5><%= questionno.name %></h5></div>
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item mystyle">Created By: <%=questionno.creator.name%></li>
-                    <li class="list-group-item mystyle">Created On: <%= questionno.created.toDateString() %></li>
-                    <li class="list-group-item mystyle">Created For:
-                        <%=questionno.uniqueid.substring(0,3).toUpperCase()%>
-                        /<%=questionno.uniqueid.substring(3,4).toUpperCase()%>
-                        /<%=questionno.uniqueid.substring(4,5).toUpperCase()%></li>
-                </ul>
-                <% if(currentuser.type == "faculty"){%>
-                <div class="card-body">
-                    <a href="/display/<%= questionno._id%>" class="btn btn-primary mystylebutton">Open</a>
-                </div>
-                <% } %>
-            </div>
-            <p><br></p>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <% if(success && success.length > 0){%>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong><%= success %></strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <% i++ %>
-        <% })%>
-        <% i = 0%>
+        <% } %>
       </div>
     </div>
+    <div class="row">
+      <% var i = 0%>
+      <% qns.forEach(function(questionno){ %>
+      <div class="col-md-4">
+        <div class="card mystyle animated pulse delay-<%=i%>s">
+          <div class="card-header mystyleother">
+            <h5><%= questionno.name %></h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+              card's content.</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item mystyle">Created By: <%=questionno.creator.name%></li>
+            <li class="list-group-item mystyle">Created On: <%= questionno.created.toDateString() %></li>
+            <li class="list-group-item mystyle">Created For:
+              <%=questionno.uniqueid.substring(0,3).toUpperCase()%>
+              /<%=questionno.uniqueid.substring(3,4).toUpperCase()%>
+              /<%=questionno.uniqueid.substring(4,5).toUpperCase()%></li>
+          </ul>
+          <% if(currentuser.type == "faculty"){%>
+          <div class="card-body">
+            <a href="/display/<%= questionno._id%>" class="btn btn-primary mystylebutton">Open</a>
+          </div>
+          <% } %>
+        </div>
+        <hr>
+      </div>
+      <% i++ %>
+      <% })%>
+      <% i = 0%>
+    </div>
   </div>
+</div>
 
 <% include ./partials/footer %>

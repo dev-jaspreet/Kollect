@@ -3,7 +3,10 @@ var express = require("express"),
     User = require("../models/user"),
     Question = require("../models/questionbank"),
     Answer = require("../models/answerbank"),
+    nodemailer = require("nodemailer"),
     middleware = require("../middleware/functions");;
+    
+
 
 router.get("/student/:id", middleware.isLoggedIn, function(req, res) {
     User.findById(req.user.id).populate("questionresponse").populate("answer").populate("questionpending").exec(function(err, founduser) {

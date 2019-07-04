@@ -11,15 +11,16 @@
                     </div>
                     <div class="card-body mystyle">
                         <h5 class="card-title">Created By: <%=foundset.creator.name%></h5>
-                        <p class="card-text">Created For: <%=foundset.uniqueid.substring(0,3).toUpperCase()%> /
+                        <h6 class="card-text">Created For: <%=foundset.uniqueid.substring(0,3).toUpperCase()%> /
                             <%=foundset.uniqueid.substring(3,4).toUpperCase()%> /
-                            <%=foundset.uniqueid.substring(4,5).toUpperCase()%></p>
+                            <%=foundset.uniqueid.substring(4,5).toUpperCase()%></h6>
                         <% if(currentuser && foundset.creator.equals(currentuser._id)){ %>
                         <a href="/display/<%=foundset._id%>/edit" class="btn btn-warning">Edit</a>
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deletion"
                             data-whatever="@fat">Delete</button>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#link"
                             data-whatever="@fat">View Pending</button>
+                            <p></p>
                         <button id="btnExport" class="btn btn-dark"
                             onclick="javascript:xport.toCSV('testTable', '<%=foundset.name%>#<%=foundset.uniqueid%>');">
                             Export to CSV</button>
@@ -28,7 +29,6 @@
                     <div class="card-footer text mystyleother">
                         Created on: <%= foundset.created.toDateString() %>
                     </div>
-                    
                 </div>
                 <p></p>
             </div>
@@ -62,7 +62,6 @@
     </div>
 </div>
 <% }else{ %>
-<!---->
 <div class="py-5">
     <div class="container">
         <div class="row">
@@ -130,17 +129,14 @@
                                 <th scope="row"><%=i+1%></th>
                                 <% for(var j=0;j<foundset.answer[i].answer.length ;j++){ %>
                                 <td><%= foundset.answer[i].answer[j] %></td>
-                                <!--<td><%= foundset.answer[i].registrationno %></td>-->
                                 <% }%>
                                 <td><%= foundset.answer[i].registrationno %></td>
-
                             </tr>
                             <% }%>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <!--<div class="col-md-4"></div>-->
         </div>
     </div>
 </div>

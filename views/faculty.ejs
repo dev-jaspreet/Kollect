@@ -12,7 +12,8 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item mystyle"><strong>Username: </strong><%=currentuser.username%></li>
-                        <li class="list-group-item mystyle"><strong>Registration No: </strong><%=currentuser.registrationno%>
+                        <li class="list-group-item mystyle"><strong>Registration No:
+                            </strong><%=currentuser.registrationno%>
                         </li>
                         <li class="list-group-item mystyle"><strong>Email: </strong><%=currentuser.email%></li>
                         <li class="list-group-item mystyle"><strong>Phone No: </strong><%=currentuser.phone%></li>
@@ -28,26 +29,25 @@
                 <div class="alert alert-primary animated flash" role="alert">
                     View Question Sets.
                 </div>
-                    <% for(var i=0;i<founduser.questioncreator.length;i++){%>
-                    <div class="card text-center mystyle animated slideInUp delay-<%=i%>s">
-                      <div class="card-header mystyleother">
+                <% for(var i=0;i<founduser.questioncreator.length;i++){%>
+                <div class="card text-center mystyle animated slideInUp delay-<%=i%>s">
+                    <div class="card-header mystyleother">
                         Question Set: <%=i+1%>
-                      </div>
-                      <div class="card-body">
+                    </div>
+                    <div class="card-body">
                         <h5 class="card-title"><%=founduser.questioncreator[i].name%></h5>
                         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
                         <a href="/display/<%=founduser.questioncreator[i].id%>" class="btn btn-primary">View Set</a>
-                      </div>
-                      <div class="card-footer text mystyle">
-                        Created On: <%=founduser.questioncreator[i].created.toDateString()%>
-                      </div>
                     </div>
-                    <p></p>
-                    <% } %>
-                
+                    <div class="card-footer text mystyle">
+                        Created On: <%=founduser.questioncreator[i].created.toDateString()%>
+                    </div>
+                </div>
+                <p></p>
+                <% } %>
+            </div>
         </div>
     </div>
-</div>
 </div>
 
 <% include ./partials/footer %>

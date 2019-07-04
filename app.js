@@ -8,6 +8,7 @@ var express = require("express"),
     LocalStrategy = require('passport-local').Strategy,
     methodoverride = require("method-override"),
     multer = require('multer'),
+    flash = require("connect-flash"),
     upload = multer({ dest: 'uploads/' }),
     passportlocalmongoose = require("passport-local-mongoose"),
     User = require("./models/user"),
@@ -22,6 +23,7 @@ mongoose.connect("mongodb+srv://jaspreet:singh@cluster0-aw4yr.mongodb.net/Questi
 
 // mongoose.connect("mongodb://localhost/Questionnaire", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
 
+app.use(flash());
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(methodoverride("_method"));
@@ -39,6 +41,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next) {
     res.locals.currentuser = req.user;
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
     next();
 })
 // 
@@ -46,6 +50,16 @@ app.use(authRoutes);
 app.use(questionRoutes);
 app.use(feedbackRoutes);
 app.use(userRoutes);
+
+// app.use(express.json());
+// app.use(express.urlencoded());
+// // app.use(express.multipart());
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
+
 // LISTEN
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("Questionnaire Portal Started");

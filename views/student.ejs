@@ -12,17 +12,16 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item mystyle"><strong>Username: </strong><%=currentuser.username%></li>
-                        <li class="list-group-item mystyle"><strong>Registration No: </strong><%=currentuser.registrationno%>
+                        <li class="list-group-item mystyle"><strong>Registration No:
+                            </strong><%=currentuser.registrationno%>
                         </li>
                         <li class="list-group-item mystyle"><strong>Email: </strong><%=currentuser.email%></li>
                         <li class="list-group-item mystyle"><strong>Phone No: </strong><%=currentuser.phone%></li>
                         <form>
                             <li class="list-group-item mystyle">
-                            <a href="/studentedit/<%=currentuser._id%>"
-                                        class="btn btn-success">Edit
-                                        Profile</a>
+                                <a href="/studentedit/<%=currentuser._id%>" class="btn btn-success">Edit
+                                    Profile</a>
                             </li>
-                            
                         </form>
                     </ul>
                     <!--<div class="card-body">-->
@@ -82,6 +81,15 @@
                         </div>
                     </div>
                     <% } %>
+                    <hr>
+                    <% if(success && success.length > 0){%>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><%= success %></strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <% } %>
                 </div>
                 <p></p>
                 <% } %>
@@ -121,12 +129,9 @@
                     </div>
                     <% } %>
                 </div>
-                
                 <% }%>
             </div>
-            
         </div>
-        <!--<div class="col-md-4"></div>-->
     </div>
 </div>
 

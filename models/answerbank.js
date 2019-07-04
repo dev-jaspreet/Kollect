@@ -5,9 +5,9 @@ var answerSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    questionid:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Question"
+    questionid: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Question"
     },
     registrationno: Number,
     answer: []

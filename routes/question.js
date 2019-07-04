@@ -2,8 +2,10 @@ var express = require("express"),
     router = express.Router(),
     User = require("../models/user"),
     Question = require("../models/questionbank"),
+    Answer = require("../models/answerbank"),
     middleware = require("../middleware/functions");
 var qnid;
+
 
 // NEW QUESTION
 router.get("/new", middleware.isLoggedIn, function(req, res) {
@@ -47,6 +49,7 @@ router.post("/new", function(req, res) {
                 else {
                     founduser.questioncreator.push(submitqn);
                     founduser.save();
+                    req.flash("success", "Question Set: " + submitqn.name + "Has Been Created.")
                     res.redirect("/index");
                 }
             });
@@ -80,7 +83,6 @@ router.put("/display/:id", function(req, res) {
 
 // DESTROY
 router.delete("/display/:id", function(req, res) {
-    console.log(req.params.id);
     Question.findByIdAndRemove(req.params.id, function(err) {
         if (err) {
             console.log(err);
@@ -98,12 +100,23 @@ router.delete("/display/:id", function(req, res) {
                     }
                 }
             });
+            User.findById(req.user.id, function(err, founduser) {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    founduser.questioncreator.remove(req.params.id);
+                    founduser.save();
+                }
+            })
+            req.flash("success", "Deleted")
             res.redirect("/index");
         }
     });
+
 });
 //DISPLAY
-router.get("/display/:id",middleware.isLoggedIn, function(req, res) {
+router.get("/display/:id", middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id).populate("answer").populate("creator").exec(function(err, foundset) {
         if (err) {
             console.log(err);

@@ -1,15 +1,25 @@
-<% include ./partials/headercover %>
+<% include ./partials/header %>
 
 <div class="py-5 text-center text-white h-100 align-items-center d-flex">
-  <div class="container py-5">
-    <div class="row">
-      <div class="mx-auto col-lg-8 col-md-10">
-        <h1 class="display-3 mb-4">Questionnaire</h1>
-        <p class="lead mb-5">A questionnaire is a set of questions typically used for research purposes which can be both qualitative as well as quantitative in nature. A questionnaire may or may not be delivered in the form of a survey, but a survey always consists of questionnaire.</p>
-          <a href="/studentregister" class="btn btn-lg btn-primary mx-1">SignUp</a>
-          <a class="btn btn-lg mx-1 btn-outline-primary" href="/login">Login</a>
-      </div>
+    <div class="container py-5">
+        <div class="row">
+            <div class="mx-auto col-lg-8 col-md-10">
+                <% if(success && success.length > 0){%>
+                <div class="alert alert-success alert-dismissible fade show animated flash" role="alert">
+                    <strong><%= success %></strong>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <% } %>
+                <h1 class="display-3 mb-4">Questionnaire</h1>
+                <p class="lead mb-5">A questionnaire is a set of questions typically used for research purposes which
+                    can be both qualitative as well as quantitative in nature. A questionnaire may or may not be
+                    delivered in the form of a survey, but a survey always consists of questionnaire.</p>
+                <a href="/studentregister" class="btn btn-lg btn-primary mx-1">SignUp</a>
+                <a class="btn btn-lg mx-1 btn-outline-primary" href="/login">Login</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <% include ./partials/footer %>

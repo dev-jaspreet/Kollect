@@ -5,8 +5,8 @@ var express = require("express"),
     Answer = require("../models/answerbank"),
     middleware = require("../middleware/functions");
 
-router.get("/display/:id/feedback",middleware.isLoggedIn, function(req, res) {
-    Question.findById(req.params.id, function(err, foundset) {
+router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
+    Question.findById(req.params.id).populate("creator").exec(function(err, foundset) {
         if (err) {
             console.log(err)
         }
@@ -14,7 +14,7 @@ router.get("/display/:id/feedback",middleware.isLoggedIn, function(req, res) {
             res.render("feedback", { foundset: foundset, pageTitle: "FEED" })
         }
     })
-})
+});
 
 
 router.post("/display/:id/feedback", function(req, res) {
@@ -48,10 +48,8 @@ router.post("/display/:id/feedback", function(req, res) {
                             console.log(err);
                         }
                         else {
-                            console.log(save);
-                            console.log("////////////")
-                            console.log(submitan)
-                            res.redirect("/")
+                            req.flash("success", "Feedback Submitted.")
+                            res.redirect("/student/" + req.user.id)
                         }
                     })
 
@@ -60,9 +58,8 @@ router.post("/display/:id/feedback", function(req, res) {
         }
     })
 })
-
-router.get("/feedbackedit/:id",middleware.isLoggedIn, function(req, res) {
-    Question.findById(req.params.id).populate("answer").exec(function(err, foundqn) {
+router.get("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
+    Question.findById(req.params.id).populate("answer").populate("creator").exec(function(err, foundqn) {
         if (err) {
             console.log(err)
         }
@@ -72,13 +69,9 @@ router.get("/feedbackedit/:id",middleware.isLoggedIn, function(req, res) {
                     console.log(err)
                 }
                 else {
-                    console.log(foundans)
                     res.render("feedbackedit", { foundqn: foundqn, foundans: foundans, pageTitle: "Edit Response" })
-
                 }
             })
-            // console.log(foundqn)
-            // res.render("feedbackedit", { foundqn: foundqn, foundans: foundans, pageTitle: "Edit Response" })
         }
     })
 })
