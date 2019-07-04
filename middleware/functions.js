@@ -50,7 +50,7 @@ functionObject.bulkmail = function(body,emails) {
         to: emails,
         subject: "Question Set: " + body.name + " For " + body.uniqueid,
         // text: "Congratulations, You have succesfully signed up on questionnaire-app-619.herokuapp.com",
-        html: "Hello, <br></br> Your Feedback is Required For Question Set: " + body.name + "<br></br>Created On: " + body.created + "<br></br>Please Visit https://questionnaire-619-app.herokuapp.com For More Info." + "<br></br>Thank You.",
+        html: "Hello, <br></br> Your Feedback is Required For Question Set: " + body.name + "<br></br>Created On: " + body.created + "<br></br>Please Visit https://questionnaire-app-619.herokuapp.com For More Info." + "<br></br>Thank You.",
         };
     var transporter = nodemailer.createTransport({
         service: 'gmail',
