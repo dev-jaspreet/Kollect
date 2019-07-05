@@ -4,9 +4,8 @@ var express = require("express"),
     Question = require("../models/questionbank"),
     Answer = require("../models/answerbank"),
     middleware = require("../middleware/functions");
+
 var qnid;
-
-
 // NEW QUESTION
 router.get("/new", middleware.isLoggedIn, function(req, res) {
     res.render("new", { count: false, filter: false, pageTitle: "Selection: Creation Page" });

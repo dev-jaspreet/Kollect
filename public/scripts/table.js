@@ -1,13 +1,14 @@
 var xport = {
-  _fallbacktoCSV: true,  
-  toXLS: function(tableId, filename) {   
+  _fallbacktoCSV: true,
+  toXLS: function(tableId, filename) {
     this._filename = (typeof filename == 'undefined') ? tableId : filename;
-    
+
     //var ieVersion = this._getMsieVersion();
     //Fallback to CSV for IE & Edge
     if ((this._getMsieVersion() || this._isFirefox()) && this._fallbacktoCSV) {
       return this.toCSV(tableId);
-    } else if (this._getMsieVersion() || this._isFirefox()) {
+    }
+    else if (this._getMsieVersion() || this._isFirefox()) {
       alert("Not supported browser");
     }
 
@@ -15,7 +16,7 @@ var xport = {
     var htmltable = document.getElementById(tableId);
     var html = htmltable.outerHTML;
 
-    this._downloadAnchor("data:application/vnd.ms-excel" + encodeURIComponent(html), 'xls'); 
+    this._downloadAnchor("data:application/vnd.ms-excel" + encodeURIComponent(html), 'xls');
   },
   toCSV: function(tableId, filename) {
     this._filename = (typeof filename === 'undefined') ? tableId : filename;
@@ -28,8 +29,9 @@ var xport = {
     if (navigator.msSaveOrOpenBlob) {
       // Works for Internet Explorer and Microsoft Edge
       navigator.msSaveOrOpenBlob(blob, this._filename + ".csv");
-    } else {      
-      this._downloadAnchor(URL.createObjectURL(blob), 'csv');      
+    }
+    else {
+      this._downloadAnchor(URL.createObjectURL(blob), 'csv');
     }
   },
   _getMsieVersion: function() {
@@ -57,27 +59,27 @@ var xport = {
     // other browser
     return false;
   },
-  _isFirefox: function(){
+  _isFirefox: function() {
     if (navigator.userAgent.indexOf("Firefox") > 0) {
       return 1;
     }
-    
+
     return 0;
   },
   _downloadAnchor: function(content, ext) {
-      var anchor = document.createElement("a");
-      anchor.style = "display:none !important";
-      anchor.id = "downloadanchor";
-      document.body.appendChild(anchor);
+    var anchor = document.createElement("a");
+    anchor.style = "display:none !important";
+    anchor.id = "downloadanchor";
+    document.body.appendChild(anchor);
 
-      // If the [download] attribute is supported, try to use it
-      
-      if ("download" in anchor) {
-        anchor.download = this._filename + "." + ext;
-      }
-      anchor.href = content;
-      anchor.click();
-      anchor.remove();
+    // If the [download] attribute is supported, try to use it
+
+    if ("download" in anchor) {
+      anchor.download = this._filename + "." + ext;
+    }
+    anchor.href = content;
+    anchor.click();
+    anchor.remove();
   },
   _tableToCSV: function(table) {
     // We'll be co-opting `slice` to create arrays

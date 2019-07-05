@@ -44,14 +44,14 @@ functionObject.mail = function(mail) {
     });
 }
 
-functionObject.bulkmail = function(body,emails) {
+functionObject.bulkmail = function(body, emails) {
     var mailOptions = {
         from: "questionnaire-app-619.herokuapp.com",
         to: emails,
         subject: "Question Set: " + body.name + " For " + body.uniqueid,
         // text: "Congratulations, You have succesfully signed up on questionnaire-app-619.herokuapp.com",
         html: "Hello, <br></br> Your Feedback is Required For Question Set: " + body.name + "<br></br>Created On: " + body.created + "<br></br>Please Visit https://questionnaire-app-619.herokuapp.com For More Info." + "<br></br>Thank You.",
-        };
+    };
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: auth,

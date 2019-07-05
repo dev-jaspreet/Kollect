@@ -21,7 +21,6 @@
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -38,7 +37,6 @@
       <div class="d-flex justify-content-end">
         <ul class="navbar-nav mr-auto">
           <% if(!currentuser){ %>
-
           <li class="nav-item">
             <a class="nav-link" href="/login">Login</a>
           </li>
@@ -55,7 +53,6 @@
           <a class="nav-link" href="/faculty/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
           </li>
           <% }%>
-
           <li class="nav-item">
             <a class="nav-link" href="/logout">LogOut</a>
           </li>
