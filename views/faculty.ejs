@@ -1,52 +1,103 @@
 <% include ./partials/header %>
 
-<div class="py-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card animated pulse mystyle">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcoy8tQBj_I2vK6G6iq7m2q7PB4KjMGMr7V0XCLo02w4JZv8RrA"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title "><%=currentuser.name%></h5>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item mystyle"><strong>Username: </strong><%=currentuser.username%></li>
-                        <li class="list-group-item mystyle"><strong>Registration No:
-                            </strong><%=currentuser.registrationno%>
-                        </li>
-                        <li class="list-group-item mystyle"><strong>Email: </strong><%=currentuser.email%></li>
-                        <li class="list-group-item mystyle"><strong>Phone No: </strong><%=currentuser.phone%></li>
-                    </ul>
+<!--<div class="py-5">-->
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="card animated pulse mystyle">-->
+<!--                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcoy8tQBj_I2vK6G6iq7m2q7PB4KjMGMr7V0XCLo02w4JZv8RrA"-->
+<!--                        class="card-img-top" alt="...">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title "><%=currentuser.name%></h5>-->
+<!--                    </div>-->
+<!--                    <ul class="list-group list-group-flush">-->
+<!--                        <li class="list-group-item mystyle"><strong>Username: </strong><%=currentuser.username%></li>-->
+<!--                        <li class="list-group-item mystyle"><strong>Registration No:-->
+<!--                            </strong><%=currentuser.registrationno%>-->
+<!--                        </li>-->
+<!--                        <li class="list-group-item mystyle"><strong>Email: </strong><%=currentuser.email%></li>-->
+<!--                        <li class="list-group-item mystyle"><strong>Phone No: </strong><%=currentuser.phone%></li>-->
+<!--                    </ul>-->
                     <!--<div class="card-body">-->
                     <!--  <a href="#" class="card-link">Card link</a>-->
                     <!--  <a href="#" class="card-link">Another link</a>-->
                     <!--</div>-->
-                </div>
-                <p></p>
-            </div>
-            <div class="col-md-8">
-                <div class="alert alert-primary animated flash" role="alert">
-                    View Question Sets.
-                </div>
-                <% for(var i=0;i<founduser.questioncreator.length;i++){%>
-                <div class="card text-center mystyle animated slideInUp delay-<%=i%>s">
-                    <div class="card-header mystyleother">
-                        Question Set: <%=i+1%>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><%=founduser.questioncreator[i].name%></h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="/display/<%=founduser.questioncreator[i].id%>" class="btn btn-primary">View Set</a>
-                    </div>
-                    <div class="card-footer text mystyle">
-                        Created On: <%=founduser.questioncreator[i].created.toDateString()%>
-                    </div>
-                </div>
-                <p></p>
-                <% } %>
-            </div>
+<!--                </div>-->
+<!--                <p></p>-->
+<!--            </div>-->
+<!--            <div class="col-md-8">-->
+<!--                <div class="alert alert-primary animated flash" role="alert">-->
+<!--                    View Question Sets.-->
+<!--                </div>-->
+<!--                <% for(var i=0;i<founduser.questioncreator.length;i++){%>-->
+<!--                <div class="card text-center mystyle animated slideInUp delay-<%=i%>s">-->
+<!--                    <div class="card-header mystyleother">-->
+<!--                        Question Set: <%=i+1%>-->
+<!--                    </div>-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title"><%=founduser.questioncreator[i].name%></h5>-->
+<!--                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+<!--                        <a href="/display/<%=founduser.questioncreator[i].id%>" class="btn btn-primary">View Set</a>-->
+<!--                    </div>-->
+<!--                    <div class="card-footer text mystyle">-->
+<!--                        Created On: <%=founduser.questioncreator[i].created.toDateString()%>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <p></p>-->
+<!--                <% } %>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 l4">
+      <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcoy8tQBj_I2vK6G6iq7m2q7PB4KjMGMr7V0XCLo02w4JZv8RrA">
         </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4"><%=currentuser.name%><i
+              class="material-icons right">more_vert</i></span>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4"><%=currentuser.name%><i
+              class="material-icons right">close</i></span>
+          <p>Here is some more information about this product that is only revealed once clicked on.</p>
+          <p><strong>Username: </strong><%=currentuser.username%></p>
+          <p><strong>Registration No: </strong><%=currentuser.registrationno%></p>
+          <p><strong>Email: </strong><%=currentuser.email%></p>
+          <p><strong>Phone No: </strong><%=currentuser.phone%></p>
+          <a href="/studentedit/<%=currentuser._id%>"
+            class="btn-floating right btn-large waves-effect waves-light red"><i class="material-icons">edit</i></a>
+        </div>
+      </div>
+    </div>
+    <div class = "col s12 m6 l8">
+        <div class="row">
+        <% for(var i=0;i<founduser.questioncreator.length;i++){%>
+        
+            <div class="col s12 m6 l6">
+                <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">Question Set: <%=i+1%></span>
+          <p>Created By: <%=founduser.questioncreator[i].name%></p>
+          <p>Created On: <%=founduser.questioncreator[i].created.toDateString()%></p>
+        </div>
+        <div class="card-action">
+          <% if(currentuser.type == "faculty"){%>
+          <a href="/display/<%=founduser.questioncreator[i].id%>">Open</a>
+          <% } %>
+        </div>
+      </div>
+            </div>
+        
+            
+        <% } %>
+        </div>
+    </div>
     </div>
 </div>
 

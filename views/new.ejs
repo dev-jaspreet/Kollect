@@ -1,89 +1,88 @@
 <% include ./partials/header %>
 
-<div class="py-5">
-    <div class="container">
+<div class="container">
+  <div class="row">
+    <% if(!filter && !count){ %>
+    <div class="col s12 m6 l4">
+      <h3>Select Branch: Section: Year</h3>
+      <form action="/filter" method="POST">
         <div class="row">
-            <% if(!filter && !count){ %>
-            <div class="col-md-4 border border-secondary rounded animated pulse mystyle">
-                <h3>Select Branch: Section: Year</h3>
-                <form action="/filter" method="POST">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="department">Select Department:</label>
-                            <select name="department" class="custom-select" required>
-                                <option selected>Department:</option>
-                                <option value="cse">CSE</option>
-                                <option value="it">IT</option>
-                                <option value="cce">CCE</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="section">Select SECTION:</label>
-                            <select name="section" class="custom-select" required>
-                                <option selected>SECTION:</option>
-                                <option value="a">A</option>
-                                <option value="b">B</option>
-                                <option value="c">C</option>
-                                <option value="d">D</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="year">Select Current Year:</label>
-                            <select name="year" class="custom-select" required>
-                                <option selected>Year:</option>
-                                <option value="1">First</option>
-                                <option value="2">Second</option>
-                                <option value="3">Third</option>
-                                <option value="4">Fourth</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Next</button>
-                </form>
-            </div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4"></div>
-            <% } %>
-            <% if(!count && filter){ %>
-            <div class="col-md-4"></div>
-            <div class="col-md-4 border border-secondary rounded animated pulse mystyle">
-                <h3>How Many Question(s) Would Like To Create?</h3>
-                <form action="/count" method="POST">
-                    <div class="form-group">
-                        <label for="count">Number Of Questions:</label>
-                        <input type="number" name="count" class="form-control" id="count"
-                            placeholder="Enter Number of Questions">
-                        <small id="emailHelp" class="form-text text-muted">This Number Cannot Be Changed</small>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Next</button>
-                </form>
-            </div>
-            <div class="col-md-4"></div>
-            <% } %>
-            <% if(count && filter){ %>
-            <div class="col-md-4"></div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4 border border-secondary rounded animated pulse mystyle">
-                <h3>Enter Your Desired Questions.</h3>
-                <form action="/new" method="POST">
-                    <div class="form-group">
-                        <label for="name">Set Question Bank Name</label>
-                        <input type="text" name="name" class="form-control" id="name"
-                            placeholder="Enter Name of Question Bank">
-                        <small id="emailHelp" class="form-text text-muted">Needed</small>
-                    </div>
-                    <%    for(var i = 0; i < count; i++){ %>
-                    <div class="form-group">
-                        <label for="question"><%= i+1 %>: Question</label>
-                        <input type="text" name="question" class="form-control" id="question" placeholder="Type Here">
-                    </div>
-                    <%    } %>
-                    <button type="submit" class="btn btn-primary">Create</button>
-                </form>
-            </div>
-            <% } %>
+          <div class="input-field col s4">
+            <select name="department" required>
+              <option value="" disabled selected>Department:</option>
+              <option value="cse">CSE</option>
+              <option value="it">IT</option>
+              <option value="cce">CCE</option>
+            </select>
+            <label for="department">Select Department:</label>
+          </div>
+          <div class="input-field col s4">
+            <select name="section" required>
+              <option value="" disabled selected>Section:</option>
+              <option value="a">A</option>
+              <option value="b">B</option>
+              <option value="c">C</option>
+              <option value="d">D</option>
+            </select>
+            <label for="section">Select SECTION:</label>
+          </div>
+          <div class="input-field col s4">
+            <select name="year" required>
+              <option value="" disabled selected>Year:</option>
+              <option value="1">First</option>
+              <option value="2">Second</option>
+              <option value="3">Third</option>
+              <option value="4">Fourth</option>
+            </select>
+            <label for="year">Select Current Year:</label>
+          </div>
         </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Next
+          <i class="material-icons right">send</i>
+        </button>
+      </form>
     </div>
+    <div class="col s12 m6 l4"></div>
+    <div class="col s12 m6 l4"></div>
+    <% } %>
+    <% if(!count && filter){ %>
+    <div class="col s12 m6 l4"></div>
+    <div class="col s12 m6 l4">
+      <h3>How Many Question(s) Would Like To Create?</h3>
+      <form action="/count" method="POST">
+        <div class="input-field">
+          <label for="count">Number Of Questions:</label>
+          <input type="number" name="count" class="validate" id="count" required>
+          <small id="emailHelp" class="form-text text-muted">This Number Cannot Be Changed</small>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Next
+          <i class="material-icons right">send</i>
+      </form>
+    </div>
+    <div class="col s12 m6 l4"></div>
+    <% } %>
+    <% if(count && filter){ %>
+    <div class="col s12 m6 l4"></div>
+    <div class="col s12 m6 l4"></div>
+    <div class="col s12 m6 l4">
+      <h3>Enter Your Desired Questions.</h3>
+      <form action="/new" method="POST">
+        <div class="input-field">
+          <label for="name">Set Question Bank Name</label>
+          <input type="text" name="name" class="validate" id="name" required>
+          <small id="emailHelp" class="form-text text-muted">Needed</small>
+        </div>
+        <%    for(var i = 0; i < count; i++){ %>
+        <div class="input-field">
+          <label for="question"><%= i+1 %>: Question</label>
+          <input type="text" name="question" class="validate" id="question" required>
+        </div>
+        <%    } %>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Create
+          <i class="material-icons right">send</i>
+      </form>
+    </div>
+    <% } %>
+  </div>
 </div>
-
 <% include ./partials/footer %>

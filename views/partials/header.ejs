@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css" media="screen,projection" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="/app.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
@@ -15,49 +15,52 @@
 </head>
 
 <body>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark navbar-custom">
-    <a class="navbar-brand" href="#">Questionnaire</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/index">Home</a>
-        </li>
-        <%if(currentuser){%>
-        <% if(currentuser.type == "faculty"){ %>
-        <li class="nav-item">
-          <a class="nav-link" href="/new">New Entry</a>
-        </li>
-        <% } %>
-        <% } %>
-      </ul>
-      <div class="d-flex justify-content-end">
-        <ul class="navbar-nav mr-auto">
+  <nav>
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/index" class="brand-logo">Questionnaire</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+          <% if(currentuser && currentuser.type == "faculty"){ %>
+          <li><a class="nav-link" href="/new">New Entry</a></li>
+          <% } %>
           <% if(!currentuser){ %>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/studentregister">SignUp</a>
-          </li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/studentregister">SignUp</a></li>
           <% } else{ %>
-          <li class="nav-item">
+          <li>
             <%if(currentuser.type == "student"){%>
-            <a class="nav-link" href="/student/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
+            <a href="/student/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
           </li>
           <% }%>
           <%if(currentuser.type == "faculty"){%>
-          <a class="nav-link" href="/faculty/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
+          <a href="/faculty/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
           </li>
           <% }%>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">LogOut</a>
-          </li>
+          <li><a href="/logout">LogOut</a></li>
           <% } %>
         </ul>
       </div>
     </div>
   </nav>
+  
+  <ul class="sidenav" id="mobile-demo">
+    <% if(currentuser && currentuser.type == "faculty"){ %>
+    <li><a class="nav-link" href="/new">New Entry</a></li>
+    <% } %>
+    <% if(!currentuser){ %>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/studentregister">SignUp</a></li>
+    <% } else{ %>
+    <li>
+      <%if(currentuser.type == "student"){%>
+      <a href="/student/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
+    </li>
+    <% }%>
+    <%if(currentuser.type == "faculty"){%>
+    <a href="/faculty/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
+    </li>
+    <% }%>
+    <li><a href="/logout">LogOut</a></li>
+    <% } %>
+  </ul>

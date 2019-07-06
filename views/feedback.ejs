@@ -1,31 +1,29 @@
 <% include ./partials/header %>
 
-<div class="py-5">
     <div class="container">
       <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 border border-secondary rounded animated pulse mystyle">
+        <div class="col s12 m6 l4"></div>
+        <div class="col s12 m6 l4">
             <h3>Feedback</h3>
             <hr>
             <form action="/display/<%=foundset._id%>/feedback" method="POST">
-                <div class="form-group">
+                <div class="input-field">
                     <h6>Created By: <%=foundset.creator.name%></h6>
                     <h6>Created On: <%=foundset.created.toDateString()%></h6>
                     <h6>Question Set: <%= foundset.name.toUpperCase()%></h6>
                 </div>
                 <hr>
                 <%    for(var i = 0; i < foundset.question.length; i++){ %>
-                <div class="form-group">
+                <div class="input-field">
                     <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
-                    <input type="text" name="answer" class="form-control" id="answer" placeholder="Type Here" required>
+                    <input type="text" name="answer"  class="validate" id="answer"required>
                 </div>
                 <%    } %>
                 <button type="submit" class="btn btn-primary">Submit Response</button>
             </form>
         </div>
-        <div class="col-md-3"></div>
+        <div class="col s12 m6 l4"></div>
       </div>
     </div>
-  </div>
 
 <% include ./partials/footer %>

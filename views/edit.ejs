@@ -1,31 +1,29 @@
 <% include ./partials/header %>
 
-<div class="py-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 border border-secondary rounded animated pulse mystyle">
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 l3"></div>
+        <div class="col s12 m6 l6">
             <h3>Edit </h3>
             <form action="/display/<%=foundset._id%>?_method=PUT" method="POST">
-                <div class="form-group">
+                <div class="input-field">
                     <label for="name">Set Question Bank Name</label>
-                    <input type="text" name="Question[name]" class="form-control" id="name"
-                        placeholder="Enter Name of Question Bank" value="<%=foundset.name%>">
+                    <input type="text" name="Question[name]"  class="validate" id="name"
+                         value="<%=foundset.name%>" required>
                     <small id="emailHelp" class="form-text text-muted">Needed</small>
                 </div>
                 <%    for(var i = 0; i < foundset.question.length; i++){ %>
-                <div class="form-group">
+                <div class="input-field">
                     <label for="question"><%= i+1 %>: Question</label>
-                    <input type="text" name="Question[question]" class="form-control" id="question" placeholder="Type Here" value="<%= foundset.question[i] %>">
+                    <input type="text" name="Question[question]"  class="validate" id="question" value="<%= foundset.question[i] %>" required>
                 </div>
                 <%    } %>
                 <button type="submit" class="btn btn-primary">Submit Changes</button>
                 <a href="/display/<%=foundset._id%>"class="btn btn-warning">Cancel</a>
             </form>
         </div>
-        <div class="col-md-3"></div>
-      </div>
+        <div class="col s12 m6 l3"></div>
     </div>
-  </div>
+</div>
 
 <% include ./partials/footer %>
