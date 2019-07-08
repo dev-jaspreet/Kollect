@@ -12,6 +12,7 @@ router.get("/student/:id", middleware.isLoggedIn, function(req, res) {
             console.log(err)
         }
         else {
+            console.log(founduser)
             res.render("student", { founduser: founduser, pageTitle: req.user.name + "@" + req.user.registrationno })
         }
     })
@@ -40,4 +41,14 @@ router.get("/studentedit/:id", middleware.isLoggedIn, function(req, res) {
     })
 })
 
+router.put("/studentedit/:id",function(req,res){
+    User.findByIdAndUpdate(req.params.id,req.body.User,function(err,founduser){
+        if(err){
+            console.log(err)
+        }else{
+            console.log(founduser)
+            res.redirect("/student/" + req.params.id)
+        }
+    })
+})
 module.exports = router;

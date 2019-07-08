@@ -84,39 +84,76 @@ router.put("/display/:id", function(req, res) {
 });
 
 // DESTROY
-router.delete("/display/:id", function(req, res) {
-    Question.findByIdAndRemove(req.params.id, function(err) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            User.find({ type: "student" }, function(err, foundusers) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    for (var i = 0; i < foundusers.length; i++) {
-                        foundusers[i].questionpending.remove(req.params.id);
-                        foundusers[i].questionresponse.remove(req.params.id);
-                        foundusers[i].save();
-                    }
-                }
-            });
-            User.findById(req.user.id, function(err, founduser) {
-                if (err) {
-                    console.log(err)
-                }
-                else {
-                    founduser.questioncreator.remove(req.params.id);
-                    founduser.save();
-                }
-            })
-            req.flash("error", "Deleted Succesfully.")
-            res.redirect("/index");
-        }
-    });
+// router.delete("/display/:id", function(req, res) {
+//     var code;
+// // Question.findById(req.params.id, function(err, foundqn) {
+// //     if (err) {
+// //         console.log(err);
+// //     }
+// //     else {
+//                 User.find({ type: "student", uniqueid: foundqn.uniqueid }, function(err, foundusers) {
+//                 if (err) {
+//                     console.log(err);
+//                 }
+//                 else {
+//                     Answer.find({ questionid: req.params.id }, function(err, foundans) {
+//                     if (err) {
+//                         console.log(err)
+//                     }
+//                     else {
+//                         console.log(foundans[0].id)
+//                         console.log(foundans)
+//                         if (foundans[0].questionid == req.params.id) {
+//                             console.log("match")
+//                             console.log(typeof(req.params.id))
+//                             console.log(typeof(foundans[0].id))
+//                             code = foundans[0].id;
+//                             console.log(code)
+//                             // foundusers[i].answer.remove(foundans[0].id);
+//                         }
+//                     }
+//                 })
+//                     // console.log(foundusers)
+//                     for (var i = 0; i < foundusers.length; i++) {
+//                         // for (var j = 0; j < foundusers[i].answer.length; j++) {
 
-});
+//                         // }
+//                         console.log("$$$$$$$$")
+//                         console.log(code)
+//                         // foundusers[i].questionpending.remove(req.params.id);
+//                         // foundusers[i].questionresponse.remove(req.params.id);
+
+//                         // foundusers[i].save();
+//                     }
+//                 }
+//             });
+
+//         })
+//     // })
+
+//     // User.findById(req.user.id, function(err, founduser) {
+//     //     if (err) {
+//     //         console.log(err)
+//     //     }
+//     //     else {
+//     //         founduser.questioncreator.remove(req.params.id);
+//     //         founduser.save();
+//     //     }
+//     // })
+//     // Question.findByIdAndRemove(req.params.id, function(err) {
+//     //     if (err) {
+//     //         console.log(err)
+//     //     }
+//     //     else {
+//     req.flash("error", "Deleted Succesfully.")
+//     res.redirect("/index");
+//     //     }
+//     // })
+
+//     //     }
+//     // });
+
+// });
 //DISPLAY
 router.get("/display/:id", middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id).populate("answer").populate("creator").exec(function(err, foundset) {
@@ -136,4 +173,45 @@ router.get("/display/:id", middleware.isLoggedIn, function(req, res) {
     });
 });
 
+
+// NEW DESTROY
+router.delete("/display/:id", function(req, res) {
+    Question.findById(req.params.id, function(err, foundqn) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            User.find({ type: "student", uniqueid: foundqn.uniqueid }, function(err, foundusers) {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log(foundusers)
+                    for (var i = 0; i < foundusers.length; i++) {
+                        foundusers[i].questionresponse.remove(req.params.id);
+                        foundusers[i].questionpending.remove(req.params.id)
+                        foundusers[i].save()
+                    }
+
+                }
+            })
+        }
+    })
+    User.findById(req.user.id, function(err, founduser) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            founduser.questioncreator.remove(req.params.id);
+            founduser.save();
+        }
+    })
+    Answer.deleteMany({questionid:req.params.id},function(err){
+        console.log(err);
+    });
+    Question.findByIdAndDelete(req.params.id,function(err){
+        console.log(err)
+    });
+    res.redirect("/index")
+})
 module.exports = router;

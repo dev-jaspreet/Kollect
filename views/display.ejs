@@ -1,28 +1,29 @@
 <% include ./partials/header %>
 
-<% var countpen = 0 %>
-<% var countpsub = 0 %>
+
 <% if(currentuser && foundset.creator.equals(currentuser._id)){ %>
+<% var countpen = 0 %>
+<% var countsub = 0 %>
 <div class="container">
   <div class="row">
     <div class="col s12">
-      <div class="card blue-grey darken-1">
+      <div class="card mystyle">
         <div class="card-content white-text">
-          <span class="card-title"><%=foundset.name%></span>
+          <span class="card-title"><strong><%=foundset.name%></strong></span>
           <p>Created By: <%=foundset.creator.name%></p>
           <p>Created For: <%=foundset.uniqueid.substring(0,3).toUpperCase()%> /
             <%=foundset.uniqueid.substring(3,4).toUpperCase()%> /
             <%=foundset.uniqueid.substring(4,5).toUpperCase()%></p>
           <p>Created on: <%= foundset.created.toDateString() %></p>
           <hr>
-          <a href="/display/<%=foundset._id%>/edit" class="btn btn-warning">Edit</a>
+          <a class="waves-effect waves-light btn" href="/display/<%=foundset._id%>/edit" class="btn btn-warning">Edit</a>
         </div>
       </div>
     </div>
     <div class="col s12 m6 l9">
       <div class="row">
-        <div class="col s12">
-          <ul class="tabs">
+        <div class="col s12 x">
+          <ul class="tabs" style="background-color: #4ecca3">
             <li class="tab col s3"><a href="#test2">Delete</a></li>
             <li class="tab col s3"><a href="#test3">View Pending</a></li>
             <li class="tab col s3"><a class="active" href="#test5">View Submitted</a></li>
@@ -30,24 +31,25 @@
           </ul>
         </div>
         <div id="test2" class="col s12">
-          <p>Do you really want to delete these records? This process cannot be undone.</p>
+          <p class="grey-text text-lighten-5">Do you really want to delete these records? This process cannot be undone.</p>
           <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Delete</a>
         </div>
         <div id="test5" class="col s12">
-          <table id="testTable" class="highlight responsive-table">
-            <thead class="mystyle">
+          <!--<hr>-->
+          <table id="testTable" class="highlight responsive-table mystyleother">
+            <thead class="">
               <tr>
-                <th scope="col">#</th>
+                <th>#</th>
                 <% for(var i=0;i<foundset.question.length ;i++){ %>
-                <th scope="col"><%= foundset.question[i] %></th>
+                <th><%= foundset.question[i] %></th>
                 <% }%>
-                <th scope="col">Registration No</th>
+                <th>Registration No</th>
               </tr>
             </thead>
-            <tbody class="mystyle">
+            <tbody class="">
               <% for(var i=0;i<foundset.answer.length ;i++){ %>
               <tr>
-                <th scope="row"><%=i+1%></th>
+                <th><%=i+1%></th>
                 <% for(var j=0;j<foundset.answer[i].answer.length ;j++){ %>
                 <td><%= foundset.answer[i].answer[j] %></td>
                 <% }%>
@@ -59,12 +61,13 @@
           </table>
         </div>
         <div id="test3" class="col s12">
-          <table id="pendingTable" class="table  table-bordered table-hover">
-            <thead class="thead-dark">
+          <!--<hr>-->
+          <table id="pendingTable" class="highlight mystyleother">
+            <thead class="">
               <tr>
-                <th class="bg-danger" scope="col">#</th>
-                <th class="bg-danger" scope="col">Name</th>
-                <th class="bg-danger" scope="col">Registration No.</th>
+                <th>#</th>
+                <th>Name</th>
+                <th>Registration No.</th>
               </tr>
             </thead>
             <tbody>
@@ -73,9 +76,9 @@
                 <% if(foundusers[i].questionpending.length){ %>
                 <% for(var j=0;j<foundusers[i].questionpending.length ;j++){ %>
                 <% if(foundset._id.equals(foundusers[i].questionpending[j]._id)){ %>
-                <td scope="col"><%= count+1%></td>
-                <td scope="col"><%= foundusers[i].name%></td>
-                <td scope="col"><%= foundusers[i].registrationno%></td>
+                <td><%= countpen+1%></td>
+                <td><%= foundusers[i].name%></td>
+                <td><%= foundusers[i].registrationno%></td>
                 <% countpen++%>
                 <% }%>
                 <% }%>
@@ -85,29 +88,31 @@
             </tbody>
           </table>
         </div>
-        <div id="test4" class="col s12"><button id="btnExport" class="btn btn-dark"
+        <div id="test4" class="col s12"><button id="btnExport" class="waves-effect waves-light btn"
             onclick="javascript:xport.toCSV('testTable', '<%=foundset.name%>#<%=foundset.uniqueid%>');">
             Export Submitted</button>
-          <button id="btnExport" class="btn btn-dark"
+          <button id="btnExport" class="waves-effect waves-light btn"
             onclick="javascript:xport.toCSV('pendingTable', '<%=foundset.name%>#<%=foundset.uniqueid%>PENDING');">
             Export Pending</button>
         </div>
       </div>
     </div>
     <div class="col s12 m6 l3">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
+      <div class="card mystyleother">
+        <div class="card-content dark-text">
           <span class="card-title">Statistics</span>
         </div>
         <div class="card-action">
-          <p>Pending: <%=countpen%></p>
+          <p class="red-text">Pending: <%=countpen%></p>
           <hr>
-          <p>Submitted: <%=countsub%></p>
+          <p class="green-text">Submitted: <%=countsub%></p>
         </div>
       </div>
     </div>
   </div>
 </div>
+<% countpen = 0 %>
+<% countsub = 0 %>
 <% }else{ %>
 <div class="container">
   <div class="row">
@@ -155,12 +160,13 @@
           <div class="collapsible-header red lighten-1"><i class="material-icons">filter_drama</i>Pending Responses
           </div>
           <div class="collapsible-body">
-            <table id="pendingTable" class="table  table-bordered table-hover">
-              <thead class="thead-dark">
+            <hr>
+            <table id="pendingTable" class="highlight">
+              <thead class="">
                 <tr>
-                  <th class="bg-danger" scope="col">#</th>
-                  <th class="bg-danger" scope="col">Name</th>
-                  <th class="bg-danger" scope="col">Registration No.</th>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Registration No.</th>
                 </tr>
               </thead>
               <tbody>
@@ -170,9 +176,9 @@
                   <% if(foundusers[i].questionpending.length){ %>
                   <% for(var j=0;j<foundusers[i].questionpending.length ;j++){ %>
                   <% if(foundset._id.equals(foundusers[i].questionpending[j]._id)){ %>
-                  <td scope="col"><%= count+1%></td>
-                  <td scope="col"><%= foundusers[i].name%></td>
-                  <td scope="col"><%= foundusers[i].registrationno%></td>
+                  <td><%= count+1%></td>
+                  <td><%= foundusers[i].name%></td>
+                  <td><%= foundusers[i].registrationno%></td>
                   <% count++%>
                   <% }%>
                   <% }%>
@@ -214,6 +220,7 @@
 <div id="modal1" class="modal">
   <div class="modal-content">
     <h4><%=foundset.name%></h4>
+    <hr>
     <p>Are You Sure?</p>
   </div>
   <div class="modal-footer">

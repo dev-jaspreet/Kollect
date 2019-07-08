@@ -76,8 +76,9 @@ router.get("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
     })
 })
 
-router.put("/feedback/:id", function(req, res) {
+router.put("/feedbackedit/:id", function(req, res) {
     req.body.Answer.body = req.sanitize(req.body.Answer.body);
+    console.log(req.body)
     Answer.findByIdAndUpdate(req.params.id, req.body.Answer, function(err, foundset) {
         if (err) {
             console.log(err);

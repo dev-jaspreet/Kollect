@@ -1,109 +1,5 @@
 <% include ./partials/header %>
 
-<!--<div class="py-5">-->
-<!--  <div class="container">-->
-<!--    <div class="row">-->
-<!--      <div class="col-md-8">-->
-<!--        <% if(founduser.questionresponse.length){%>-->
-<!--        <div class="alert alert-success animated flash" role="alert">-->
-<!--          Submitted Responses-->
-<!--        </div>-->
-<!--        <div class="accordion" id="accordionExample">-->
-<!--          <% for(var i=0;i<founduser.questionresponse.length;i++){%>-->
-<!--          <div class="card">-->
-<!--            <div class="card-header animated slideInUp mystyle" id="headingOne<%=i%>s">-->
-<!--              <h2 class="mb-0">-->
-<!--                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne<%=i%>s"-->
-<!--                  aria-expanded="true" aria-controls="collapseOne<%=i%>s">-->
-<!--                  <%=founduser.questionresponse[i].name%>-->
-<!--                </button>-->
-<!--              </h2>-->
-<!--            </div>-->
-<!--            <div id="collapseOne<%=i%>s" class="collapse toggle mystyle" aria-labelledby="headingOne<%=i%>s"-->
-<!--              data-parent="#accordionExample">-->
-<!--              <div class="card-body mystyle">-->
-<!--                <table id="testTable" class="table table-bordered table-hover">-->
-<!--                  <thead class="thead-dark">-->
-<!--                    <tr>-->
-<!--                      <th scope="col">#</th>-->
-<!--                      <% for(var j=0;j<founduser.questionresponse[i].question.length;j++){%>-->
-<!--                      <th scope="col"><%= founduser.questionresponse[i].question[j] %></th>-->
-<!--                      <% }%>-->
-<!--                      <th scope="col">Registration No</th>-->
-<!--                    </tr>-->
-<!--                  </thead>-->
-<!--                  <tbody>-->
-<!--                    <tr>-->
-<!--                      <th scope="row">Result:</th>-->
-<!--                      <% for(var k=0;k<founduser.answer[i].answer.length ;k++){ %>-->
-<!--                      <td><%= founduser.answer[i].answer[k]%></td>-->
-<!--                      <% }%>-->
-<!--                      <td><%= founduser.registrationno %></td>-->
-<!--                    </tr>-->
-<!--                  </tbody>-->
-<!--                </table>-->
-<!--                <div class="float-right">-->
-<!--                  <a href="/feedbackedit/<%=founduser.questionresponse[i].id%>" class="btn btn-success">Edit-->
-<!--                    Feedback</a>-->
-<!--                  <p></p>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <% } %>-->
-<!--          <hr>-->
-<!--          <% if(success && success.length > 0){%>-->
-<!--          <div class="alert alert-success alert-dismissible fade show" role="alert">-->
-<!--            <strong><%= success %></strong>-->
-<!--            <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-<!--              <span aria-hidden="true">&times;</span>-->
-<!--            </button>-->
-<!--          </div>-->
-<!--          <% } %>-->
-<!--        </div>-->
-<!--        <p></p>-->
-<!--        <% } %>-->
-<!--        <% if(founduser.questionpending.length){%>-->
-<!--        <div class="alert alert-danger animated flash" role="alert">-->
-<!--          Pending Responses-->
-<!--        </div>-->
-<!--        <div class="accordion" id="accordionExample">-->
-<!--          <% for(var i=0;i<founduser.questionpending.length;i++){%>-->
-<!--          <div class="card">-->
-<!--            <div class="card-header animated slideInUp mystyle" id="headingOne<%=i%>p">-->
-<!--              <h2 class="mb-0">-->
-<!--                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne<%=i%>p"-->
-<!--                  aria-expanded="true" aria-controls="collapseOne<%=i%>p">-->
-<!--                  <%=founduser.questionpending[i].name%>-->
-<!--                </button>-->
-<!--              </h2>-->
-<!--            </div>-->
-<!--            <div id="collapseOne<%=i%>p" class="collapse toggle mystyle" aria-labelledby="headingOne<%=i%>p"-->
-<!--              data-parent="#accordionExample">-->
-<!--              <div class="card-body mystyle">-->
-<!--                <% for(var j=0;j<founduser.questionpending[i].question.length;j++){ %>-->
-<!--                <ul class="list-group list-group-flush">-->
-<!--                  <li class="list-group-item"><%=founduser.questionpending[i].question[j]%></li>-->
-<!--                </ul>-->
-<!--                <% } %>-->
-<!--                <p></p>-->
-<!--                <div class="float-right">-->
-<!--                  <a href="/display/<%=founduser.questionpending[i].id%>/feedback" class="btn btn-success">Give-->
-<!--                    Feedback</a>-->
-<!--                  <p></p>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <% } %>-->
-<!--        </div>-->
-<!--        <% }%>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<!---->
-<!---->
 <div class="container">
   <div class="row">
     <div class="col s12 m6 l4">
@@ -137,13 +33,14 @@
             <li class="tab col s3"><a href="#pen">Pending</a></li>
           </ul>
         </div>
-        <div id="sub" class="col s12"><% if(founduser.questionresponse.length){%>
+        <div id="sub" class="col s12">
+          <% if(founduser.questionresponse.length){%>
           <% for(var i=0;i<founduser.questionresponse.length;i++){%>
           <ul class="collapsible">
             <li>
-              <div class="collapsible-header"><i
+              <div class="collapsible-header green lighten-1"><i
                   class="material-icons">filter_drama</i><%=founduser.questionresponse[i].name%></div>
-              <div class="collapsible-body">
+              <div class="collapsible-body mystyleother">
                 <table id="testTable" class="table table-bordered table-hover">
                   <thead class="thead-dark">
                     <tr>
@@ -157,6 +54,7 @@
                   <tbody>
                     <tr>
                       <th scope="row">Result:</th>
+                      <% console.log(founduser.answer[i].answer.length) %>
                       <% for(var k=0;k<founduser.answer[i].answer.length ;k++){ %>
                       <td><%= founduser.answer[i].answer[k]%></td>
                       <% }%>
@@ -164,25 +62,34 @@
                     </tr>
                   </tbody>
                 </table>
-                <a href="/display/<%=founduser.questionresponse[i].id%>/feedback" class="btn btn-success">Edit
+                <hr>
+                <a href="/feedbackedit/<%=founduser.questionresponse[i].id%>" class="btn waves-effect waves-light">Edit
                   Feedback</a>
               </div>
             </li>
           </ul>
           <% } %>
-          <% } %></div>
+          <% } %>
+        </div>
         <div id="pen" class="col s12">
           <% if(founduser.questionpending.length){%>
           <% for(var i=0;i<founduser.questionpending.length;i++){%>
           <ul class="collapsible">
             <li>
-              <div class="collapsible-header"><i
+              <div class="collapsible-header red lighten-1"><i
                   class="material-icons">filter_drama</i><%=founduser.questionpending[i].name%></div>
-              <div class="collapsible-body">
-                <% for(var j=0;j<founduser.questionpending[i].question.length;j++){ %>
-                <p><%=j+1%>: <%=founduser.questionpending[i].question[j]%></p>
-                <% } %>
-                <a href="/display/<%=founduser.questionpending[i].id%>/feedback" class="btn btn-success">Give
+              <div class="collapsible-body mystyleother">
+                <ul class="collection">
+                  <% for(var j=0;j<founduser.questionpending[i].question.length;j++){ %>
+
+                  <li class="collection-item"><%=j+1%>: <%=founduser.questionpending[i].question[j]%></li>
+
+                  <!--<p><%=j+1%>: <%=founduser.questionpending[i].question[j]%></p>-->
+                  <% } %>
+                </ul>
+                <hr>
+                <a href="/display/<%=founduser.questionpending[i].id%>/feedback"
+                  class="btn waves-effect waves-light">Give
                   Feedback</a>
               </div>
             </li>
@@ -194,4 +101,5 @@
     </div>
   </div>
 </div>
+
 <% include ./partials/footer %>
