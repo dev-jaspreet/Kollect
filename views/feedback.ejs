@@ -1,29 +1,29 @@
 <% include ./partials/header %>
 
-    <div class="container">
-      <div class="row">
-        <div class="col s12 m6 l4"></div>
-        <div class="col s12 m6 l4 z-depth-1 mystyleother">
-            <h3>Feedback</h3>
-            <hr>
-            <form action="/display/<%=foundset._id%>/feedback" method="POST">
-                <div class="input-field">
-                    <h6>Created By: <%=foundset.creator.name%></h6>
-                    <h6>Created On: <%=foundset.created.toDateString()%></h6>
-                    <h6>Question Set: <%= foundset.name.toUpperCase()%></h6>
-                </div>
-                <hr>
-                <%    for(var i = 0; i < foundset.question.length; i++){ %>
-                <div class="input-field">
-                    <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
-                    <input type="text" name="answer"  class="validate" id="answer"required>
-                </div>
-                <%    } %>
-                <button type="submit" class="btn btn-primary">Submit Response</button>
-            </form>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m6 l4"></div>
+    <div class="col s12 m6 l4 z-depth-1 mystyleother">
+      <h3>Feedback</h3>
+      <hr>
+      <form action="/display/<%=foundset._id%>/feedback" method="POST">
+        <div class="input-field">
+          <h6>Created By: <%=foundset.creator.name%></h6>
+          <h6>Created On: <%=foundset.created.toDateString()%></h6>
+          <h6>Question Set: <%= foundset.name.toUpperCase()%></h6>
         </div>
-        <div class="col s12 m6 l4"></div>
-      </div>
+        <hr>
+        <%    for(var i = 0; i < foundset.question.length; i++){ %>
+        <div class="input-field">
+          <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
+          <input type="text" name="answer" class="validate" id="answer" required>
+        </div>
+        <%    } %>
+        <button type="submit" class="btn btn-primary">Submit Response</button>
+      </form>
     </div>
+    <div class="col s12 m6 l4"></div>
+  </div>
+</div>
 
 <% include ./partials/footer %>

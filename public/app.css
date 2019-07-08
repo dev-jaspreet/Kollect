@@ -10,6 +10,10 @@
     padding: 15px;
 }
 
+.col.s12.z-depth-1.my {
+    padding: 15px;
+}
+
 .col.s12.x {
     padding-top: 9px;
 }
@@ -20,11 +24,11 @@
     background-color: #4ecca3;
 }
 
-/*#delete {*/
-
-/*    display: inline;*/
-
-/*}*/
+.page-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
 
 body {
     background-color: #232931;
@@ -43,36 +47,32 @@ body {
     background-color: #4ecca3;
 }
 
-/*.mystylebutton {*/
+.mystylebutton {
+    background-color: #232931;
+}
 
-/*    background-color: #34495e;*/
+.tabs .tab a {
+    color: #000;
+}
 
-/*}*/
+/*Black color to the text*/
 
-/*.cover {*/
+.tabs .tab a:hover {
+    background-color: #eee;
+    color: #000;
+}
 
-/*    background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)), url(/cover/cover.png);*/
+/*Text color on hover*/
 
-/*    background-position: center center, center center;*/
+.tabs .tab a.active {
+    background-color: #888;
+    color: #000;
+}
 
-/*    background-size: cover;*/
+/*Background and text color when a tab is active*/
 
-/*}*/
+.tabs .indicator {
+    background-color: #000;
+}
 
-/*.col-md-6.border {*/
-
-/*    margin: 15px;*/
-
-/*    padding: 15px*/
-
-/*}*/
-
-/*.col-md-4.border {*/
-
-/*    margin: 0px;*/
-
-/*    padding: 15px*/
-
-/*}*/
-
-/*.modal { width: 25% !important ; height: 30% !important ; }*/
+/*Color of underline*/

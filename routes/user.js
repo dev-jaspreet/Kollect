@@ -29,6 +29,27 @@ router.get("/faculty/:id", middleware.isLoggedIn, function(req, res) {
         }
     })
 })
+router.get("/facultyedit/:id", middleware.isLoggedIn, function(req, res) {
+    User.findById(req.params.id, function(err, founduser) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.render("facultyedit", { founduser: founduser, pageTitle: "Edit Profile" })
+        }
+    })
+})
+
+router.put("/facultyedit/:id", function(req, res) {
+    User.findByIdAndUpdate(req.params.id, req.body.User, function(err, founduser) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.redirect("/faculty/" + req.params.id)
+        }
+    })
+})
 
 router.get("/studentedit/:id", middleware.isLoggedIn, function(req, res) {
     User.findById(req.params.id, function(err, founduser) {
@@ -41,11 +62,15 @@ router.get("/studentedit/:id", middleware.isLoggedIn, function(req, res) {
     })
 })
 
-router.put("/studentedit/:id",function(req,res){
-    User.findByIdAndUpdate(req.params.id,req.body.User,function(err,founduser){
-        if(err){
+router.put("/studentedit/:id", function(req, res) {
+    User.findByIdAndUpdate(req.params.id, req.body.User, function(err, founduser) {
+        if (err) {
             console.log(err)
-        }else{
+        }
+        else {
+            var uniqueid = req.body.department + req.body.section + req.body.year;
+            founduser.uniqueid = uniqueid;
+            founduser.save()
             console.log(founduser)
             res.redirect("/student/" + req.params.id)
         }

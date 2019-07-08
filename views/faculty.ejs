@@ -1,16 +1,17 @@
 <% include ./partials/header %>
 
 <div class="container">
-    <div class="row">
-        <div class="col s12 m6 l4">
-      <div class="card my">
+  <div class="row">
+    <div class="col s12 m6 l4">
+      <div class="card my hoverable">
         <div class="card-image waves-effect waves-block waves-light">
           <img class="activator"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcoy8tQBj_I2vK6G6iq7m2q7PB4KjMGMr7V0XCLo02w4JZv8RrA">
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4"><%=currentuser.name%><i
-              class="material-icons right tooltipped" data-position="right" data-tooltip="Hello There!">more_vert</i></span>
+          <span class="card-title activator grey-text text-darken-4"><strong><%=currentuser.name%></strong><i
+              class="material-icons right tooltipped" data-position="right"
+              data-tooltip="Hello There!">more_vert</i></span>
         </div>
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4"><%=currentuser.name%><i
@@ -19,35 +20,33 @@
           <p><strong>Registration No: </strong><%=currentuser.registrationno%></p>
           <p><strong>Email: </strong><%=currentuser.email%></p>
           <p><strong>Phone No: </strong><%=currentuser.phone%></p>
-          <a href="/studentedit/<%=currentuser._id%>"
-            class="btn-floating right btn-large waves-effect waves-light red tooltipped" data-position="bottom" data-tooltip="Make Changes To Your Account"><i class="material-icons">edit</i></a>
+          <a href="/facultyedit/<%=currentuser._id%>"
+            class="btn-floating right btn-large waves-effect waves-light red tooltipped" data-position="bottom"
+            data-tooltip="Make Changes To Your Account"><i class="material-icons">edit</i></a>
         </div>
       </div>
     </div>
-    <div class = "col s12 m6 l8">
-        <div class="row">
+    <div class="col s12 m6 l8">
+      <div class="row">
         <% for(var i=0;i<founduser.questioncreator.length;i++){%>
-        
-            <div class="col s12 m6 l6">
-                <div class="card mystyle">
-        <div class="card-content white-text">
-          <span class="card-title">Question Set: <%=i+1%></span>
-          <p>Created By: <%=founduser.questioncreator[i].name%></p>
-          <p>Created On: <%=founduser.questioncreator[i].created.toDateString()%></p>
-        </div>
-        <div class="card-action">
-          <% if(currentuser.type == "faculty"){%>
-          <a class="waves-effect waves-light btn" href="/display/<%=founduser.questioncreator[i].id%>">Open</a>
-          <% } %>
-        </div>
-      </div>
+        <div class="col s12 m6 l6">
+          <div class="card mystyle hoverable">
+            <div class="card-content white-text">
+              <span class="card-title">Question Set: <%=i+1%></span>
+              <p>Created By: <%=founduser.questioncreator[i].name%></p>
+              <p>Created On: <%=founduser.questioncreator[i].created.toDateString()%></p>
             </div>
-        
-            
-        <% } %>
+            <div class="card-action">
+              <% if(currentuser.type == "faculty"){%>
+              <a class="waves-effect waves-light btn" href="/display/<%=founduser.questioncreator[i].id%>">Open</a>
+              <% } %>
+            </div>
+          </div>
         </div>
+        <% } %>
+      </div>
     </div>
-    </div>
+  </div>
 </div>
 
 <% include ./partials/footer %>

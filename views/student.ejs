@@ -9,8 +9,9 @@
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcoy8tQBj_I2vK6G6iq7m2q7PB4KjMGMr7V0XCLo02w4JZv8RrA">
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4"><%=currentuser.name%><i
-              class="material-icons right">more_vert</i></span>
+          <span class="card-title activator grey-text text-darken-4"><strong><%=currentuser.name%></strong><i
+              class="material-icons right tooltipped" data-position="right"
+              data-tooltip="Hello There!">more_vert</i></span>
         </div>
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4"><%=currentuser.name%><i
@@ -38,7 +39,7 @@
           <% for(var i=0;i<founduser.questionresponse.length;i++){%>
           <ul class="collapsible">
             <li>
-              <div class="collapsible-header green lighten-1"><i
+              <div class="collapsible-header green darken-1"><i
                   class="material-icons">filter_drama</i><%=founduser.questionresponse[i].name%></div>
               <div class="collapsible-body mystyleother">
                 <table id="testTable" class="table table-bordered table-hover">
@@ -81,9 +82,7 @@
               <div class="collapsible-body mystyleother">
                 <ul class="collection">
                   <% for(var j=0;j<founduser.questionpending[i].question.length;j++){ %>
-
                   <li class="collection-item"><%=j+1%>: <%=founduser.questionpending[i].question[j]%></li>
-
                   <!--<p><%=j+1%>: <%=founduser.questionpending[i].question[j]%></p>-->
                   <% } %>
                 </ul>
