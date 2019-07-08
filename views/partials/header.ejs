@@ -59,7 +59,8 @@
     </li>
     <% }%>
     <%if(currentuser.type == "faculty"){%>
-    <aclass="nav-link waves-effect waves-light" href="/faculty/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
+    <li>
+    <a class="nav-link waves-effect waves-light" href="/faculty/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
     </li>
     <% }%>
     <li><a class="nav-link waves-effect waves-light" href="/logout">LogOut</a></li>
