@@ -16,7 +16,7 @@
             <%=foundset.uniqueid.substring(4,5).toUpperCase()%></p>
           <p>Created on: <%= foundset.created.toDateString() %></p>
           <hr>
-          <a class="waves-effect waves-light btn my" href="/display/<%=foundset._id%>/edit" class="btn btn-warning">Edit</a>
+          <a class="waves-effect waves-light btn mystylebutton" href="/display/<%=foundset._id%>/edit">Edit</a>
         </div>
       </div>
     </div>
@@ -32,7 +32,7 @@
         </div>
         <div id="test2" class="col s12" style="padding-top:10px">
           <p class="grey-text text-lighten-5">Do you really want to delete these records? This process cannot be undone.</p>
-          <a class="waves-effect waves-light btn modal-trigger red" href="#modal1">Delete</a>
+          <a class="waves-effect waves-light btn modal-trigger mystylebutton red" href="#modal1">Delete</a>
         </div>
         <div id="test5" class="col s12" style="padding-top:10px">
           <!--<hr>-->
@@ -88,10 +88,10 @@
             </tbody>
           </table>
         </div>
-        <div id="test4" class="col s12" style="padding-top:10px"><button id="btnExport" class="waves-effect waves-light btn my"
+        <div id="test4" class="col s12" style="padding-top:10px"><button id="btnExport" class="waves-effect waves-light btn mystylebutton"
             onclick="javascript:xport.toCSV('testTable', '<%=foundset.name%>#<%=foundset.uniqueid%>');">
             Export Submitted</button>
-          <button id="btnExport" class="waves-effect waves-light btn my"
+          <button id="btnExport" class="waves-effect waves-light btn mystylebutton"
             onclick="javascript:xport.toCSV('pendingTable', '<%=foundset.name%>#<%=foundset.uniqueid%>PENDING');">
             Export Pending</button>
         </div>

@@ -16,7 +16,6 @@
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4"><%=currentuser.name%><i
               class="material-icons right">close</i></span>
-          <p>Here is some more information about this product that is only revealed once clicked on.</p>
           <p><strong>Username: </strong><%=currentuser.username%></p>
           <p><strong>Registration No: </strong><%=currentuser.registrationno%></p>
           <p><strong>Email: </strong><%=currentuser.email%></p>
@@ -64,7 +63,7 @@
                   </tbody>
                 </table>
                 <hr>
-                <a href="/feedbackedit/<%=founduser.questionresponse[i].id%>" class="btn waves-effect waves-light">Edit
+                <a href="/feedbackedit/<%=founduser.questionresponse[i].id%>" class="btn waves-effect waves-light mystylebutton">Edit
                   Feedback</a>
               </div>
             </li>
@@ -88,7 +87,7 @@
                 </ul>
                 <hr>
                 <a href="/display/<%=founduser.questionpending[i].id%>/feedback"
-                  class="btn waves-effect waves-light">Give
+                  class="btn waves-effect waves-light mystylebutton">Give
                   Feedback</a>
               </div>
             </li>

@@ -4,24 +4,32 @@
 
 .col.s12.m6.z-depth-1 {
     padding: 15px;
+    border-radius: 5px;
+
 }
 
 .col.s12.m6.l4.z-depth-1 {
     padding: 15px;
+    border-radius: 5px;
+
 }
 
 .col.s12.z-depth-1.my {
     padding: 15px;
+    border-radius: 5px
 }
 
 .col.s12.x {
     padding-top: 9px;
+
 }
 
 .navcustom {
     padding-left: 20px;
     padding-right: 20px;
     background-color: #4ecca3;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .page-footer {
@@ -41,6 +49,8 @@ body {
 
 .mystyleother {
     background-color: #eeeeee;
+    border-radius: 5px;
+
 }
 
 .my {
@@ -49,6 +59,7 @@ body {
 
 .mystylebutton {
     background-color: #232931;
+    border-radius: 5px;
 }
 
 .tabs .tab a {
