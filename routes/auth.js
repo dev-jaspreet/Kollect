@@ -148,9 +148,4 @@ router.get('/logout', function(req, res) {
     res.redirect('/');
 });
 
-router.get('*', function(req, res){
-//   res.send('what???', 404);
-  res.redirect("/")
-});
-
 module.exports = router;

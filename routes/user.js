@@ -31,6 +31,7 @@ router.get("/faculty/:id", middleware.isLoggedIn, middleware.checkType, function
         }
         else {
             if (founduser._id.equals(req.user.id)) {
+                console.log("match")
                 res.render("faculty", { founduser: founduser, pageTitle: req.user.name + "@" + req.user.registrationno })
             }
             else {

@@ -64,3 +64,8 @@ app.use(function(req, res, next) {
 app.listen(process.env.PORT, process.env.IP, function() {
     console.log("Questionnaire Portal Started");
 })
+
+app.get('*', function(req, res){
+//   res.send('what???', 404);
+  res.redirect("/")
+});
