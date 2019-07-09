@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="col s12 m6 l3"></div>
-    <div class="col s12 m6 l6 z-depth-1 mystyleother">
+    <div class="col s12 m6 z-depth-1 mystyleother customborder">
       <h3>Student Registration Form</h3>
       <% if(error && error.length > 0){%>
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -61,8 +61,8 @@
             <input type="text" name="email" class="validate" id=" email" required>
           </div>
           <div class="input-field col s6">
-            <label for=" registrationno">Registration No:</label>
-            <input type="number" name="registrationno" class="validate" id=" registrationno" data-length="9" required>
+            <label for="registrationno">Registration No:</label>
+            <input type="number" name="registrationno" class="validate" id="registrationno" data-length="9" required>
           </div>
         </div>
         <div class="row">

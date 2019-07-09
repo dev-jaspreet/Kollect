@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <% if(!filter && !count){ %>
-    <div class="col s12 m6 l4 z-depth-1 mystyleother">
+    <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
       <h3>Select Branch: Section: Year</h3>
       <form action="/filter" method="POST">
         <div class="row">
@@ -131,7 +131,7 @@
     <% } %>
     <% if(!count && filter){ %>
     <div class="col s12 m6 l4"></div>
-    <div class="col s12 m6 l4 z-depth-1 mystyleother">
+    <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
       <h3>How Many Question(s) Would Like To Create?</h3>
       <form action="/count" method="POST">
         <div class="input-field">
@@ -191,7 +191,7 @@
     <% if(count && filter){ %>
     <div class="col s12 m6 l4"></div>
     <div class="col s12 m6 l4"></div>
-    <div class="col s12 m6 l4 z-depth-1 mystyleother">
+    <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
       <h3>Enter Your Desired Questions.</h3>
       <form action="/new" method="POST">
         <div class="input-field">
