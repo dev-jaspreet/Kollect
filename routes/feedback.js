@@ -5,7 +5,7 @@ var express = require("express"),
     Answer = require("../models/answerbank"),
     middleware = require("../middleware/functions");
 
-router.get("/display/:id/feedback", middleware.isLoggedIn,middleware.checkType, function(req, res) {
+router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id).populate("creator").exec(function(err, foundset) {
         if (err) {
             console.log(err)
