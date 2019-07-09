@@ -7,35 +7,50 @@ var express = require("express"),
     middleware = require("../middleware/functions");;
 
 router.get("/student/:id", middleware.isLoggedIn, function(req, res) {
-    User.findById(req.user.id).populate("questionresponse").populate("answer").populate("questionpending").exec(function(err, founduser) {
+    User.findById(req.params.id).populate("questionresponse").populate("answer").populate("questionpending").exec(function(err, founduser) {
         if (err) {
             console.log(err)
         }
         else {
-            console.log(founduser)
-            res.render("student", { founduser: founduser, pageTitle: req.user.name + "@" + req.user.registrationno })
+            // console.log(founduser)
+            if (founduser._id.equals(req.user.id)) {
+                res.render("student", { founduser: founduser, pageTitle: req.user.name + "@" + req.user.registrationno })
+            }
+            else {
+                res.redirect("/")
+            }
         }
     })
 
 })
 
-router.get("/faculty/:id", middleware.isLoggedIn, function(req, res) {
-    User.findById(req.user.id).populate("questioncreator").exec(function(err, founduser) {
+router.get("/faculty/:id", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+    User.findById(req.params.id).populate("questioncreator").exec(function(err, founduser) {
         if (err) {
             console.log(err)
         }
         else {
-            res.render("faculty", { founduser: founduser, pageTitle: req.user.name + "@" + req.user.registrationno })
+            if (founduser._id.equals(req.user.id)) {
+                res.render("faculty", { founduser: founduser, pageTitle: req.user.name + "@" + req.user.registrationno })
+            }
+            else {
+                res.redirect("/")
+            }
         }
     })
 })
-router.get("/facultyedit/:id", middleware.isLoggedIn, function(req, res) {
+router.get("/facultyedit/:id", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     User.findById(req.params.id, function(err, founduser) {
         if (err) {
             console.log(err)
         }
         else {
-            res.render("facultyedit", { founduser: founduser, pageTitle: "Edit Profile" })
+            if (founduser._id.equals(req.user.id)) {
+                res.render("facultyedit", { founduser: founduser, pageTitle: "Edit Profile" })
+            }
+            else {
+                res.redirect("/")
+            }
         }
     })
 })
@@ -57,7 +72,12 @@ router.get("/studentedit/:id", middleware.isLoggedIn, function(req, res) {
             console.log(err)
         }
         else {
-            res.render("studentedit", { founduser: founduser, pageTitle: "Edit Profile" })
+            if (founduser._id.equals(req.user.id)) {
+                res.render("studentedit", { founduser: founduser, pageTitle: "Edit Profile" })
+            }
+            else {
+                res.redirect("/")
+            }
         }
     })
 })
@@ -76,4 +96,5 @@ router.put("/studentedit/:id", function(req, res) {
         }
     })
 })
+
 module.exports = router;

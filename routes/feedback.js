@@ -5,7 +5,7 @@ var express = require("express"),
     Answer = require("../models/answerbank"),
     middleware = require("../middleware/functions");
 
-router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
+router.get("/display/:id/feedback", middleware.isLoggedIn,middleware.checkType, function(req, res) {
     Question.findById(req.params.id).populate("creator").exec(function(err, foundset) {
         if (err) {
             console.log(err)
@@ -17,7 +17,7 @@ router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
 });
 
 
-router.post("/display/:id/feedback", function(req, res) {
+router.post("/display/:id/feedback",middleware.isLoggedIn, function(req, res) {
     Answer.create(req.body, function(err, submitan) {
         if (err) {
             console.log(err);
@@ -78,7 +78,7 @@ router.get("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
 
 router.put("/feedbackedit/:id", function(req, res) {
     req.body.Answer.body = req.sanitize(req.body.Answer.body);
-    console.log(req.body)
+    // console.log(req.body)
     Answer.findByIdAndUpdate(req.params.id, req.body.Answer, function(err, foundset) {
         if (err) {
             console.log(err);

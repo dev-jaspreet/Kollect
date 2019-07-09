@@ -7,7 +7,7 @@ var express = require("express"),
 
 var qnid;
 // NEW QUESTION
-router.get("/new", middleware.isLoggedIn, function(req, res) {
+router.get("/new", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     res.render("new", { count: false, filter: false, pageTitle: "Selection: Creation Page" });
 });
 
@@ -65,13 +65,18 @@ router.get("/display/:id/edit", middleware.isLoggedIn, middleware.checkType, fun
             console.log(err);
         }
         else {
-            res.render("edit", { foundset: foundset, pageTitle: "Edit " + foundset.name });
+            if (foundset.creator.equals(req.user._id)) {
+                res.render("edit", { foundset: foundset, pageTitle: "Edit " + foundset.name });
+            }
+            else {
+                res.redirect("/faculty/" + req.user.id)
+            }
         }
     });
 });
 
 // UPDATE
-router.put("/display/:id", function(req, res) {
+router.put("/display/:id", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     req.body.Question.body = req.sanitize(req.body.Question.body);
     Question.findByIdAndUpdate(req.params.id, req.body.Question, function(err, foundset) {
         if (err) {
@@ -155,7 +160,7 @@ router.put("/display/:id", function(req, res) {
 
 // });
 //DISPLAY
-router.get("/display/:id", middleware.isLoggedIn, function(req, res) {
+router.get("/display/:id", middleware.isLoggedIn,middleware.checkType, function(req, res) {
     Question.findById(req.params.id).populate("answer").populate("creator").exec(function(err, foundset) {
         if (err) {
             console.log(err);
@@ -206,10 +211,10 @@ router.delete("/display/:id", function(req, res) {
             founduser.save();
         }
     })
-    Answer.deleteMany({questionid:req.params.id},function(err){
+    Answer.deleteMany({ questionid: req.params.id }, function(err) {
         console.log(err);
     });
-    Question.findByIdAndDelete(req.params.id,function(err){
+    Question.findByIdAndDelete(req.params.id, function(err) {
         console.log(err)
     });
     res.redirect("/index")

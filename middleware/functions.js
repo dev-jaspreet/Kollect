@@ -19,7 +19,7 @@ functionObject.checkType = function(req, res, next) {
     if (req.user.type == "faculty") {
         return next();
     }
-    res.redirect("/");
+    res.redirect("/student/" + req.user.id);
 }
 
 functionObject.mail = function(mail) {
