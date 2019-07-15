@@ -25,4 +25,21 @@
   </div>
 </div>
 
+  <div id="filter" class="modal customborder mystyle">
+    <div class="modal-content mystyle white-text">
+      <h4>Search</h4>
+      <nav>
+        <div class="nav-wrapper my">
+          <form action="/search" method="GET">
+            <div class="input-field">
+              <input id="search" type="search" name="search" placeholder="E.g. CSE/B/4 or CSE/B or CSE" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </div>
+  </div>
+
 <% include ./partials/footer %>

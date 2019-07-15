@@ -4,12 +4,18 @@ var express = require("express"),
     Question = require("../models/questionbank"),
     passport = require('passport'),
     multer = require('multer'),
-    fs = require("fs"),
-    flash = require("connect-flash"),
-    nodemailer = require("nodemailer"),
-    upload = multer({ dest: 'uploads/' }),
+    cloudinary = require("cloudinary"),
+    cloudinaryStorage = require("multer-storage-cloudinary"),
     middleware = require("../middleware/functions");
 
+cloudinary.config({
+    cloud_name: 'dq1nhsxii',
+    api_key: '398993397148792',
+    api_secret: 'kWUG7-H3SRCO3kSkgbK7BS-ForU'
+});
+
+const storage = cloudinaryStorage({ cloudinary: cloudinary, folder: "Questionnaire_profile", allowedFormats: ["jpg", "png"], transformation: [{ width: 500, height: 500, crop: "limit" }] });
+const parser = multer({ storage: storage });
 
 router.get("/", function(req, res) {
     res.render("cover", { pageTitle: "Questionnaire" });
@@ -47,6 +53,19 @@ router.get("/index", middleware.isLoggedIn, function(req, res) {
     })
 })
 
+router.get("/search", function(req, res) {
+    var code = JSON.stringify(req.query);
+    code = code.replace(/[^a-zA-Z0-9]/g, "");
+    code = code.substr(6)
+    Question.find({ uniqueid: { $regex: code, $options: 'i' } }).populate("creator").exec(function(err, sorted) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.render("index", { qns: sorted, pageTitle: "Homepage" })
+        }
+    })
+})
 // REGISTER
 router.get("/studentregister", function(req, res) {
     res.render("studentregister", {
@@ -61,7 +80,7 @@ router.get("/facultyregister", function(req, res) {
 });
 
 // FACULTY REGISTER
-router.post("/facultyregister", function(req, res) {
+router.post("/facultyregister", parser.single("image"), function(req, res) {
     if (req.body.password === req.body.passwordconfirm) {
         User.register(new User({
                 username: req.body.username,
@@ -80,8 +99,17 @@ router.post("/facultyregister", function(req, res) {
                     res.redirect("/facultyregister");
                 }
                 else {
+                    if (req.file) {
+                        newUser.image.imageurl = req.file.secure_url;
+                        newUser.image.imageid = req.file.public_id;
+                    }
+                    else {
+                        newUser.image.imageurl = "https://banner2.kisspng.com/20180521/ocp/kisspng-computer-icons-user-profile-avatar-french-people-5b0365e4f1ce65.9760504415269493489905.jpg";
+                        newUser.image.imageid = "##";
+                    }
+                    newUser.save();
                     middleware.mail(req.body)
-                    req.flash("success", "Registration Complete.")
+                    req.flash("toast", "Registration Complete.")
                     res.redirect("/login");
                 }
             })
@@ -93,7 +121,8 @@ router.post("/facultyregister", function(req, res) {
 });
 
 // STUDENT REGISTER
-router.post("/studentregister", upload.single('avatar'), function(req, res) {
+router.post("/studentregister", parser.single("image"), function(req, res) {
+    console.log(req.file)
     if (req.body.password === req.body.passwordconfirm) {
         User.register(new User({
                 username: req.body.username,
@@ -112,8 +141,17 @@ router.post("/studentregister", upload.single('avatar'), function(req, res) {
                     res.redirect("/studentregister");
                 }
                 else {
+                    if (req.file) {
+                        newUser.image.imageurl = req.file.secure_url;
+                        newUser.image.imageid = req.file.public_id;
+                    }
+                    else {
+                        newUser.image.imageurl = "https://banner2.kisspng.com/20180521/ocp/kisspng-computer-icons-user-profile-avatar-french-people-5b0365e4f1ce65.9760504415269493489905.jpg";
+                        newUser.image.imageid = "##";
+                    }
+                    newUser.save();
                     middleware.mail(req.body)
-                    req.flash("success", "Registration Complete.")
+                    req.flash("toast", "Registration Complete.")
                     res.redirect("/login");
                 }
             })
@@ -134,9 +172,7 @@ router.get("/login", function(req, res) {
 router.post('/login',
     passport.authenticate('local', {
         successRedirect: '/index',
-        failureRedirect: '/login',
-        failureFlash: true,
-        successFlash: true
+        failureRedirect: '/login'
     }),
     function(req, res) {}
 );
@@ -144,7 +180,7 @@ router.post('/login',
 // LOGOUT
 router.get('/logout', function(req, res) {
     req.logout();
-    req.flash("success", "Logged You Out.")
+    req.flash("toast", "Logged You Out.")
     res.redirect('/');
 });
 

@@ -16,7 +16,7 @@ router.post("/filter", function(req, res) {
     res.render("new", { count: false, filter: true, pageTitle: "Count: Creation Page" });
 });
 
-router.post("/count", function(req, res) {
+router.post("/count", middleware.isLoggedIn, function(req, res) {
     res.render("new", { count: req.body.count, filter: true, pageTitle: "Questions: Creation Page" });
 });
 
@@ -51,7 +51,7 @@ router.post("/new", function(req, res) {
                 else {
                     founduser.questioncreator.push(submitqn);
                     founduser.save();
-                    req.flash("success", "Question Set: " + submitqn.name + " Has Been Created.")
+                    req.flash("toast", "Question Set: " + submitqn.name + " Has Been Created.")
                     res.redirect("/index");
                 }
             });
@@ -83,6 +83,7 @@ router.put("/display/:id", middleware.isLoggedIn, middleware.checkType, function
             console.log(err);
         }
         else {
+            req.flash("toast", "Edited " + foundset.name)
             res.redirect("/display/" + req.params.id);
         }
     });
@@ -160,7 +161,7 @@ router.put("/display/:id", middleware.isLoggedIn, middleware.checkType, function
 
 // });
 //DISPLAY
-router.get("/display/:id", middleware.isLoggedIn,middleware.checkType, function(req, res) {
+router.get("/display/:id", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     Question.findById(req.params.id).populate("answer").populate("creator").exec(function(err, foundset) {
         if (err) {
             console.log(err);
@@ -180,7 +181,7 @@ router.get("/display/:id", middleware.isLoggedIn,middleware.checkType, function(
 
 
 // NEW DESTROY
-router.delete("/display/:id", function(req, res) {
+router.delete("/display/:id", middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id, function(err, foundqn) {
         if (err) {
             console.log(err)
@@ -217,6 +218,8 @@ router.delete("/display/:id", function(req, res) {
     Question.findByIdAndDelete(req.params.id, function(err) {
         console.log(err)
     });
+    req.flash("toast", "Deleted")
     res.redirect("/index")
 })
+
 module.exports = router;

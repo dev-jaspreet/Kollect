@@ -1,0 +1,28 @@
+<% include ./partials/header %>
+
+<div class="container">
+  <div class="row">
+    <% foundusers.forEach(function(founduser){ %>
+    <div class="col s12 m6 l4">
+      <div class="card my">
+        <div class="card-image">
+          <img src=<%=founduser.image.imageurl%>>
+          <span class="card-title"><strong><%=founduser.name%></strong></span>
+        </div>
+        <div class="card-content">
+          <h5><%=founduser.uniqueid.substring(0,3).toUpperCase()%>
+            /<%=founduser.uniqueid.substring(3,4).toUpperCase()%>
+            /<%=founduser.uniqueid.substring(4,5).toUpperCase()%></h5>
+          <hr>
+          <p><strong>Username: </strong><%=founduser.username%></p>
+          <p><strong>Registration No: </strong><%=founduser.registrationno%></p>
+          <p><strong>Email: </strong><%=founduser.email%></p>
+          <p><strong>Phone No: </strong><%=founduser.phone%></p>
+        </div>
+      </div>
+    </div>
+    <% })%>
+  </div>
+</div>
+
+<% include ./partials/footer %>

@@ -1,9 +1,8 @@
-
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
-
 <script>
+  var toast = "<%=toast%>";
   M.AutoInit();
   $("select[required]").css({
     display: "inline",
@@ -11,17 +10,20 @@
     padding: 0,
     width: 0
   });
-  $(document).ready(function(){
+  $(document).ready(function () {
     $('ul.tabs').tabs({
-      swipeable : true,
-      responsiveThreshold : 3000
-      
+      swipeable: true,
+      responsiveThreshold: 3000
+
     });
     $('input#registrationno').characterCounter();
   });
-
+  if (toast && toast.length > 0) {
+    M.toast({
+      html: "<%=toast%>"
+    })
+  }
 </script>
 
 </body>
-
 </html>

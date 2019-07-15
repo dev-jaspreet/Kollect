@@ -5,15 +5,7 @@
     <div class="col s12 m6 l3"></div>
     <div class="col s12 m6 z-depth-1 mystyleother customborder">
       <h3>Student Registration Form</h3>
-      <% if(error && error.length > 0){%>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong><%= error%></strong>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <% } %>
-      <form action="/studentregister" method="POST">
+      <form action="/studentregister" enctype="multipart/form-data" method="POST">
         <div class="row">
           <div class="input-field col s6">
             <label for=" fname">Username:</label>
@@ -42,7 +34,7 @@
               <option value="c">C</option>
               <option value="d">D</option>
             </select>
-            <label for="section">Select SECTION:</label>
+            <label for="section">Select Section:</label>
           </div>
           <div class="input-field col s4">
             <select name="year" required>
@@ -80,6 +72,15 @@
           </div>
         </div>
         <div class="row">
+          <div class="file-field input-field col s12">
+            <div class="btn mystylebutton">
+              <span>File</span>
+              <input type="file" name="image">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" placeholder="Upload Your Profile Image (Optional)" type="text">
+            </div>
+          </div>
           <div class="input-field col s12">
             <label for="password">Set Password:</label>
             <input type="password" name="password" class="validate" id="password" required>

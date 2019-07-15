@@ -16,51 +16,49 @@
 
 <body>
   <nav class="navcustom">
-      <div class="nav-wrapper">
-        <a  href="/index" class="black-text brand-logo">Questionnaire</a>
+    <div class="nav-wrapper">
+      <div class="container custom">
+        <a href="/index" class="black-text brand-logo">Questionnaire</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <% if(currentuser && currentuser.type == "faculty"){ %>
-          <li><a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Create A New Question Set" href="/new">New Entry</a></li>
+          <% if(pageTitle == "Homepage"){ %>
+          <li><a class="black-text nav-link tooltipped waves-effect waves-light modal-trigger material-icons"
+              data-position="bottom" data-tooltip="Filter Results" href="#filter">search</a></li>
+          <% } %>
+          <li><a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom"
+              data-tooltip="Create A New Question Set" href="/new">New Entry</a></li>
           <% } %>
           <% if(!currentuser){ %>
           <li><a class="black-text nav-link waves-effect waves-light" href="/login">Login</a></li>
           <li><a class="black-text nav-link waves-effect waves-light" href="/studentregister">SignUp</a></li>
           <% } else{ %>
           <li>
-            <%if(currentuser.type == "student"){%>
-            <a class="black-text nav-link waves-effect waves-light tooltipped" data-position="bottom" data-tooltip="Check Your Profile" href="/student/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
+            <a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom"
+              data-tooltip="Check Your Profile" href="/<%=currentuser.type%>/<%=currentuser._id %>">User Logged In:
+              <%=currentuser.username %></a>
           </li>
-          <% }%>
-          <%if(currentuser.type == "faculty"){%>
-          <a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom" data-tooltip="Check Your Profile" href="/faculty/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
-          </li>
-          <% }%>
-          <li><a class="black-text nav-link waves-effect waves-light" href="/logout">LogOut</a></li>
+          <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-position="bottom"
+              data-tooltip="Bye!" href="/logout">LogOut</a></li>
           <% } %>
         </ul>
       </div>
     </div>
   </nav>
-  
+
   <ul class="sidenav my" id="mobile-demo">
     <% if(currentuser && currentuser.type == "faculty"){ %>
     <li><a class="nav-link waves-effect waves-light" href="/new">New Entry</a></li>
+    <li><a class="black-text nav-link waves-effect waves-light modal-trigger" href="#filter">Search</a></li>
     <% } %>
     <% if(!currentuser){ %>
     <li><a class="nav-link waves-effect waves-light" href="/login">Login</a></li>
     <li><a class="nav-link waves-effect waves-light" href="/studentregister">SignUp</a></li>
     <% } else{ %>
     <li>
-      <%if(currentuser.type == "student"){%>
-      <a class="nav-link waves-effect waves-light" href="/student/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
+      <a class="nav-link waves-effect waves-light" href="/<%=currentuser.type%>/<%=currentuser._id %>">User Logged In:
+        <%=currentuser.username %></a>
     </li>
-    <% }%>
-    <%if(currentuser.type == "faculty"){%>
-    <li>
-    <a class="nav-link waves-effect waves-light" href="/faculty/<%=currentuser._id %>">User Logged In: <%=currentuser.username %></a>
-    </li>
-    <% }%>
     <li><a class="nav-link waves-effect waves-light" href="/logout">LogOut</a></li>
     <% } %>
   </ul>

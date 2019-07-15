@@ -17,7 +17,7 @@ router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
 });
 
 
-router.post("/display/:id/feedback",middleware.isLoggedIn, function(req, res) {
+router.post("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
     Answer.create(req.body, function(err, submitan) {
         if (err) {
             console.log(err);
@@ -48,7 +48,7 @@ router.post("/display/:id/feedback",middleware.isLoggedIn, function(req, res) {
                             console.log(err);
                         }
                         else {
-                            req.flash("success", "Feedback Submitted.")
+                            req.flash("toast", "Feedback Submitted.")
                             res.redirect("/student/" + req.user.id)
                         }
                     })
@@ -76,7 +76,7 @@ router.get("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
     })
 })
 
-router.put("/feedbackedit/:id", function(req, res) {
+router.put("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
     req.body.Answer.body = req.sanitize(req.body.Answer.body);
     // console.log(req.body)
     Answer.findByIdAndUpdate(req.params.id, req.body.Answer, function(err, foundset) {
@@ -84,6 +84,7 @@ router.put("/feedbackedit/:id", function(req, res) {
             console.log(err);
         }
         else {
+            req.flash("toast", "Feedback Changed.")
             res.redirect("/student/" + req.user.id)
         }
     })

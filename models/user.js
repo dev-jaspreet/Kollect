@@ -26,8 +26,13 @@ var userSchema = mongoose.Schema({
     questionpending: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Question"
-    }]
+    }],
+    image: {
+        imageurl: String,
+        imageid: String
+    }
 })
 
+userSchema.index({ name: "text", uniqueid: "text" })
 userSchema.plugin(passportlocalmongoose);
 module.exports = mongoose.model("User", userSchema);
