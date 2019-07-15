@@ -7,6 +7,7 @@ var express = require("express"),
     LocalStrategy = require('passport-local').Strategy,
     methodoverride = require("method-override"),
     flash = require("connect-flash"),
+    compression = require("compression"),
     passportlocalmongoose = require("passport-local-mongoose"),
     User = require("./models/user"),
     session = require("express-session");
@@ -36,6 +37,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+app.use(compression())
 app.use(function(req, res, next) {
     res.locals.currentuser = req.user;
     res.locals.toast = req.flash("toast");
