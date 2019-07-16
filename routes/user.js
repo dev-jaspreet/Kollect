@@ -22,7 +22,7 @@ router.get("/student/:id", middleware.isLoggedIn, function(req, res) {
         }
         else {
             if (founduser._id.equals(req.user.id)) {
-                res.render("student", { founduser: founduser, pageTitle: req.user.name + "@" + req.user.registrationno })
+                res.render("student", { founduser: founduser, pageTitle: req.user.username })
             }
             else {
                 res.redirect("/")
@@ -114,7 +114,7 @@ router.put("/studentedit/:id", parser.single("image"), middleware.isLoggedIn, fu
     })
 })
 
-router.get("/searchstudent",middleware.isLoggedIn, function(req, res) {
+router.get("/searchstudent", middleware.isLoggedIn, function(req, res) {
     var code = JSON.stringify(req.query);
     code = code.replace(/[^a-zA-Z0-9]/g, "");
     code = code.substr(6)

@@ -11,7 +11,7 @@
   <meta name="description" content="Web portal designed to ease Data collection and Exportation.">
   <link rel="stylesheet" href="/app.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-  <link rel="icon" type="image/png" href="https://developer.android.com/preview/images/q-logo.png">
+  <link rel="icon" type="image/png" href="/logo.png">
   <title><%=pageTitle%></title>
 </head>
 
@@ -48,17 +48,26 @@
   </nav>
 
   <ul class="sidenav my" id="mobile-demo">
-    <% if(currentuser && currentuser.type == "faculty"){ %>
-    <li><a class="nav-link waves-effect waves-light" href="/new">New Entry</a></li>
-    <li><a class="black-text nav-link waves-effect waves-light modal-trigger" href="#filter">Search</a></li>
-    <% } %>
+
+
     <% if(!currentuser){ %>
     <li><a class="nav-link waves-effect waves-light" href="/login">Login</a></li>
     <li><a class="nav-link waves-effect waves-light" href="/studentregister">SignUp</a></li>
     <% } else{ %>
+        <li><div class="user-view">
+      <div class="background mystyle">
+        <img src=>
+      </div>
+      <a href="#user"><img class="circle" src=<%=currentuser.image.imageurl%>></a>
+      <a href="#name"><span class="white-text name"><%=currentuser.name%></span></a>
+      <a href="#email"><span class="white-text email"><%=currentuser.email%></span></a>
+    </div></li>
+        <% if(currentuser && currentuser.type == "faculty"){ %>
+    <li><a class="nav-link waves-effect waves-light" href="/new">New Entry</a></li>
+    <li><a class="black-text nav-link waves-effect waves-light modal-trigger" href="#filter">Search</a></li>
+    <% } %>
     <li>
-      <a class="nav-link waves-effect waves-light" href="/<%=currentuser.type%>/<%=currentuser._id %>">User Logged In:
-        <%=currentuser.username %></a>
+      <a class="nav-link waves-effect waves-light" href="/<%=currentuser.type%>/<%=currentuser._id %>">Profile</a>
     </li>
     <li><a class="nav-link waves-effect waves-light" href="/logout">LogOut</a></li>
     <% } %>

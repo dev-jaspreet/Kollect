@@ -81,10 +81,11 @@ router.get("/facultyregister", function(req, res) {
 
 // FACULTY REGISTER
 router.post("/facultyregister", parser.single("image"), function(req, res) {
+    var username = req.body.fname + "@" + req.body.registrationno;
     if (req.body.password === req.body.passwordconfirm) {
         User.register(new User({
-                username: req.body.username,
-                name: req.body.name,
+                username: username,
+                name: req.body.fname + " " + req.body.mname + " " + req.body.lname,
                 email: req.body.email,
                 phone: req.body.phone,
                 gender: req.body.gender,
@@ -108,7 +109,7 @@ router.post("/facultyregister", parser.single("image"), function(req, res) {
                         newUser.image.imageid = "##";
                     }
                     newUser.save();
-                    middleware.mail(req.body)
+                    middleware.mail(newUser)
                     req.flash("toast", "Registration Complete.")
                     res.redirect("/login");
                 }
@@ -122,11 +123,12 @@ router.post("/facultyregister", parser.single("image"), function(req, res) {
 
 // STUDENT REGISTER
 router.post("/studentregister", parser.single("image"), function(req, res) {
-    console.log(req.file)
+    var username = req.body.fname + "@" + req.body.registrationno;
+    console.log(username);
     if (req.body.password === req.body.passwordconfirm) {
         User.register(new User({
-                username: req.body.username,
-                name: req.body.name,
+                username: username,
+                name: req.body.fname + " " + req.body.mname + " " + req.body.lname,
                 email: req.body.email,
                 phone: req.body.phone,
                 gender: req.body.gender,
@@ -150,14 +152,15 @@ router.post("/studentregister", parser.single("image"), function(req, res) {
                         newUser.image.imageid = "##";
                     }
                     newUser.save();
-                    middleware.mail(req.body)
+                    console.log(newUser)
+                    middleware.mail(newUser)
                     req.flash("toast", "Registration Complete.")
                     res.redirect("/login");
                 }
             })
     }
     else {
-        req.flash("error", "Check Your Password");
+        req.flash("toast", "Check Your Password");
         res.redirect("/studentregister")
     }
 });

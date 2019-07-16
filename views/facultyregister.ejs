@@ -7,27 +7,31 @@
       <h3>Faculty Registration Form</h3>
       <form action="/facultyregister" enctype="multipart/form-data" method="POST">
         <div class="row">
-          <div class="input-field col s12 m6">
-            <label for=" fname">Username:</label>
-            <input type="text" name="username" class="validate" id=" fname" required>
+          <div class="input-field col s4">
+            <label for=" fname">First Name:</label>
+            <input type="text" name="fname" class="validate" id="fname" required>
           </div>
-          <div class="input-field col s12 m6">
-            <label for=" mname">Name:</label>
-            <input type="text" name="name" class="validate" id=" mname" required>
+          <div class="input-field col s4">
+            <label for=" mname">Middle Name:</label>
+            <input type="text" name="mname" class="validate" id="mname" required>
+          </div>
+          <div class="input-field col s4">
+            <label for=" lname">Last Name:</label>
+            <input type="text" name="lname" class="validate" id="lname" required>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s12 m6">
+          <div class="input-field col s6">
             <label for=" email">Email:</label>
             <input type="text" name="email" class="validate" id=" email" required>
           </div>
-          <div class="input-field col s12 m6">
+          <div class="input-field col s6">
             <label for=" registrationno">Registration No:</label>
             <input type="number" name="registrationno" class="validate" id=" registrationno" required>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s12 m6">
+          <div class="input-field col s6">
             <select name="gender" class="custom-select" required>
               <option value="" disabled selected>Gender:</option>
               <option value="male">Male</option>
@@ -36,7 +40,7 @@
             </select>
             <label for="gender">Select Gender:</label>
           </div>
-          <div class="input-field col s12 m6">
+          <div class="input-field col s6">
             <label for="phone">Mobile No:</label>
             <input type="number" name="phone" class="validate" id="phone" placeholder="Enter Mobile Number" required>
           </div>

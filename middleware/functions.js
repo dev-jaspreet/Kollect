@@ -28,7 +28,7 @@ functionObject.mail = function(mail) {
         to: mail.email,
         subject: "Questionnaire@" + mail.username,
         // text: "Congratulations, You have succesfully signed up on questionnaire-app-619.herokuapp.com",
-        html: 'Username: ' + mail.username + '<br></br> Email: ' + mail.email + '<br></br> Registration No: ' + mail.registrationno + "<br></br> Mobile Number: " + mail.phone + "<br></br> Click on the link to Login In: https://questionnaire-app-619.herokuapp.com/login",
+        html: 'Username: ' + mail.username + '<br></br> Name: ' + mail.name + '<br></br> Email: ' + mail.email + '<br></br> Registration No: ' + mail.registrationno + "<br></br> Mobile Number: " + mail.phone + "<br></br> Click on the link to Login In: https://questionnaire-app-619.herokuapp.com/login",
     };
     var transporter = nodemailer.createTransport({
         service: 'gmail',
