@@ -16,10 +16,11 @@
 </head>
 
 <body>
+  <% if(pageTitle != "Kollect"){ %>
   <nav class="navcustom">
     <div class="nav-wrapper">
       <div class="container custom">
-        <a href="/index" class="black-text brand-logo">Questionnaire</a>
+        <a href="/index" class="black-text brand-logo">Kollect</a>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
           <% if(currentuser && currentuser.type == "faculty"){ %>
@@ -72,3 +73,4 @@
     <li><a class="nav-link waves-effect waves-light" href="/logout">LogOut</a></li>
     <% } %>
   </ul>
+  <% } %>

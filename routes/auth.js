@@ -18,7 +18,7 @@ const storage = cloudinaryStorage({ cloudinary: cloudinary, folder: "Questionnai
 const parser = multer({ storage: storage });
 
 router.get("/", function(req, res) {
-    res.render("cover", { pageTitle: "Questionnaire" });
+    res.render("cover", { pageTitle: "Kollect" });
 })
 
 // HOMEPAGE

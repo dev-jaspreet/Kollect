@@ -1,6 +1,9 @@
 .container {
     margin-top: 2em;
 }
+.cover{
+    background-image: url("/2.png")
+}
 .custom{
     margin-top: 0em;
 }
@@ -39,6 +42,10 @@ body {
 
 .mystylebutton {
     background-color: #232931;
+    border-radius: 5px;
+}
+.mystylebuttoncover {
+    background-color: #4ecca3;
     border-radius: 5px;
 }
 
