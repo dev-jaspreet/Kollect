@@ -26,9 +26,9 @@ functionObject.mail = function(mail) {
     var mailOptions = {
         from: "questionnaire-app-619.herokuapp.com",
         to: mail.email,
-        subject: "Questionnaire@" + mail.username,
+        subject: "Questionnaire-" + mail.username,
         // text: "Congratulations, You have succesfully signed up on questionnaire-app-619.herokuapp.com",
-        html: 'Username: ' + mail.username + '<br></br> Name: ' + mail.name + '<br></br> Email: ' + mail.email + '<br></br> Registration No: ' + mail.registrationno + "<br></br> Mobile Number: " + mail.phone + "<br></br> Click on the link to Login In: https://questionnaire-app-619.herokuapp.com/login",
+        html: 'Username: ' + mail.username + '<br></br> Name: ' + mail.name + '<br></br> Email: ' + mail.email + '<br></br> Registration No: ' + mail.registrationno + "<br></br> Mobile Number: " + mail.phone + "<br></br> Click on the link to Login In: https://kollect-app-619.herokuapp.com/login",
     };
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -50,7 +50,7 @@ functionObject.bulkmail = function(body, emails) {
         to: emails,
         subject: "Question Set: " + body.name + " For " + body.uniqueid,
         // text: "Congratulations, You have succesfully signed up on questionnaire-app-619.herokuapp.com",
-        html: "Hello, <br></br> Your Feedback is Required For Question Set: " + body.name + "<br></br>Created On: " + body.created + "<br></br>Please Visit https://questionnaire-app-619.herokuapp.com For More Info." + "<br></br>Thank You.",
+        html: "Hello, <br></br> Your Feedback is Required For Question Set: " + body.name + "<br></br>Created On: " + body.created + "<br></br>Please Visit https://kollect-app-619.herokuapp.com For More Info." + "<br></br>Thank You.",
     };
     var transporter = nodemailer.createTransport({
         service: 'gmail',

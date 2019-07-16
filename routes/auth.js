@@ -81,7 +81,8 @@ router.get("/facultyregister", function(req, res) {
 
 // FACULTY REGISTER
 router.post("/facultyregister", parser.single("image"), function(req, res) {
-    var username = req.body.fname + "@" + req.body.registrationno;
+    var username = (req.body.fname + "@" + req.body.registrationno).toUpperCase();
+    username = username.replace(/[^a-zA-Z0-9@]/g, "");
     if (req.body.password === req.body.passwordconfirm) {
         User.register(new User({
                 username: username,
@@ -123,7 +124,8 @@ router.post("/facultyregister", parser.single("image"), function(req, res) {
 
 // STUDENT REGISTER
 router.post("/studentregister", parser.single("image"), function(req, res) {
-    var username = req.body.fname + "@" + req.body.registrationno;
+    var username = (req.body.fname + "@" + req.body.registrationno).toUpperCase();
+    username = username.replace(/[^a-zA-Z0-9@]/g, "");
     console.log(username);
     if (req.body.password === req.body.passwordconfirm) {
         User.register(new User({
