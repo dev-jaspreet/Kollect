@@ -49,23 +49,25 @@
   </nav>
 
   <ul class="sidenav my" id="mobile-demo">
-
-
     <% if(!currentuser){ %>
     <li><a class="nav-link waves-effect waves-light" href="/login">Login</a></li>
     <li><a class="nav-link waves-effect waves-light" href="/studentregister">SignUp</a></li>
     <% } else{ %>
-        <li><div class="user-view">
-      <div class="background mystyle">
-        <img src=>
+    <li>
+      <div class="user-view">
+        <div class="background mystyle">
+          <img src=>
+        </div>
+        <a href="#user"><img class="circle" src=<%=currentuser.image.imageurl%>></a>
+        <a href="#name"><span class="white-text name"><%=currentuser.name%></span></a>
+        <a href="#email"><span class="white-text email"><%=currentuser.email%></span></a>
       </div>
-      <a href="#user"><img class="circle" src=<%=currentuser.image.imageurl%>></a>
-      <a href="#name"><span class="white-text name"><%=currentuser.name%></span></a>
-      <a href="#email"><span class="white-text email"><%=currentuser.email%></span></a>
-    </div></li>
-        <% if(currentuser && currentuser.type == "faculty"){ %>
+    </li>
+    <% if(currentuser && currentuser.type == "faculty"){ %>
     <li><a class="nav-link waves-effect waves-light" href="/new">New Entry</a></li>
+    <% if(pageTitle == "Homepage"){ %>
     <li><a class="black-text nav-link waves-effect waves-light modal-trigger" href="#filter">Search</a></li>
+    <% } %>
     <% } %>
     <li>
       <a class="nav-link waves-effect waves-light" href="/<%=currentuser.type%>/<%=currentuser._id %>">Profile</a>
