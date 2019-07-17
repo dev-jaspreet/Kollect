@@ -1,5 +1,6 @@
 var express = require("express"),
     router = express.Router(),
+    fs = require("fs"),
     User = require("../models/user"),
     Question = require("../models/questionbank"),
     Answer = require("../models/answerbank"),
@@ -89,6 +90,130 @@ router.put("/display/:id", middleware.isLoggedIn, middleware.checkType, function
     });
 });
 
+//DISPLAY
+router.get("/display/:id", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+    Question.findById(req.params.id).populate("answer").populate("creator").exec(function(err, foundset) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            User.find({ uniqueid: foundset.uniqueid }, function(err, foundusers) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    if (foundset.creator.equals(req.user._id)) {
+                        middleware.submitted(foundset);
+                        middleware.pending(foundusers, foundset)
+                    }
+                    res.render("display", { foundusers: foundusers, foundset: foundset, pageTitle: foundset.name });
+                }
+            });
+        }
+    });
+});
+//DOWNLOAD FILE
+router.get("/download/:name", function(req, res) {
+    res.download("csvs/" + req.params.name)
+})
+
+// NEW DESTROY
+router.delete("/display/:id", middleware.isLoggedIn, function(req, res) {
+    var path;
+    Question.findById(req.params.id, function(err, foundqn) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            path = "csvs/" + foundqn.name + " " + foundqn.uniqueid + " SUBMITTED" + ".xlsx"
+            fs.unlinkSync(path)
+            path = "csvs/" + foundqn.name + " " + foundqn.uniqueid + " PENDING" + ".xlsx"
+            fs.unlinkSync(path)
+            User.find({ type: "student", uniqueid: foundqn.uniqueid }, function(err, foundusers) {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    for (var i = 0; i < foundusers.length; i++) {
+                        foundusers[i].questionresponse.remove(req.params.id);
+                        foundusers[i].questionpending.remove(req.params.id)
+                        foundusers[i].save()
+                    }
+
+                }
+            })
+        }
+    })
+    User.findById(req.user.id, function(err, founduser) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            founduser.questioncreator.remove(req.params.id);
+            founduser.save();
+        }
+    })
+    Answer.deleteMany({ questionid: req.params.id }, function(err) {
+        console.log(err);
+    });
+    Question.findByIdAndDelete(req.params.id, function(err) {
+        console.log(err)
+    });
+    req.flash("toast", "Deleted")
+    res.redirect("/index")
+})
+
+module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // DESTROY
 // router.delete("/display/:id", function(req, res) {
 //     var code;
@@ -160,66 +285,3 @@ router.put("/display/:id", middleware.isLoggedIn, middleware.checkType, function
 //     // });
 
 // });
-//DISPLAY
-router.get("/display/:id", middleware.isLoggedIn, middleware.checkType, function(req, res) {
-    Question.findById(req.params.id).populate("answer").populate("creator").exec(function(err, foundset) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            User.find({ uniqueid: foundset.uniqueid }, function(err, foundusers) {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    res.render("display", { foundusers: foundusers, foundset: foundset, pageTitle: foundset.name });
-                }
-            });
-        }
-    });
-});
-
-
-// NEW DESTROY
-router.delete("/display/:id", middleware.isLoggedIn, function(req, res) {
-    Question.findById(req.params.id, function(err, foundqn) {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            User.find({ type: "student", uniqueid: foundqn.uniqueid }, function(err, foundusers) {
-                if (err) {
-                    console.log(err)
-                }
-                else {
-                    console.log(foundusers)
-                    for (var i = 0; i < foundusers.length; i++) {
-                        foundusers[i].questionresponse.remove(req.params.id);
-                        foundusers[i].questionpending.remove(req.params.id)
-                        foundusers[i].save()
-                    }
-
-                }
-            })
-        }
-    })
-    User.findById(req.user.id, function(err, founduser) {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            founduser.questioncreator.remove(req.params.id);
-            founduser.save();
-        }
-    })
-    Answer.deleteMany({ questionid: req.params.id }, function(err) {
-        console.log(err);
-    });
-    Question.findByIdAndDelete(req.params.id, function(err) {
-        console.log(err)
-    });
-    req.flash("toast", "Deleted")
-    res.redirect("/index")
-})
-
-module.exports = router;

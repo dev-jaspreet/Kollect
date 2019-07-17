@@ -8,7 +8,6 @@ var express = require("express"),
     methodoverride = require("method-override"),
     flash = require("connect-flash"),
     compression = require("compression"),
-    passportlocalmongoose = require("passport-local-mongoose"),
     User = require("./models/user"),
     session = require("express-session");
 
@@ -60,10 +59,12 @@ app.use(function(req, res, next) {
 
 // LISTEN
 app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("Questionnaire Portal Started");
+    console.log("Kollect Portal Started");
 })
 
 app.get('*', function(req, res) {
     //   res.send('what???', 404);
-    res.redirect("/")
+      res.status(404).redirect("/index")
+    // res.sendStatus(404)
+    // res.redirect("/")
 });

@@ -88,12 +88,12 @@
             </tbody>
           </table>
         </div>
-        <div id="test4" class="col s12" style="padding-top:10px"><button id="btnExport" class="waves-effect waves-light btn mystylebutton"
-            onclick="javascript:xport.toCSV('testTable', '<%=foundset.name%>#<%=foundset.uniqueid%>');">
-            Export Submitted</button>
-          <button id="btnExport" class="waves-effect waves-light btn mystylebutton"
-            onclick="javascript:xport.toCSV('pendingTable', '<%=foundset.name%>#<%=foundset.uniqueid%>PENDING');">
-            Export Pending</button>
+        <div id="test4" class="col s12" style="padding-top:10px">
+          <p class="grey-text text-lighten-5">Here You Can Export Either Submitted Or Pending Responses.</p>
+          <% var file = foundset.name+ " "+ foundset.uniqueid+" SUBMITTED.xlsx" %>
+          <a class="waves-effect waves-light btn mystylebutton green darken-4" href="/download/<%=file%>">Export Submitted</a>
+          <% file = foundset.name+ " "+ foundset.uniqueid+" PENDING.xlsx" %>
+          <a class=" waves-effect waves-light btn mystylebutton red" href="/download/<%=file%>">Export Pending</a>
         </div>
       </div>
     </div>
@@ -117,7 +117,7 @@
 <div class="container">
   <div class="row">
     <div class="col s12 m6 l8">
-      <div class="card blue-grey darken-1">
+      <div class="card mystyle">
         <div class="card-content white-text">
           <span class="card-title"><strong><%=foundset.name%></strong></span>
           <p>Created By: <%=foundset.creator.name%></p>
@@ -196,7 +196,7 @@
       <div class="card">
         <div class="card-image waves-effect waves-block waves-light">
           <img class="activator"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwcoy8tQBj_I2vK6G6iq7m2q7PB4KjMGMr7V0XCLo02w4JZv8RrA">
+            src=<%=foundset.creator.image.imageurl%>>
         </div>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4"><strong><%=foundset.creator.name%></strong><i
@@ -205,7 +205,6 @@
         <div class="card-reveal">
           <span class="card-title grey-text text-darken-4"><%=foundset.creator.name%><i
               class="material-icons right">close</i></span>
-          <p>Here is some more information about this product that is only revealed once clicked on.</p>
           <p><strong>Username: </strong><%=foundset.creator.username%></p>
           <p><strong>Registration No: </strong><%=foundset.creator.registrationno%></p>
           <p><strong>Email: </strong><%=foundset.creator.email%></p>
@@ -231,5 +230,4 @@
   </div>
 </div>
 
-<script src="/scripts/table.js"></script>
 <% include ./partials/footer %>

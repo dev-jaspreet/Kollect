@@ -62,7 +62,13 @@ router.get("/search", function(req, res) {
             console.log(err)
         }
         else {
-            res.render("index", { qns: sorted, pageTitle: "Homepage" })
+            if (sorted.length) {
+                res.render("index", { qns: sorted, pageTitle: "Homepage" })
+            }
+            else {
+                req.flash("toast","Query String Did Not Match")
+                res.redirect("/index")
+            }
         }
     })
 })

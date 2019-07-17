@@ -123,7 +123,12 @@ router.get("/searchstudent", middleware.isLoggedIn, function(req, res) {
             console.log(err)
         }
         else {
-            res.render("searchresults", { pageTitle: "Search Results", foundusers: foundusers })
+            if (foundusers.length) {
+                res.render("searchresults", { pageTitle: "Search Results", foundusers: foundusers })
+            }
+            else {
+                res.redirect("/faculty/" + req.user.id)
+            }
         }
     })
 })

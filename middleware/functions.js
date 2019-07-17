@@ -1,5 +1,8 @@
-var nodemailer = require("nodemailer");
+var nodemailer = require("nodemailer"),
+    XLSX = require('xlsx');
+    
 var functionObject = {};
+
 var auth = {
     type: 'oauth2',
     user: 'developer.jaspreet.master7@gmail.com',
@@ -64,6 +67,56 @@ functionObject.bulkmail = function(body, emails) {
             console.log(JSON.stringify(res));
         }
     });
+}
+
+functionObject.submitted = function(foundset) {
+    var wb = XLSX.utils.book_new();
+    var sheet = "SheetJS";
+    var ws_data = [];
+    var header = [];
+    var data = [];
+    var name = "csvs/" + foundset.name + " " + foundset.uniqueid + " SUBMITTED" + ".xlsx"
+    for (var i = 0; i < foundset.question.length; i++) {
+        header.push(foundset.question[i])
+    }
+    header.push("Registration No")
+    ws_data.push(header)
+    for (var i = 0; i < foundset.answer.length; i++) {
+        for (var j = 0; j < foundset.answer[i].answer.length; j++) {
+            data.push(foundset.answer[i].answer[j])
+        }
+        data.push(foundset.answer[i].registrationno)
+        ws_data.push(data)
+        data = [];
+    }
+    var ws = XLSX.utils.aoa_to_sheet(ws_data);
+    XLSX.utils.book_append_sheet(wb, ws, sheet)
+    XLSX.writeFile(wb, name);
+}
+
+functionObject.pending = function(foundusers, foundset) {
+    var wb = XLSX.utils.book_new();
+    var sheet = "SheetJS";
+    var ws_data = [];
+    var header = ["Name", "Registration No"];
+    var data = [];
+    var name = "csvs/" + foundset.name + " " + foundset.uniqueid + " PENDING" + ".xlsx"
+    ws_data.push(header)
+    for (var i = 0; i < foundusers.length; i++) {
+        if (foundusers[i].questionpending.length) {
+            for (var j = 0; j < foundusers[i].questionpending.length; j++) {
+                if (foundset._id.equals(foundusers[i].questionpending[j]._id)) {
+                    data.push(foundusers[i].name)
+                    data.push(foundusers[i].registrationno)
+                    ws_data.push(data)
+                    data = [];
+                }
+            }
+        }
+    }
+    var ws = XLSX.utils.aoa_to_sheet(ws_data);
+    XLSX.utils.book_append_sheet(wb, ws, sheet)
+    XLSX.writeFile(wb, name);
 }
 
 module.exports = functionObject;

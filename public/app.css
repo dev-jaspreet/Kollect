@@ -1,12 +1,19 @@
+.sidenav-trigger {
+    color: black;
+}
+
 .container {
     margin-top: 2em;
 }
-.cover{
+
+.cover {
     background-image: url("/2.png")
 }
-.custom{
+
+.custom {
     margin-top: 0em;
 }
+
 .customborder {
     padding: 15px;
     border-radius: 5px;
@@ -44,6 +51,7 @@ body {
     background-color: #232931;
     border-radius: 5px;
 }
+
 .mystylebuttoncover {
     background-color: #4ecca3;
     border-radius: 5px;

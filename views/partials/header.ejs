@@ -11,6 +11,7 @@
   <meta name="description" content="Web portal designed to ease Data collection and Exportation.">
   <link rel="stylesheet" href="/app.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js" integrity="sha256-EQzGHttE5chohPPcfQRKms62H/ULAhcHrZw5PF1+/9A=" crossorigin="anonymous"></script>
   <link rel="icon" type="image/png" href="/logo.png">
   <title><%=pageTitle%></title>
 </head>
@@ -25,23 +26,22 @@
         <ul class="right hide-on-med-and-down">
           <% if(currentuser && currentuser.type == "faculty"){ %>
           <% if(pageTitle == "Homepage"){ %>
-          <li><a class="black-text nav-link tooltipped waves-effect waves-light modal-trigger material-icons"
-              data-position="bottom" data-tooltip="Filter Results" href="#filter">search</a></li>
+          <li><a class="black-text nav-link tooltipped waves-effect waves-light modal-trigger"
+              data-position="bottom" data-tooltip="Filter Results" href="#filter"><i class="material-icons">filter_list</i></a></li>
           <% } %>
           <li><a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom"
-              data-tooltip="Create A New Question Set" href="/new">New Entry</a></li>
+              data-tooltip="Create A New Question Set" href="/new"><i class="material-icons">assignment</i></a></li>
           <% } %>
           <% if(!currentuser){ %>
-          <li><a class="black-text nav-link waves-effect waves-light" href="/login">Login</a></li>
-          <li><a class="black-text nav-link waves-effect waves-light" href="/studentregister">SignUp</a></li>
+          <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-tooltip="Login" href="/login"><i class="material-icons">exit_to_app</i></a></li>
+          <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-tooltip="SignUp" href="/studentregister"><i class="material-icons">person_add</i></a></li>
           <% } else{ %>
           <li>
             <a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom"
-              data-tooltip="Check Your Profile" href="/<%=currentuser.type%>/<%=currentuser._id %>">User Logged In:
-              <%=currentuser.username %></a>
+              data-tooltip="Check Your Profile" href="/<%=currentuser.type%>/<%=currentuser._id %>"><i class="material-icons">account_circle</i></a>
           </li>
           <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-position="bottom"
-              data-tooltip="Bye!" href="/logout">LogOut</a></li>
+              data-tooltip="Bye!" href="/logout"><i class="material-icons">power_settings_new</i></a></li>
           <% } %>
         </ul>
       </div>
