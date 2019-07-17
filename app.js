@@ -64,7 +64,6 @@ app.listen(process.env.PORT, process.env.IP, function() {
 
 app.get('*', function(req, res) {
     //   res.send('what???', 404);
-      res.status(404).redirect("/index")
     // res.sendStatus(404)
-    // res.redirect("/")
+    res.redirect("/")
 });
