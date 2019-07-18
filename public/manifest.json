@@ -15,12 +15,28 @@
     "generated": "true",
     "icons": [
         {
-            "src": "https://kollect-app-619.herokuapp.com/logo.png",
+            "src": "https://kollect-app-619.herokuapp.com/icon/logo.png",
             "sizes": "385x400"
         },
         {
-            "src": "https://kollect-app-619.herokuapp.com/icon.png",
+            "src": "https://kollect-app-619.herokuapp.com/icon/xxhdpi.png",
             "sizes": "144x144"
+        },
+        {
+            "src": "https://kollect-app-619.herokuapp.com/icon/mdpi.png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "https://kollect-app-619.herokuapp.com/icon/xxxhdpi.png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "https://kollect-app-619.herokuapp.com/icon/xhdpi.png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "https://kollect-app-619.herokuapp.com/icon/hdpi.png",
+            "sizes": "72x72"
         }
     ]
 }
