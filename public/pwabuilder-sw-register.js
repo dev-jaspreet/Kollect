@@ -1,4 +1,4 @@
-// This is the service worker with the Advanced caching
+// This is the service worker with the Cache-first network
 
 // Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
 
