@@ -18,7 +18,13 @@ const storage = cloudinaryStorage({ cloudinary: cloudinary, folder: "Questionnai
 const parser = multer({ storage: storage });
 
 router.get("/", function(req, res) {
-    res.render("cover", { pageTitle: "Kollect" });
+    // res.render("cover", { pageTitle: "Kollect" });
+    if (req.isAuthenticated()) {
+        res.redirect("/index")
+    }
+    else {
+        res.render("cover", { pageTitle: "Kollect" })
+    }
 })
 
 // HOMEPAGE

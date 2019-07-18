@@ -1,6 +1,6 @@
 var nodemailer = require("nodemailer"),
     XLSX = require('xlsx');
-    
+
 var functionObject = {};
 
 var auth = {
