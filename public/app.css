@@ -14,8 +14,8 @@
     margin-top: 0em;
 }
 
-.customborder {
-    padding: 15px;
+.row .customborder {
+    padding: .75rem;
     border-radius: 5px;
 }
 
