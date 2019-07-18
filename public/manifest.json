@@ -17,6 +17,10 @@
         {
             "src": "https://kollect-app-619.herokuapp.com/logo.png",
             "sizes": "385x400"
+        },
+        {
+            "src": "https://kollect-app-619.herokuapp.com/icon.png",
+            "sizes": "144x149"
         }
     ]
 }
