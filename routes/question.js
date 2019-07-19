@@ -125,10 +125,16 @@ router.get("/lockunlock/:id/lock", middleware.isLoggedIn, function(req, res) {
             console.log(err)
         }
         else {
-            foundqn.complete = true;
-            foundqn.save();
-            req.flash("toast", foundqn.name + " :LOCKED")
-            res.redirect("/display/" + foundqn.id)
+            if (!foundqn.complete) {
+                foundqn.complete = true;
+                foundqn.save();
+                req.flash("toast", foundqn.name + " :LOCKED")
+                res.redirect("/display/" + foundqn.id)
+            }
+            else {
+                req.flash("toast", " Already Locked")
+                res.redirect("/display/" + foundqn.id)
+            }
         }
     })
 })
@@ -138,10 +144,16 @@ router.get("/lockunlock/:id/unlock", middleware.isLoggedIn, function(req, res) {
             console.log(err)
         }
         else {
-            foundqn.complete = false;
-            foundqn.save();
-            req.flash("toast", foundqn.name + " :UNLOCKED")
-            res.redirect("/display/" + foundqn.id)
+            if (foundqn.complete) {
+                foundqn.complete = false;
+                foundqn.save();
+                req.flash("toast", foundqn.name + " :UNLOCKED")
+                res.redirect("/display/" + foundqn.id)
+            }
+            else {
+                req.flash("toast", " Already Unlocked")
+                res.redirect("/display/" + foundqn.id)
+            }
         }
     })
 })

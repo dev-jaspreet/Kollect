@@ -96,10 +96,16 @@
                                     <% } %>
                                 </ul>
                                 <hr>
+                                <% if(founduser.questionpending[i].complete == false){ %>
                                 <a href="/display/<%=founduser.questionpending[i].id%>/feedback"
                                     class="btn waves-effect waves-light mystylebutton"><i
                                         class="material-icons right">feedback</i>Give
                                     Feedback</a>
+                                    <% }else{ %>
+                                    <a disabled href="/display/<%=founduser.questionpending[i].id%>/feedback"
+                                    class="btn waves-effect waves-light mystylebutton"><i
+                                        class="material-icons right">lock_outline</i>Feedback Locked</a>
+                                    <% } %>
                             </div>
                         </li>
                         <% } %>

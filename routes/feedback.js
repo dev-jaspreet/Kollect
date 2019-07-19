@@ -11,7 +11,13 @@ router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
             console.log(err)
         }
         else {
-            res.render("feedback", { foundset: foundset, pageTitle: "FEED" })
+            if (foundset.complete == false) {
+                res.render("feedback", { foundset: foundset, pageTitle: "FEED" })
+            }
+            else {
+                req.flash("toast", foundset.name + " Has Been Locked.")
+                res.redirect("/student/" + req.user.id)
+            }
         }
     })
 });
@@ -64,14 +70,20 @@ router.get("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
             console.log(err)
         }
         else {
-            Answer.find({ registrationno: req.user.registrationno, questionid: foundqn._id }, function(err, foundans) {
-                if (err) {
-                    console.log(err)
-                }
-                else {
-                    res.render("feedbackedit", { foundqn: foundqn, foundans: foundans, pageTitle: "Edit Response" })
-                }
-            })
+            if (foundqn.complete == false) {
+                Answer.find({ registrationno: req.user.registrationno, questionid: foundqn._id }, function(err, foundans) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        res.render("feedbackedit", { foundqn: foundqn, foundans: foundans, pageTitle: "Edit Response" })
+                    }
+                })
+            }
+            else {
+                req.flash("toast", foundqn.name + " Has Been Locked.")
+                res.redirect("/student/" + req.user.id)
+            }
         }
     })
 })

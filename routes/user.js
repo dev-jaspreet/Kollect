@@ -12,7 +12,7 @@ cloudinary.config({
     api_secret: 'kWUG7-H3SRCO3kSkgbK7BS-ForU'
 });
 
-const storage = cloudinaryStorage({ cloudinary: cloudinary, folder: "Questionnaire_profile", allowedFormats: ["jpg", "png"], transformation: [{ width: 500, height: 500, crop: "limit" }] });
+const storage = cloudinaryStorage({ cloudinary: cloudinary, folder: "Questionnaire_profile", allowedFormats: ["jpg", "png"], aspect_ratio: "1:1", transformation: ["media_lib_thumb"], width: 500, height: 500, crop: "scale" });
 const parser = multer({ storage: storage });
 
 router.get("/student/:id", middleware.isLoggedIn, function(req, res) {
@@ -67,7 +67,6 @@ router.put("/facultyedit/:id", parser.single("image"), middleware.isLoggedIn, fu
             console.log(err)
         }
         else {
-            console.log(req.file)
             if (req.file) {
                 cloudinary.v2.api.delete_resources(founduser.image.imageid,
                     function(error, result) { console.log(result); });
