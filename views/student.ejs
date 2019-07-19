@@ -1,112 +1,114 @@
 <% include ./partials/header %>
 
 <div class="container">
-  <div class="row">
-    <div class="col s12 m6 l4">
-      <div class="card my">
-        <div class="card-image waves-effect waves-block waves-light">
-          <img class="activator responsive-img"
-            src=<%= currentuser.image.imageurl %>>
+    <div class="row">
+        <div class="col s12 m6 l4">
+            <div class="card my">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator responsive-img" src=<%= currentuser.image.imageurl %>>
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4"><strong><%=currentuser.name%></strong><i
+                            class="material-icons right tooltipped" data-position="right"
+                            data-tooltip="Hello There!">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><%=currentuser.name%><i
+                            class="material-icons right">close</i></span>
+                    <p><strong>Username: </strong><%=currentuser.username%></p>
+                    <p><strong>Registration No: </strong><%=currentuser.registrationno%></p>
+                    <p><strong>Email: </strong><%=currentuser.email%></p>
+                    <p><strong>Phone No: </strong><%=currentuser.phone%></p>
+                    <a href="/studentedit/<%=currentuser._id%>"
+                        class="btn-floating right btn-large waves-effect waves-light red"><i
+                            class="material-icons">edit</i></a>
+                </div>
+            </div>
         </div>
-        <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4"><strong><%=currentuser.name%></strong><i
-              class="material-icons right tooltipped" data-position="right"
-              data-tooltip="Hello There!">more_vert</i></span>
+        <div class="col s12 m6 l8">
+            <div class="row">
+                <div class="col s12" style="padding-top:7px">
+                    <ul class="tabs" style="background-color: #4ecca3">
+                        <li class="tab col s3"><a class="active" href="#sub">Submitted</a></li>
+                        <li class="tab col s3"><a href="#pen">Pending</a></li>
+                    </ul>
+                </div>
+                <div id="sub" class="col s12">
+                    <% if(founduser.questionresponse.length){%>
+                    <ul class="collapsible">
+                        <% for(var i=0;i<founduser.questionresponse.length;i++){ %>
+                        <li>
+                            <div class="collapsible-header green darken-4"><i
+                                    class="material-icons">filter_drama</i><%=founduser.questionresponse[i].name%></div>
+                            <div class="collapsible-body mystyleother">
+                                <table id="testTable" class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <% for(var j=0;j<founduser.questionresponse[i].question.length;j++){%>
+                                            <th scope="col"><%= founduser.questionresponse[i].question[j] %></th>
+                                            <% }%>
+                                            <th scope="col">Registration No</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Result:</th>
+                                            <% console.log(founduser.answer[i].answer.length) %>
+                                            <% for(var k=0;k<founduser.answer[i].answer.length ;k++){ %>
+                                            <td><%= founduser.answer[i].answer[k]%></td>
+                                            <% }%>
+                                            <td><%= founduser.registrationno %></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <hr>
+                                <% if(founduser.questionresponse[i].complete == false){ %>
+                                <a href="/feedbackedit/<%=founduser.questionresponse[i].id%>"
+                                    class="btn waves-effect waves-light mystylebutton"><i
+                                        class="material-icons right">feedback</i>Edit
+                                    Feedback</a>
+                                <% }else{ %>
+                                <a disabled href="/feedbackedit/<%=founduser.questionresponse[i].id%>"
+                                    class="btn waves-effect waves-light mystylebutton"><i
+                                        class="material-icons right">feedback</i>Edit
+                                    Locked</a>
+                                <% } %>
+                            </div>
+                        </li>
+                        <% } %>
+                    </ul>
+                    <% } %>
+                </div>
+                <div id="pen" class="col s12">
+                    <% if(founduser.questionpending.length){%>
+                    <ul class="collapsible">
+                        <% for(var i=0;i<founduser.questionpending.length;i++){ %>
+                        <li>
+                            <div class="collapsible-header red darken-4"><i
+                                    class="material-icons">filter_drama</i><%=founduser.questionpending[i].name%></div>
+                            <div class="collapsible-body mystyleother">
+                                <ul class="collection">
+                                    <% for(var j=0;j<founduser.questionpending[i].question.length;j++){ %>
+                                    <li class="collection-item"><%=j+1%>: <%=founduser.questionpending[i].question[j]%>
+                                    </li>
+                                    <!--<p><%=j+1%>: <%=founduser.questionpending[i].question[j]%></p>-->
+                                    <% } %>
+                                </ul>
+                                <hr>
+                                <a href="/display/<%=founduser.questionpending[i].id%>/feedback"
+                                    class="btn waves-effect waves-light mystylebutton"><i
+                                        class="material-icons right">feedback</i>Give
+                                    Feedback</a>
+                            </div>
+                        </li>
+                        <% } %>
+                    </ul>
+                    <% }%>
+                </div>
+            </div>
         </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4"><%=currentuser.name%><i
-              class="material-icons right">close</i></span>
-          <p><strong>Username: </strong><%=currentuser.username%></p>
-          <p><strong>Registration No: </strong><%=currentuser.registrationno%></p>
-          <p><strong>Email: </strong><%=currentuser.email%></p>
-          <p><strong>Phone No: </strong><%=currentuser.phone%></p>
-          <a href="/studentedit/<%=currentuser._id%>"
-            class="btn-floating right btn-large waves-effect waves-light red"><i class="material-icons">edit</i></a>
-        </div>
-      </div>
     </div>
-    <div class="col s12 m6 l8">
-      <div class="row">
-        <div class="col s12">
-          <ul class="tabs"  style="background-color: #4ecca3">
-            <li class="tab col s3"><a class="active" href="#sub">Submitted</a></li>
-            <li class="tab col s3"><a href="#pen">Pending</a></li>
-          </ul>
-        </div>
-        <div id="sub" class="col s12">
-          <% if(founduser.questionresponse.length){%>
-          <ul class="collapsible">
-          <% for(var i=0;i<founduser.questionresponse.length;i++){ %>
-          
-            <li>
-              <div class="collapsible-header green darken-1"><i
-                  class="material-icons">filter_drama</i><%=founduser.questionresponse[i].name%></div>
-              <div class="collapsible-body mystyleother">
-                <table id="testTable" class="table table-bordered table-hover">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">#</th>
-                      <% for(var j=0;j<founduser.questionresponse[i].question.length;j++){%>
-                      <th scope="col"><%= founduser.questionresponse[i].question[j] %></th>
-                      <% }%>
-                      <th scope="col">Registration No</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">Result:</th>
-                      <% console.log(founduser.answer[i].answer.length) %>
-                      <% for(var k=0;k<founduser.answer[i].answer.length ;k++){ %>
-                      <td><%= founduser.answer[i].answer[k]%></td>
-                      <% }%>
-                      <td><%= founduser.registrationno %></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <hr>
-                <% if(founduser.questionresponse[i].complete == false){ %> 
-                <a href="/feedbackedit/<%=founduser.questionresponse[i].id%>" class="btn waves-effect waves-light mystylebutton">Edit
-                  Feedback</a>
-                  <% }else{ %>
-                  <a disabled href="/feedbackedit/<%=founduser.questionresponse[i].id%>" class="btn waves-effect waves-light mystylebutton">Edit
-                  Locked</a>
-                  <% } %>
-              </div>
-            </li>
-          
-          <% } %>
-          </ul>
-          <% } %>
-        </div>
-        <div id="pen" class="col s12">
-          <% if(founduser.questionpending.length){%>
-          <ul class="collapsible">
-          <% for(var i=0;i<founduser.questionpending.length;i++){ %>
-          
-            <li>
-              <div class="collapsible-header red lighten-1"><i
-                  class="material-icons">filter_drama</i><%=founduser.questionpending[i].name%></div>
-              <div class="collapsible-body mystyleother">
-                <ul class="collection">
-                  <% for(var j=0;j<founduser.questionpending[i].question.length;j++){ %>
-                  <li class="collection-item"><%=j+1%>: <%=founduser.questionpending[i].question[j]%></li>
-                  <!--<p><%=j+1%>: <%=founduser.questionpending[i].question[j]%></p>-->
-                  <% } %>
-                </ul>
-                <hr>
-                <a href="/display/<%=founduser.questionpending[i].id%>/feedback"
-                  class="btn waves-effect waves-light mystylebutton">Give
-                  Feedback</a>
-              </div>
-            </li>
-          
-          <% } %>
-          </ul>
-          <% }%>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 <% include ./partials/footer %>

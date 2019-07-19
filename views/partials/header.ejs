@@ -2,83 +2,88 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <link rel='manifest' href='/manifest.json'>
-  <meta name="google-site-verification" content="uzo-05OhLRUOrdwRYczs0lO0Brpzxpx6nGIDR73dTQw" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    integrity="sha256-OweaP/Ic6rsV+lysfyS4h+LM6sRwuO3euTYfr6M124g=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" integrity="sha256-PHcOkPmOshsMBC+vtJdVr5Mwb7r0LkSVJPlPrp/IMpU=" crossorigin="anonymous" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="theme-color" content="#4ecca3" />
-  <meta name="description" content="Web portal designed to ease Data collection and Exportation.">
-  <link rel="stylesheet" type="text/css" href="/app.css">
-  <link rel="icon" type="image/png" href="/icon/logo.png">
-  <title><%=pageTitle%></title>
+    <title><%=pageTitle%></title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Jaspreet Singh Deogan">
+    <meta name="google-site-verification" content="uzo-05OhLRUOrdwRYczs0lO0Brpzxpx6nGIDR73dTQw" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#4ecca3" />
+    <meta name="description" content="Web portal designed to ease Data collection and Exportation.">
+    <link rel='manifest' href='/manifest.json'>
+    <link rel="icon" type="image/png" href="/icon/logo.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        integrity="sha256-OweaP/Ic6rsV+lysfyS4h+LM6sRwuO3euTYfr6M124g=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+        integrity="sha256-PHcOkPmOshsMBC+vtJdVr5Mwb7r0LkSVJPlPrp/IMpU=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/app.css">
 </head>
 
 <body class="animated fadeIn">
-  <% if(pageTitle != "Kollect"){ %>
-  <nav class="navcustom">
-    <div class="nav-wrapper">
-      <div class="container custom">
-        <a href="/index" class="black-text brand-logo">Kollect</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-        <ul class="right hide-on-med-and-down">
-          <% if(currentuser && currentuser.type == "faculty"){ %>
-          <% if(pageTitle == "Homepage"){ %>
-          <li><a class="black-text nav-link tooltipped waves-effect waves-light modal-trigger" data-position="bottom"
-              data-tooltip="Filter Results" href="#filter"><i class="material-icons">filter_list</i></a></li>
-          <% } %>
-          <li><a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom"
-              data-tooltip="Create A New Question Set" href="/new"><i class="material-icons">assignment</i></a></li>
-          <% } %>
-          <% if(!currentuser){ %>
-          <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-tooltip="Login" href="/login"><i
-                class="material-icons">exit_to_app</i></a></li>
-          <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-tooltip="SignUp"
-              href="/studentregister"><i class="material-icons">person_add</i></a></li>
-          <% } else{ %>
-          <li>
-            <a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom"
-              data-tooltip=<%=currentuser.username%> href="/<%=currentuser.type%>/<%=currentuser._id %>"><i
-                class="material-icons">account_circle</i></a>
-          </li>
-          <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-position="bottom"
-              data-tooltip="Bye!" href="/logout"><i class="material-icons">power_settings_new</i></a></li>
-          <% } %>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <ul class="sidenav my" id="mobile-demo">
-    <% if(!currentuser){ %>
-    <li><a class="nav-link waves-effect waves-light" href="/login">Login</a></li>
-    <li><a class="nav-link waves-effect waves-light" href="/studentregister">SignUp</a></li>
-    <% } else{ %>
-    <li>
-      <div class="user-view">
-        <div class="background mystyle">
-          <img src=>
+    <% if(pageTitle != "Kollect"){ %>
+    <nav class="navcustom">
+        <div class="nav-wrapper">
+            <div class="container custom">
+                <a href="/index" class="black-text brand-logo">Kollect</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <% if(currentuser && currentuser.type == "faculty"){ %>
+                    <% if(pageTitle == "Homepage"){ %>
+                    <li><a class="black-text nav-link tooltipped waves-effect waves-light modal-trigger"
+                            data-position="bottom" data-tooltip="Filter Results" href="#filter"><i
+                                class="material-icons">filter_list</i></a></li>
+                    <% } %>
+                    <li><a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom"
+                            data-tooltip="Create A New Question Set" href="/new"><i
+                                class="material-icons">assignment</i></a></li>
+                    <% } %>
+                    <% if(!currentuser){ %>
+                    <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-tooltip="Login"
+                            href="/login"><i class="material-icons">exit_to_app</i></a></li>
+                    <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-tooltip="SignUp"
+                            href="/studentregister"><i class="material-icons">person_add</i></a></li>
+                    <% } else{ %>
+                    <li>
+                        <a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom"
+                            data-tooltip=<%=currentuser.username%>
+                            href="/<%=currentuser.type%>/<%=currentuser._id %>"><i
+                                class="material-icons">account_circle</i></a>
+                    </li>
+                    <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-position="bottom"
+                            data-tooltip="Bye!" href="/logout"><i class="material-icons">power_settings_new</i></a></li>
+                    <% } %>
+                </ul>
+            </div>
         </div>
-        <a href="#user"><img class="circle" src=<%=currentuser.image.imageurl%>></a>
-        <a href="#name"><span class="white-text name"><%=currentuser.name%></span></a>
-        <a href="#email"><span class="white-text email"><%=currentuser.email%></span></a>
-      </div>
-    </li>
-    <% if(currentuser && currentuser.type == "faculty"){ %>
-    <li><a class="nav-link waves-effect waves-light" href="/new">New Entry</a></li>
-    <% if(pageTitle == "Homepage"){ %>
-    <li><a class="black-text nav-link waves-effect waves-light modal-trigger" href="#filter">Search</a></li>
+    </nav>
+
+    <ul class="sidenav my" id="mobile-demo">
+        <% if(!currentuser){ %>
+        <li><a class="nav-link waves-effect waves-light" href="/login">Login</a></li>
+        <li><a class="nav-link waves-effect waves-light" href="/studentregister">SignUp</a></li>
+        <% } else{ %>
+        <li>
+            <div class="user-view">
+                <div class="background mystyle">
+                    <img src=>
+                </div>
+                <a href="#user"><img class="circle" src=<%=currentuser.image.imageurl%>></a>
+                <a href="#name"><span class="white-text name"><%=currentuser.name%></span></a>
+                <a href="#email"><span class="white-text email"><%=currentuser.email%></span></a>
+            </div>
+        </li>
+        <% if(currentuser && currentuser.type == "faculty"){ %>
+        <li><a class="nav-link waves-effect waves-light" href="/new">New Entry</a></li>
+        <% if(pageTitle == "Homepage"){ %>
+        <li><a class="black-text nav-link waves-effect waves-light modal-trigger" href="#filter">Search</a></li>
+        <% } %>
+        <% } %>
+        <li>
+            <a class="nav-link waves-effect waves-light" href="/<%=currentuser.type%>/<%=currentuser._id %>">Profile</a>
+        </li>
+        <li><a class="nav-link waves-effect waves-light" href="/logout">LogOut</a></li>
+        <% } %>
+    </ul>
     <% } %>
-    <% } %>
-    <li>
-      <a class="nav-link waves-effect waves-light" href="/<%=currentuser.type%>/<%=currentuser._id %>">Profile</a>
-    </li>
-    <li><a class="nav-link waves-effect waves-light" href="/logout">LogOut</a></li>
-    <% } %>
-  </ul>
-  <% } %>

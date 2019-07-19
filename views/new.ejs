@@ -1,216 +1,231 @@
 <% include ./partials/header %>
 
 <div class="container">
-  <div class="row">
-    <% if(!filter && !count){ %>
-    <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
-      <h3>Select Branch: Section: Year</h3>
-      <form action="/filter" method="POST">
-        <div class="row">
-          <div class="input-field col s4">
-            <select name="department" required>
-              <option value="" disabled selected>Department:</option>
-              <option value="cse">CSE</option>
-              <option value="it ">IT</option>
-              <option value="cce">CCE</option>
-            </select>
-            <label for="department">Select Department:</label>
-          </div>
-          <div class="input-field col s4">
-            <select name="section" required>
-              <option value="" disabled selected>Section:</option>
-              <option value="a">A</option>
-              <option value="b">B</option>
-              <option value="c">C</option>
-              <option value="d">D</option>
-            </select>
-            <label for="section">Select SECTION:</label>
-          </div>
-          <div class="input-field col s4">
-            <select name="year" required>
-              <option value="" disabled selected>Year:</option>
-              <option value="1">First</option>
-              <option value="2">Second</option>
-              <option value="3">Third</option>
-              <option value="4">Fourth</option>
-            </select>
-            <label for="year">Select Current Year:</label>
-          </div>
+    <div class="row">
+        <% if(!filter && !count){ %>
+        <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
+            <h3>Select Branch: Section: Year</h3>
+            <form action="/filter" method="POST">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <select name="department" required>
+                            <option value="" disabled selected>Department:</option>
+                            <option value="cse">CSE</option>
+                            <option value="it ">IT</option>
+                            <option value="cce">CCE</option>
+                        </select>
+                        <label for="department">Select Department:</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <select name="section" required>
+                            <option value="" disabled selected>Section:</option>
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+                        <label for="section">Select SECTION:</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <select name="year" required>
+                            <option value="" disabled selected>Year:</option>
+                            <option value="1">First</option>
+                            <option value="2">Second</option>
+                            <option value="3">Third</option>
+                            <option value="4">Fourth</option>
+                        </select>
+                        <label for="year">Select Current Year:</label>
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Next
+                    <i class="material-icons right">queue_play_next</i>
+                </button>
+            </form>
         </div>
-        <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Next
-          <i class="material-icons right">queue_play_next</i>
-        </button>
-      </form>
-    </div>
-    <div class="col s12 m6 l4 center">
-      <div class="preloader-wrapper big active">
-      <div class="spinner-layer spinner-blue">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
+        <div class="col s12 m6 l4 center">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="spinner-layer spinner-red">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
+        <div class="col s12 m6 l4 center">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div class="spinner-layer spinner-yellow">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
+        <% } %>
+        <% if(!count && filter){ %>
+        <div class="col s12 m6 l4"></div>
+        <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
+            <h3>How Many Question(s) Would Like To Create?</h3>
+            <form action="/count" method="POST">
+                <div class="input-field">
+                    <label for="count">Number Of Questions:</label>
+                    <input type="number" name="count" class="validate" id="count" required>
+                    <small id="emailHelp" class="form-text text-muted">This Number Cannot Be Changed</small>
+                </div>
+                <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Next
+                    <i class="material-icons right">queue_play_next</i>
+            </form>
         </div>
-      </div>
-
-      <div class="spinner-layer spinner-green">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
+        <div class="col s12 m6 l4 center">
+            <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-    </div>
-    <div class="col s12 m6 l4 center">
-      <div class="preloader-wrapper big active">
-      <div class="spinner-layer spinner-blue">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-
-      <div class="spinner-layer spinner-red">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-
-      <div class="spinner-layer spinner-yellow">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-
-      <div class="spinner-layer spinner-green">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-    </div>
-    </div>
-    <% } %>
-    <% if(!count && filter){ %>
-    <div class="col s12 m6 l4"></div>
-    <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
-      <h3>How Many Question(s) Would Like To Create?</h3>
-      <form action="/count" method="POST">
-        <div class="input-field">
-          <label for="count">Number Of Questions:</label>
-          <input type="number" name="count" class="validate" id="count" required>
-          <small id="emailHelp" class="form-text text-muted">This Number Cannot Be Changed</small>
-        </div>
-        <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Next
-          <i class="material-icons right">queue_play_next</i>
-      </form>
-    </div>
-    <div class="col s12 m6 l4 center">
-      <div class="preloader-wrapper big active">
-      <div class="spinner-layer spinner-blue">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-
-      <div class="spinner-layer spinner-red">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-
-      <div class="spinner-layer spinner-yellow">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-
-      <div class="spinner-layer spinner-green">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-    </div>
-    </div>
     </div>
     <% } %>
     <% if(count && filter){ %>
     <div class="col s12 m6 l4"></div>
     <div class="col s12 m6 l4"></div>
     <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
-      <h3>Enter Your Desired Questions.</h3>
-      <form action="/new" method="POST">
-        <div class="input-field">
-          <label for="name">Set Question Bank Name</label>
-          <input type="text" name="name" class="validate" id="name" required>
-          <small id="emailHelp" class="form-text text-muted">Needed</small>
-        </div>
-        <%    for(var i = 0; i < count; i++){ %>
-        <div class="input-field">
-          <label for="question"><%= i+1 %>: Question</label>
-          <input type="text" name="question" class="validate" id="question" required>
-        </div>
-        <%    } %>
-        <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Create
-          <i class="material-icons right">check</i>
-      </form>
+        <h3>Enter Your Desired Questions.</h3>
+        <form action="/new" method="POST">
+            <div class="input-field">
+                <label for="name">Set Question Bank Name</label>
+                <input type="text" name="name" class="validate" id="name" required>
+                <small id="emailHelp" class="form-text text-muted">Needed</small>
+            </div>
+            <%    for(var i = 0; i < count; i++){ %>
+            <div class="input-field">
+                <label for="question"><%= i+1 %>: Question</label>
+                <input type="text" name="question" class="validate" id="question" required>
+            </div>
+            <%    } %>
+            <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Create
+                <i class="material-icons right">check</i>
+        </form>
     </div>
     <% } %>
-  </div>
+</div>
 </div>
 
 <% include ./partials/footer %>

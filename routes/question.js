@@ -28,6 +28,7 @@ router.post("/new", function(req, res) {
             console.log(err);
         }
         else {
+            submitqn.complete = false;
             submitqn.creator = req.user._id;
             submitqn.uniqueid = qnid;
             submitqn.save();

@@ -72,7 +72,7 @@ router.get("/search", function(req, res) {
                 res.render("index", { qns: sorted, pageTitle: "Homepage" })
             }
             else {
-                req.flash("toast","Query String Did Not Match")
+                req.flash("toast", "Query String Did Not Match")
                 res.redirect("/index")
             }
         }

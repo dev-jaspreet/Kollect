@@ -1,45 +1,47 @@
 <% include ./partials/header %>
 
 <div class="container">
-  <div class="row">
-    <% qns.forEach(function(questionno){ %>
-    <div class="col s12 m6 l4">
-      <div class="card mystyle hoverable">
-        <div class="card-content white-text">
-          <span class="card-title"><%= questionno.name %></span>
-          <p>Created By: <%=questionno.creator.name%></p>
-          <p>Created On: <%= questionno.created.toDateString() %></p>
-          <p>Created For:
-            <%=questionno.uniqueid.substring(0,3).toUpperCase()%>
-            /<%=questionno.uniqueid.substring(3,4).toUpperCase()%>
-            /<%=questionno.uniqueid.substring(4,5).toUpperCase()%></p>
+    <div class="row">
+        <% qns.forEach(function(questionno){ %>
+        <div class="col s12 m6 l4">
+            <div class="card mystyle hoverable">
+                <div class="card-content white-text">
+                    <span class="card-title"><%= questionno.name %></span>
+                    <p>Created By: <%=questionno.creator.name%></p>
+                    <p>Created On: <%= questionno.created.toDateString() %></p>
+                    <p>Created For:
+                        <%=questionno.uniqueid.substring(0,3).toUpperCase()%>
+                        /<%=questionno.uniqueid.substring(3,4).toUpperCase()%>
+                        /<%=questionno.uniqueid.substring(4,5).toUpperCase()%></p>
+                </div>
+                <% if(currentuser.type == "faculty"){%>
+                <div class="card-action">
+                    <a class="waves-effect waves-light btn mystylebutton pulse"
+                        href="/display/<%= questionno._id%>">Open</a>
+                </div>
+                <% } %>
+            </div>
         </div>
-        <% if(currentuser.type == "faculty"){%>
-        <div class="card-action">
-          <a class="waves-effect waves-light btn mystylebutton pulse" href="/display/<%= questionno._id%>">Open</a>
-        </div>
-        <% } %>
-      </div>
+        <% })%>
     </div>
-    <% })%>
-  </div>
 </div>
 
-  <div id="filter" class="modal customborder mystyle">
+<div id="filter" class="modal customborder mystyle">
     <div class="modal-content mystyle white-text">
-      <h4>Search</h4>
-      <nav style="border-radius:100px">
-        <div class="nav-wrapper my" style="border-radius:100px">
-          <form action="/search" method="GET">
-            <div class="input-field">
-              <input id="search" type="search" style="border-radius:100px" name="search" placeholder="E.g. CSE/B/4 or CSE/B or CSE" required>
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
+        <h4>Search</h4>
+        <nav style="border-radius:100px">
+            <div class="nav-wrapper my" style="border-radius:100px">
+                <form action="/search" method="GET">
+                    <div class="input-field">
+                        <input id="search" type="search" style="border-radius:100px" name="search"
+                            placeholder="E.g. CSE/B/4 or CSE/B or CSE" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
             </div>
-          </form>
-        </div>
-      </nav>
+        </nav>
     </div>
-  </div>
+</div>
 
 <% include ./partials/footer %>
