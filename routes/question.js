@@ -117,6 +117,33 @@ router.get("/download/:name", function(req, res) {
     res.download("csvs/" + req.params.name)
 })
 
+//LOCK AND UNLOCK   
+router.get("/lockunlock/:id/lock", middleware.isLoggedIn, function(req, res) {
+    Question.findById(req.params.id, function(err, foundqn) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            foundqn.complete = true;
+            foundqn.save();
+            req.flash("toast", foundqn.name + " :LOCKED")
+            res.redirect("/display/" + foundqn.id)
+        }
+    })
+})
+router.get("/lockunlock/:id/unlock", middleware.isLoggedIn, function(req, res) {
+    Question.findById(req.params.id, function(err, foundqn) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            foundqn.complete = false;
+            foundqn.save();
+            req.flash("toast", foundqn.name + " :UNLOCKED")
+            res.redirect("/display/" + foundqn.id)
+        }
+    })
+})
 // NEW DESTROY
 router.delete("/display/:id", middleware.isLoggedIn, function(req, res) {
     var path;

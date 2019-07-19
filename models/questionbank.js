@@ -7,15 +7,16 @@ var questionSchema = mongoose.Schema({
         default: Date.now
     },
     creator: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User"
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
     question: [],
     answer: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Answer"
     }],
-    uniqueid: "String"
+    uniqueid: String,
+    complete: Boolean
 })
 
 module.exports = mongoose.model("Question", questionSchema);

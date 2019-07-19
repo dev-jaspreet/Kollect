@@ -22,6 +22,7 @@ router.get("/student/:id", middleware.isLoggedIn, function(req, res) {
         }
         else {
             if (founduser._id.equals(req.user.id)) {
+                founduser.save()
                 res.render("student", { founduser: founduser, pageTitle: req.user.username })
             }
             else {
