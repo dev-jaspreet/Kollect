@@ -5,11 +5,10 @@
 .container {
     margin-top: 2em;
 }
-
-.cover {
-    background-image: url("/2.png")
+.customtoast{
+    background-color:#4ecca3;
+    color:black;
 }
-
 .custom {
     margin-top: 0em;
 }
