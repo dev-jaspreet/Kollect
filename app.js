@@ -19,7 +19,7 @@ var authRoutes = require("./routes/auth"),
 mongoose.connect("mongodb+srv://jaspreet:singh@cluster0-aw4yr.mongodb.net/Kollect?retryWrites=true&w=majority", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, autoIndex: true });
 
 // mongoose.connect("mongodb://localhost/Questionnaire", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
-
+app.enable("trust proxy");
 app.use(flash());
 app.set("view engine", "ejs");
 app.use(express.static("public"));

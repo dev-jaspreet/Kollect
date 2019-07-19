@@ -5,10 +5,12 @@
 .container {
     margin-top: 2em;
 }
-.customtoast{
-    background-color:#4ecca3;
-    color:black;
+
+.customtoast {
+    background-color: #4ecca3;
+    color: black;
 }
+
 .custom {
     margin-top: 0em;
 }
