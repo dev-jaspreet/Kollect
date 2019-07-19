@@ -20,12 +20,24 @@
                         <%=foundset.uniqueid.substring(4,5).toUpperCase()%></p>
                     <p>Created on: <%= foundset.created.toDateString() %></p>
                     <hr>
-                    <a class="waves-effect waves-light btn mystylebutton" href="/display/<%=foundset._id%>/edit"><i
-                            class="material-icons right">edit</i>Edit</a>
-                    <a class="waves-effect waves-light btn mystylebutton" href="/lockunlock/<%=foundset._id%>/lock"><i
-                            class="material-icons right">lock_outline</i>Lock</a>
-                    <a class="waves-effect waves-light btn mystylebutton" href="/lockunlock/<%=foundset._id%>/unlock"><i
-                            class="material-icons right">lock_open</i>Unlock</a>
+                    <div class="show-on-small hide-on-med-and-up center-align">
+                        <a class="waves-effect waves-light btn mystylebutton" href="/display/<%=foundset._id%>/edit"><i
+                                class="material-icons ">edit</i></a>
+                        <a class="waves-effect waves-light btn mystylebutton"
+                            href="/lockunlock/<%=foundset._id%>/lock"><i class="material-icons ">lock_outline</i></a>
+                        <a class="waves-effect waves-light btn mystylebutton"
+                            href="/lockunlock/<%=foundset._id%>/unlock"><i class="material-icons ">lock_open</i></a>
+                    </div>
+                    <div class="hide-on-small-only show-on-medium-and-up">
+                        <a class="waves-effect waves-light btn mystylebutton" href="/display/<%=foundset._id%>/edit"><i
+                                class="material-icons right">edit</i>Edit</a>
+                        <a class="waves-effect waves-light btn mystylebutton"
+                            href="/lockunlock/<%=foundset._id%>/lock"><i
+                                class="material-icons right">lock_outline</i>Lock</a>
+                        <a class="waves-effect waves-light btn mystylebutton"
+                            href="/lockunlock/<%=foundset._id%>/unlock"><i
+                                class="material-icons right">lock_open</i>Unlock</a>
+                    </div>
                 </div>
             </div>
         </div>
