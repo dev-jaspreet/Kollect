@@ -24,8 +24,8 @@ async function share(title) {
       const data = ev.request.data;
 
       data.properties.title = title;
-      data.properties.url = url;
-      data.setText(text);
+      // data.properties.url = url;
+      // data.setText(text);
     });
 
     DataTransferManager.showShareUI();
