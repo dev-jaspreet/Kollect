@@ -69,9 +69,9 @@ app.get('*', function(req, res) {
     res.redirect("/")
 });
 
-app.use(function(req, res, next) {
-    if (!req.secure) {
-        return res.redirect("https://kollect-app-619.herokuapp.com/" + req.originalUrl);
-    }
-    next();
-});
+// app.use(function(req, res, next) {
+//     if (!req.secure) {
+//         return res.redirect("https://kollect-app-619.herokuapp.com/" + req.originalUrl);
+//     }
+//     next();
+// });
