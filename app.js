@@ -68,3 +68,10 @@ app.get('*', function(req, res) {
     // res.sendStatus(404)
     res.redirect("/")
 });
+
+app.use(function(req, res, next) {
+    if (!req.secure) {
+        return res.redirect("https://kollect-app-619.herokuapp.com/" + req.originalUrl);
+    }
+    next();
+});
