@@ -15,7 +15,7 @@
  * @returns {boolean} success
  */
 
-async function share(title, text, url) {
+async function share(title) {
   if (window.Windows) {
     const DataTransferManager = window.Windows.ApplicationModel.DataTransfer.DataTransferManager;
 
