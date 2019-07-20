@@ -21,22 +21,28 @@
                     <p>Created on: <%= foundset.created.toDateString() %></p>
                     <hr>
                     <div class="show-on-small hide-on-med-and-up center-align">
-                        <a class="waves-effect waves-light btn mystylebutton" href="/display/<%=foundset._id%>/edit"><i
+                        <a class="waves-effect waves-light btn-large mystylebutton" href="/display/<%=foundset._id%>/edit"><i
                                 class="material-icons ">edit</i></a>
-                        <a class="waves-effect waves-light btn mystylebutton"
+                                <% if(!foundset.complete){ %>
+                        <a class="waves-effect waves-light btn-large mystylebutton"
                             href="/lockunlock/<%=foundset._id%>/lock"><i class="material-icons ">lock_outline</i></a>
-                        <a class="waves-effect waves-light btn mystylebutton"
+                            <% }else{ %>
+                        <a class="waves-effect waves-light btn-large mystylebutton"
                             href="/lockunlock/<%=foundset._id%>/unlock"><i class="material-icons ">lock_open</i></a>
+                            <% } %>
                     </div>
                     <div class="hide-on-small-only show-on-medium-and-up">
                         <a class="waves-effect waves-light btn mystylebutton" href="/display/<%=foundset._id%>/edit"><i
                                 class="material-icons right">edit</i>Edit</a>
+                                <% if(!foundset.complete){ %>
                         <a class="waves-effect waves-light btn mystylebutton"
                             href="/lockunlock/<%=foundset._id%>/lock"><i
                                 class="material-icons right">lock_outline</i>Lock</a>
+                                <% }else{ %>
                         <a class="waves-effect waves-light btn mystylebutton"
                             href="/lockunlock/<%=foundset._id%>/unlock"><i
                                 class="material-icons right">lock_open</i>Unlock</a>
+                                <% } %>
                     </div>
                 </div>
             </div>
@@ -59,7 +65,7 @@
                             class="material-icons right">delete</i>Delete</a>
                             </div>
                             <div class="show-on-small hide-on-med-and-up">
-                    <a class="waves-effect waves-light btn modal-trigger mystylebutton red" href="#modal1"><i
+                    <a class="waves-effect waves-light btn-large modal-trigger mystylebutton red" href="#modal1"><i
                             class="material-icons">delete</i></a>
                             </div>
                 </div>
@@ -127,10 +133,10 @@
                             </div>
                             <div class="show-on-small hide-on-med-and-up">
                                 <% var file = foundset.name+ " "+ foundset.uniqueid+" SUBMITTED.xlsx" %>
-                    <a class="waves-effect waves-light btn mystylebutton green darken-4" href="/download/<%=file%>"><i
+                    <a class="waves-effect waves-light btn-large mystylebutton green darken-4" href="/download/<%=file%>"><i
                             class="material-icons">archive</i></a>
                     <% file = foundset.name+ " "+ foundset.uniqueid+" PENDING.xlsx" %>
-                    <a class=" waves-effect waves-light btn mystylebutton red" href="/download/<%=file%>"><i
+                    <a class=" waves-effect waves-light btn-large mystylebutton red" href="/download/<%=file%>"><i
                             class="material-icons">announcement</i></a>
                             </div>
                 </div>

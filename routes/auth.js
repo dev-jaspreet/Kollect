@@ -13,7 +13,7 @@ cloudinary.config({
     api_key: '398993397148792',
     api_secret: 'kWUG7-H3SRCO3kSkgbK7BS-ForU'
 });
-
+var defaultimage = "https://res.cloudinary.com/dq1nhsxii/image/upload/v1563621730/Questionnaire_profile/default_j9ok4c.jpg";
 const storage = cloudinaryStorage({ cloudinary: cloudinary, folder: "Questionnaire_profile", allowedFormats: ["jpg", "png"], transformation: [{ width: 500, height: 500, crop: "limit" }] });
 const parser = multer({ storage: storage });
 
@@ -118,7 +118,7 @@ router.post("/facultyregister", parser.single("image"), function(req, res) {
                         newUser.image.imageid = req.file.public_id;
                     }
                     else {
-                        newUser.image.imageurl = "https://banner2.kisspng.com/20180521/ocp/kisspng-computer-icons-user-profile-avatar-french-people-5b0365e4f1ce65.9760504415269493489905.jpg";
+                        newUser.image.imageurl = defaultimage;
                         newUser.image.imageid = "##";
                     }
                     newUser.save();
@@ -162,7 +162,7 @@ router.post("/studentregister", parser.single("image"), function(req, res) {
                         newUser.image.imageid = req.file.public_id;
                     }
                     else {
-                        newUser.image.imageurl = "https://banner2.kisspng.com/20180521/ocp/kisspng-computer-icons-user-profile-avatar-french-people-5b0365e4f1ce65.9760504415269493489905.jpg";
+                        newUser.image.imageurl = defaultimage;
                         newUser.image.imageid = "##";
                     }
                     newUser.save();

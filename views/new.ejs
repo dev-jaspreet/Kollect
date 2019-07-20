@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="row">
-        <% if(!filter && !count){ %>
+        <% if(!filter && count == -1){ %>
         <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
             <h3>Select Branch: Section: Year</h3>
             <form action="/filter" method="POST">
@@ -139,15 +139,16 @@
             </div>
         </div>
         <% } %>
-        <% if(!count && filter){ %>
+        <% if(count == -1 && filter){ %>
         <div class="col s12 m6 l4"></div>
         <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
             <h3>How Many Question(s) Would Like To Create?</h3>
             <form action="/count" method="POST">
                 <div class="input-field">
-                    <label for="count">Number Of Questions:</label>
-                    <input type="number" name="count" class="validate" id="count" required>
-                    <small id="emailHelp" class="form-text text-muted">This Number Cannot Be Changed</small>
+                    <label for="count">Number Of Questions: (Optional)</label>
+                    <input type="number" name="count" id="count">
+                    <small id="emailHelp" class="form-text text-muted">This Number Can Be Changed Later, By Default:
+                        0</small>
                 </div>
                 <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Next
                     <i class="material-icons right">queue_play_next</i>
@@ -203,7 +204,7 @@
         </div>
     </div>
     <% } %>
-    <% if(count && filter){ %>
+    <% if(count != -1 && filter){ %>
     <div class="col s12 m6 l4"></div>
     <div class="col s12 m6 l4"></div>
     <div class="col s12 m6 l4 z-depth-1 mystyleother customborder">
@@ -214,18 +215,52 @@
                 <input type="text" name="name" class="validate" id="name" required>
                 <small id="emailHelp" class="form-text text-muted">Needed</small>
             </div>
-            <%    for(var i = 0; i < count; i++){ %>
-            <div class="input-field">
-                <label for="question"><%= i+1 %>: Question</label>
-                <input type="text" name="question" class="validate" id="question" required>
+            <div id="customdiv">
+                <% var lasti; %>
+                <%    for(var i = 0; i < count; i++){ %>
+                <div class="input-field">
+                    <label for="question"><%= i+1 %>: Question</label>
+                    <input type="text" name="question" class="validate" id="question" required>
+                </div>
+                <% lasti = i%>
+                <%    } %>
             </div>
-            <%    } %>
             <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Create
-                <i class="material-icons right">check</i>
+                <i class="material-icons right">check</i></button>
         </form>
+        <hr>
+        <div class="row show-on-medium-and-up hide-on-small-only">
+            <div class="col s6"><button href="/student/<%=currentuser.id%>"
+                    class="col s12 waves-effect waves-light btn mystylebutton green darken-4"><i
+                        class="material-icons">add</i></button></div>
+            <div class="col s6"><button type="submit"
+                    class="col s12 waves-effect waves-light btn mystylebutton red darken-4"><i
+                        class="material-icons">clear</i></button></div>
+        </div>
+        <div class="row show-on-small hide-on-med-and-up">
+            <div class="col s6"><button href="/student/<%=currentuser.id%>"
+                    class="col s12 waves-effect waves-light btn mystylebutton green darken-4"
+                    style="border-radius:100px"><i class="material-icons">add</i></button></div>
+            <div class="col s6"><button type="submit"
+                    class="col s12 waves-effect waves-light btn mystylebutton red darken-4"
+                    style="border-radius:100px"><i class="material-icons">clear</i></button></div>
+        </div>
+        <!--    <div class="n">-->
+        <!--<button class="dropdown-trigger btn waves-effect waves-light mystylebutton right-align" data-target='dropdown1' >Insert</button>-->
+        <!--        <button class="col s6 btn waves-effect waves-light mystylebutton" >Add</button>-->
+        <!--<button class="col s6 btn waves-effect waves-light mystylebutton" >Remove</button>-->
+        <!--    </div>-->
     </div>
+    <script src="/scripts/new.js"></script>
     <% } %>
 </div>
 </div>
+<!--<ul id='dropdown1' class='dropdown-content'>-->
+<!--    <li><a href="#!">Text</a></li>-->
+<!--    <li><a href="#!">Date</a></li>-->
+<!--    <li><a href="#!">Email</a></li>-->
+<!--    <li><a href="#!">Number</a></li>-->
+<!--    <li><a href="#!">Url</a></li>-->
+<!--  </ul>-->
 
 <% include ./partials/footer %>

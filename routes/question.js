@@ -9,19 +9,23 @@ var express = require("express"),
 var qnid;
 // NEW QUESTION
 router.get("/new", middleware.isLoggedIn, middleware.checkType, function(req, res) {
-    res.render("new", { count: false, filter: false, pageTitle: "Selection: Creation Page" });
+    res.render("new", { count: -1, filter: false, pageTitle: "Selection: Creation Page" });
 });
 
-router.post("/filter", function(req, res) {
+router.post("/filter", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     qnid = req.body.department + req.body.section + req.body.year;
-    res.render("new", { count: false, filter: true, pageTitle: "Count: Creation Page" });
+    res.render("new", { count: -1, filter: true, pageTitle: "Count: Creation Page" });
 });
 
-router.post("/count", middleware.isLoggedIn, function(req, res) {
-    res.render("new", { count: req.body.count, filter: true, pageTitle: "Questions: Creation Page" });
+router.post("/count", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+    var count = 0;
+    if (req.body.count) {
+        count = req.body.count
+    }
+    res.render("new", { count: count, filter: true, pageTitle: "Questions: Creation Page" });
 });
 
-router.post("/new", function(req, res) {
+router.post("/new", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     // req.body.Question.body = req.sanitize(req.body.Question.body);
     Question.create(req.body, function(err, submitqn) {
         if (err) {

@@ -21,12 +21,23 @@
                 </div>
                 <%    } %>
                 <div class="row">
-                    <div class="col s6"><a href="/student/<%=currentuser.id%>"
+                    <div class="hide-on-small-only show-on-medium-and-up">
+                        <div class="col s6"><a href="/student/<%=currentuser.id%>"
+                            class="col s12 waves-effect waves-light btn mystylebutton red darken-4"
+                            ><i class="material-icons">clear</i></a></div>
+                    <div class="col s6"><button type="submit"
+                            class="col s12 waves-effect waves-light btn mystylebutton green darken-4"
+                            ><i class="material-icons">check</i></button></div>
+                    </div>
+                    <div class="show-on-small hide-on-med-and-up">
+                        <div class="col s6"><a href="/student/<%=currentuser.id%>"
                             class="col s12 waves-effect waves-light btn-large mystylebutton red darken-4"
                             style="border-radius:100px"><i class="material-icons">clear</i></a></div>
                     <div class="col s6"><button type="submit"
                             class="col s12 waves-effect waves-light btn-large mystylebutton green darken-4"
                             style="border-radius:100px"><i class="material-icons">check</i></button></div>
+                    </div>
+                    
                 </div>
             </form>
         </div>
