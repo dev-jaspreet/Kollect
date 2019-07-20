@@ -54,7 +54,6 @@
                                     <tbody>
                                         <tr>
                                             <th scope="row">Result:</th>
-                                            <% console.log(founduser.answer[i].answer.length) %>
                                             <% for(var k=0;k<founduser.answer[i].answer.length ;k++){ %>
                                             <td><%= founduser.answer[i].answer[k]%></td>
                                             <% }%>
@@ -88,9 +87,9 @@
                             <div class="collapsible-header red darken-4"><i
                                     class="material-icons">filter_drama</i><%=founduser.questionpending[i].name%></div>
                             <div class="collapsible-body mystyleother">
-                                <ul class="collection">
+                                <ul class="collection ">
                                     <% for(var j=0;j<founduser.questionpending[i].question.length;j++){ %>
-                                    <li class="collection-item"><%=j+1%>: <%=founduser.questionpending[i].question[j]%>
+                                    <li class="collection-item" style="background-color: #eeeeee"><%=j+1%>: <%=founduser.questionpending[i].question[j]%>
                                     </li>
                                     <!--<p><%=j+1%>: <%=founduser.questionpending[i].question[j]%></p>-->
                                     <% } %>
