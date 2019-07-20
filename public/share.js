@@ -15,7 +15,7 @@
  * @returns {boolean} success
  */
 
-async function share(title) {
+async function share(title, text) {
   if (window.Windows) {
     const DataTransferManager = window.Windows.ApplicationModel.DataTransfer.DataTransferManager;
 
@@ -25,7 +25,7 @@ async function share(title) {
 
       data.properties.title = title;
       // data.properties.url = url;
-      // data.setText(text);
+      data.setText(text);
     });
 
     DataTransferManager.showShareUI();
@@ -35,7 +35,7 @@ async function share(title) {
     try {
       await navigator.share({
         title: title,
-        // text: text,
+        text: text,
         // url: url,
       });
 
