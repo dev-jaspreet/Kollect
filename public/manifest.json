@@ -19,6 +19,10 @@
             "sizes": "385x400"
         },
         {
+            "src": "https://kollect-app-619.herokuapp.com/icon/512.png",
+            "sizes": "512x512"
+        },
+        {
             "src": "https://kollect-app-619.herokuapp.com/icon/xxhdpi.png",
             "sizes": "144x144"
         },
