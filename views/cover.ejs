@@ -1,29 +1,48 @@
 <% include ./partials/header %>
-
 <div class="container">
-  
-  <div class="row">
-      <div class="carousel carousel-slider">
-    <a class="carousel-item" href="#one!"><img src="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></a>
-    <a class="carousel-item" href="#two!"><img src="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></a>
-    <a class="carousel-item" href="#three!"><img src="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></a>
-    <a class="carousel-item" href="#four!"><img src="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></a>
-    <a class="carousel-item" href="#five!"><img src="https://images.pexels.com/photos/248797/pexels-photo-248797.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></a>
+    <div class="row">
+        <div class="col s12 center ">
+            <div class="card-panel my">
+                <h1>Kollect</h1>
+                <h5>Web portal designed to ease Data collection and Exportation.</h5>
+                <a href="/studentregister" class="waves-effect tooltipped waves-light btn-large mystylebutton"
+                    data-position="bottom" data-tooltip="Register" style="border-radius:100px"><i
+                        class="material-icons">person_add</i></a>
+                <a href="/login" class="waves-effect waves-light tooltipped btn-large mystylebutton"
+                    data-position="bottom" data-tooltip="Login" style="border-radius:100px"><i
+                        class="material-icons">exit_to_app</i></a>
+                <button class="waves-effect waves-light btn-large tooltipped mystylebutton" data-position="bottom"
+                    data-tooltip="Install On Your Phone" style="border-radius:100px" onclick="install()"><i
+                        class="material-icons">get_app</i></button>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col s12 z-depth-1 my center customborder">
-      <h1>Kollect</h1>
-      <h5>Web portal designed to ease Data collection and Exportation.</h5>
-      <a href="/studentregister" class="waves-effect tooltipped waves-light btn-large mystylebutton" data-position="bottom"
-              data-tooltip="Register" style="border-radius:100px"><i class="material-icons">person_add</i></a>
-      <a href="/login" class="waves-effect waves-light tooltipped btn-large mystylebutton" data-position="bottom"
-              data-tooltip="Login" style="border-radius:100px"><i class="material-icons">exit_to_app</i></a>
-      <button class="waves-effect waves-light btn-large tooltipped mystylebutton" data-position="bottom"
-              data-tooltip="Install On Your Phone" style="border-radius:100px" onclick="install()"><i class="material-icons">get_app</i></button>
-      <p></p>
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="card-panel my">
+                <h3>MongoDB</h3>
+                <p class="black-text">MongoDB is a cross-platform document-oriented database program. Classified as a
+                    NoSQL database program, MongoDB uses JSON-like documents with schema.
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="card-panel my">
+                <h3>Express</h3>
+                <p class="black-text">Express is a minimal and flexible Node.js web application framework that provides
+                    a robust set of features for web and mobile applications.
+                </p>
+            </div>
+        </div>
+        <div class="col s12 m4">
+            <div class="card-panel my">
+                <h3>MaterializeCSS</h3>
+                <p class="black-text">Created and designed by Google, Material Design is a design language that combines
+                    the classic principles of successful design along with innovation and technology.
+                </p>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script src="/pwabuilder-sw-register.js"></script>
