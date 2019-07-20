@@ -35,8 +35,8 @@ async function share(title) {
     try {
       await navigator.share({
         title: title,
-        text: text,
-        url: url,
+        // text: text,
+        // url: url,
       });
 
       return true;
