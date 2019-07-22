@@ -14,10 +14,17 @@
                 </div>
                 <hr>
                 <%    for(var i = 0; i < foundset.question.length; i++){ %>
+                <% if(foundset.key[i] == "date"){%>
                 <div class="input-field">
                     <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
-                    <input type="text" name="answer" class="validate" id="answer" required>
+                    <input type="text" name="answer" class="datepicker" id="answer" required>
                 </div>
+                <% }else{ %>
+                <div class="input-field">
+                    <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
+                    <input type=<%=foundset.key[i]%> name="answer" class="validate" id="answer" required>
+                </div>
+                <%    } %>
                 <%    } %>
                 <div class="row">
                     <div class="hide-on-small-only show-on-medium-and-up">

@@ -27,11 +27,13 @@ router.post("/count", middleware.isLoggedIn, middleware.checkType, function(req,
 
 router.post("/new", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     // req.body.Question.body = req.sanitize(req.body.Question.body);
+    var key = (req.body.action).split(",");
     Question.create(req.body, function(err, submitqn) {
         if (err) {
             console.log(err);
         }
         else {
+            submitqn.key = key;
             submitqn.complete = false;
             submitqn.creator = req.user._id;
             submitqn.uniqueid = qnid;

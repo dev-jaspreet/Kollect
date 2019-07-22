@@ -11,6 +11,7 @@ var questionSchema = mongoose.Schema({
         ref: "User"
     },
     question: [],
+    key:[],
     answer: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Answer"

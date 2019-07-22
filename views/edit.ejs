@@ -14,7 +14,7 @@
                 </div>
                 <%    for(var i = 0; i < foundset.question.length; i++){ %>
                 <div class="input-field">
-                    <label for="question"><%= i+1 %>: Question</label>
+                    <label for="question"><%= i+1 %>: Question Type: <%=foundset.key[i].toUpperCase()%> Needed</label>
                     <input type="text" name="Question[question]" class="validate" id="question"
                         value="<%= foundset.question[i] %>" required>
                 </div>
