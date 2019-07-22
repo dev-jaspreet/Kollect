@@ -12,7 +12,12 @@
 canvas {
   display: block;
 }
-
+.datepicker-date-display{
+    background-color: #232931;
+}
+.datepicker-calendar-container{
+    background-color: #4ecca3;
+}
 #particles-js {
   position: absolute;
   width: 100%;
