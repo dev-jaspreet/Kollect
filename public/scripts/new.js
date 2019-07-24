@@ -34,7 +34,7 @@ function insertion(para) {
     var label = document.createElement("label");
     var labeltext = document.createTextNode(length + ": Question" + " Type: " + para.toUpperCase());
     setAttributes(label, { "for": "question" });
-    setAttributes(div, { "class": "input-field" });
+    setAttributes(div, { "class": "input-field animated fadeIn" });
     setAttributes(input, { "type": "text", "name": "question", "class": "validate", "id": "question", "required": "" });
     label.appendChild(labeltext);
     div.appendChild(label);
