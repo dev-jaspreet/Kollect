@@ -8,19 +8,19 @@ for (var i = 0; i < length; i++) {
     action.push("text");
 }
 button[0].setAttribute("value", action)
-a[13].addEventListener("click", function() {
+a[15].addEventListener("click", function() {
     insertion("text")
 });
-a[14].addEventListener("click", function() {
+a[16].addEventListener("click", function() {
     insertion("date")
 });
-a[15].addEventListener("click", function() {
+a[17].addEventListener("click", function() {
     insertion("email")
 });
-a[16].addEventListener("click", function() {
+a[18].addEventListener("click", function() {
     insertion("number")
 });
-a[17].addEventListener("click", function() {
+a[19].addEventListener("click", function() {
     insertion("url")
 });
 // button[1].addEventListener("click", insertion);
