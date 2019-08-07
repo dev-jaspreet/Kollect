@@ -76,7 +76,7 @@
             </div>
         </li>
         <% if(currentuser && currentuser.type == "faculty"){ %>
-        <li><a class="nav-link waves-effect waves-light" href="#type">New Entry</a></li>
+        <li><a class="nav-link waves-effect waves-light modal-trigger" href="#type">New Entry</a></li>
         <% if(pageTitle == "Homepage"){ %>
         <li><a class="black-text nav-link waves-effect waves-light modal-trigger" href="#filter">Search</a></li>
         <% } %>
@@ -99,9 +99,8 @@
                     <p>This option allows you to create a public form that may be filled by anyone that has access to
                         its link.</p>
                 </div>
-                <div class="card-action">
-                    <a class="waves-effect waves-light btn mystylebutton pulse" href="/new/public">Create Public
-                        Form</a>
+                <div class="card-action right">
+                    <a class="waves-effect waves-light btn mystylebutton" href="/new/public">Create</a>
                 </div>
             </div>
         </div>
@@ -113,8 +112,7 @@
                     <p>This option allows you to create a private form that will be available for specific people.</p>
                 </div>
                 <div class="card-action">
-                    <a class="waves-effect waves-light btn mystylebutton pulse" href="/new/private">Create Private
-                        Form</a>
+                    <a class="waves-effect waves-light btn mystylebutton " href="/new/private">Create</a>
                 </div>
             </div>
         </div>
