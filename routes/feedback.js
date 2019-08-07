@@ -22,7 +22,44 @@ router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
     })
 });
 
-
+router.get("/display/:id/publicfeedback", function(req, res) {
+    Question.findById(req.params.id).populate("creator").exec(function(err, foundset) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            if (foundset.complete == false) {
+                res.render("feedback", { foundset: foundset, pageTitle: "FEED" })
+            }
+            else {
+                req.flash("toast", foundset.name + " Has Been Locked.")
+                res.redirect("/");
+            }
+        }
+    })
+});
+//PUBLIC FEEDBACK ROUTE
+router.post("/display/:id/publicfeedback", function(req, res) {
+    Answer.find({ questionid: req.params.id }, function(err, foundans) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            if (typeof(req.body.answer) == "string") {
+                var temp = [];
+                temp.push(req.body.answer)
+                foundans[0].answer.push(temp);
+            }
+            else {
+                foundans[0].answer.push(req.body.answer);
+            }
+            foundans[0].save();
+            req.flash("toast", "Thank You, You Have Submitted Your Response.")
+            res.redirect("/")
+        }
+    })
+})
+//PRIVATE FEEDBACK ROUTE
 router.post("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
     Answer.create(req.body, function(err, submitan) {
         if (err) {

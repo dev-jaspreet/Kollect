@@ -8,16 +8,16 @@ var express = require("express"),
 
 var qnid;
 // NEW QUESTION
-router.get("/new", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+router.get("/new/private", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     res.render("new", { count: -1, filter: false, pageTitle: "Selection: Creation Page" });
 });
 
-router.post("/filter", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+router.post("/new/private/filter", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     qnid = req.body.department + req.body.section + req.body.year;
     res.render("new", { count: -1, filter: true, pageTitle: "Count: Creation Page" });
 });
 
-router.post("/count", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+router.post("/new/private/count", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     var count = 0;
     if (req.body.count) {
         count = req.body.count
@@ -25,7 +25,7 @@ router.post("/count", middleware.isLoggedIn, middleware.checkType, function(req,
     res.render("new", { count: count, filter: true, pageTitle: "Questions: Creation Page" });
 });
 
-router.post("/new", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+router.post("/new/private", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     // req.body.Question.body = req.sanitize(req.body.Question.body);
     var key = (req.body.action).split(",");
     Question.create(req.body, function(err, submitqn) {
@@ -59,7 +59,58 @@ router.post("/new", middleware.isLoggedIn, middleware.checkType, function(req, r
                 else {
                     founduser.questioncreator.push(submitqn);
                     founduser.save();
-                    req.flash("toast", "Question Set: " + submitqn.name + " Has Been Created.")
+                    req.flash("toast", "[PRIVATE] Question Set: " + submitqn.name + " Has Been Created.")
+                    res.redirect("/index");
+                }
+            });
+        }
+    });
+});
+
+//PUBLIC FORM
+router.get("/new/public", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+    res.render("publicform", { count: -1, pageTitle: "Questions: Creation Page" })
+})
+
+router.post("/new/public/publiccount", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+    var count = 0;
+    if (req.body.count) {
+        count = req.body.count
+    }
+    res.render("publicform", { count: count, pageTitle: "Questions: Creation Page" });
+});
+
+router.post("/new/public", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+    // req.body.Question.body = req.sanitize(req.body.Question.body);
+    var key = (req.body.action).split(",");
+    Question.create(req.body, function(err, submitqn) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            Answer.create({ questionid: submitqn.id }, function(err, created) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log("Public Answer File Created");
+                    submitqn.key = key;
+                    submitqn.complete = false;
+                    submitqn.creator = req.user._id;
+                    submitqn.uniqueid = "public";
+                    submitqn.answer.push(created)
+                    submitqn.save();
+                }
+            });
+
+            User.findById(req.user.id, function(err, founduser) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    founduser.questioncreator.push(submitqn);
+                    founduser.save();
+                    req.flash("toast", "[PUBLIC] Question Set: " + submitqn.name + " Has Been Created.")
                     res.redirect("/index");
                 }
             });
@@ -111,7 +162,9 @@ router.get("/display/:id", middleware.isLoggedIn, middleware.checkType, function
                 else {
                     if (foundset.creator.equals(req.user._id)) {
                         middleware.submitted(foundset);
-                        middleware.pending(foundusers, foundset)
+                        if (foundset.uniqueid != "public") {
+                            middleware.pending(foundusers, foundset)
+                        }
                     }
                     res.render("display", { foundusers: foundusers, foundset: foundset, pageTitle: foundset.name });
                 }
@@ -119,6 +172,7 @@ router.get("/display/:id", middleware.isLoggedIn, middleware.checkType, function
         }
     });
 });
+
 //DOWNLOAD FILE
 router.get("/download/:name", function(req, res) {
     res.download("csvs/" + req.params.name)
@@ -210,124 +264,3 @@ router.delete("/display/:id", middleware.isLoggedIn, function(req, res) {
 })
 
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// DESTROY
-// router.delete("/display/:id", function(req, res) {
-//     var code;
-// // Question.findById(req.params.id, function(err, foundqn) {
-// //     if (err) {
-// //         console.log(err);
-// //     }
-// //     else {
-//                 User.find({ type: "student", uniqueid: foundqn.uniqueid }, function(err, foundusers) {
-//                 if (err) {
-//                     console.log(err);
-//                 }
-//                 else {
-//                     Answer.find({ questionid: req.params.id }, function(err, foundans) {
-//                     if (err) {
-//                         console.log(err)
-//                     }
-//                     else {
-//                         console.log(foundans[0].id)
-//                         console.log(foundans)
-//                         if (foundans[0].questionid == req.params.id) {
-//                             console.log("match")
-//                             console.log(typeof(req.params.id))
-//                             console.log(typeof(foundans[0].id))
-//                             code = foundans[0].id;
-//                             console.log(code)
-//                             // foundusers[i].answer.remove(foundans[0].id);
-//                         }
-//                     }
-//                 })
-//                     // console.log(foundusers)
-//                     for (var i = 0; i < foundusers.length; i++) {
-//                         // for (var j = 0; j < foundusers[i].answer.length; j++) {
-
-//                         // }
-//                         console.log("$$$$$$$$")
-//                         console.log(code)
-//                         // foundusers[i].questionpending.remove(req.params.id);
-//                         // foundusers[i].questionresponse.remove(req.params.id);
-
-//                         // foundusers[i].save();
-//                     }
-//                 }
-//             });
-
-//         })
-//     // })
-
-//     // User.findById(req.user.id, function(err, founduser) {
-//     //     if (err) {
-//     //         console.log(err)
-//     //     }
-//     //     else {
-//     //         founduser.questioncreator.remove(req.params.id);
-//     //         founduser.save();
-//     //     }
-//     // })
-//     // Question.findByIdAndRemove(req.params.id, function(err) {
-//     //     if (err) {
-//     //         console.log(err)
-//     //     }
-//     //     else {
-//     req.flash("error", "Deleted Succesfully.")
-//     res.redirect("/index");
-//     //     }
-//     // })
-
-//     //     }
-//     // });
-
-// });

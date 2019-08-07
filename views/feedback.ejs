@@ -6,46 +6,43 @@
         <div class="col s12 m6 l6 z-depth-1 mystyleother customborder">
             <h3>Feedback</h3>
             <hr>
-            <form action="/display/<%=foundset._id%>/feedback" method="POST">
-                <div class="input-field">
-                    <h6>Created By: <%=foundset.creator.name%></h6>
-                    <h6>Created On: <%=foundset.created.toDateString()%></h6>
-                    <h6>Question Set: <%= foundset.name.toUpperCase()%></h6>
-                </div>
-                <hr>
-                <%    for(var i = 0; i < foundset.question.length; i++){ %>
-                <% if(foundset.key[i] == "date"){%>
-                <div class="input-field">
-                    <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
-                    <input type="text" name="answer" class="datepicker" id="answer" required>
-                </div>
+            <% if(foundset.uniqueid == "public"){%>
+            <form action="/display/<%=foundset._id%>/publicfeedback" method="POST">
                 <% }else{ %>
-                <div class="input-field">
-                    <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
-                    <input type=<%=foundset.key[i]%> name="answer" class="validate" id="answer" required>
-                </div>
-                <%    } %>
-                <%    } %>
-                <div class="row">
-                    <div class="hide-on-small-only show-on-medium-and-up">
-                        <div class="col s6"><a href="/student/<%=currentuser.id%>"
-                            class="col s12 waves-effect waves-light btn mystylebutton red darken-4"
-                            ><i class="material-icons">clear</i></a></div>
-                    <div class="col s6"><button type="submit"
-                            class="col s12 waves-effect waves-light btn mystylebutton green darken-4"
-                            ><i class="material-icons">check</i></button></div>
+                <form action="/display/<%=foundset._id%>/feedback" method="POST">
+                    <% } %>
+                    <div class="input-field">
+                        <h6>Created By: <%=foundset.creator.name%></h6>
+                        <h6>Created On: <%=foundset.created.toDateString()%></h6>
+                        <h6>Question Set: <%= foundset.name.toUpperCase()%></h6>
                     </div>
-                    <div class="show-on-small hide-on-med-and-up">
-                        <div class="col s6"><a href="/student/<%=currentuser.id%>"
-                            class="col s12 waves-effect waves-light btn-large mystylebutton red darken-4"
-                            style="border-radius:100px"><i class="material-icons">clear</i></a></div>
-                    <div class="col s6"><button type="submit"
-                            class="col s12 waves-effect waves-light btn-large mystylebutton green darken-4"
-                            style="border-radius:100px"><i class="material-icons">check</i></button></div>
+                    <hr>
+                    <%    for(var i = 0; i < foundset.question.length; i++){ %>
+                    <% if(foundset.key[i] == "date"){%>
+                    <div class="input-field">
+                        <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
+                        <input type="text" name="answer" class="datepicker" id="answer" required>
                     </div>
-                    
-                </div>
-            </form>
+                    <% }else{ %>
+                    <div class="input-field">
+                        <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
+                        <input type=<%=foundset.key[i]%> name="answer" class="validate" id="answer" required>
+                    </div>
+                    <%    } %>
+                    <%    } %>
+                    <div class="row">
+                        <div class="hide-on-small-only show-on-medium-and-up">
+                            <div class="col s12"><button type="submit"
+                                    class="col s12 waves-effect waves-light btn mystylebutton green darken-4"><i
+                                        class="material-icons">check</i></button></div>
+                        </div>
+                        <div class="show-on-small hide-on-med-and-up">
+                            <div class="col s12"><button type="submit"
+                                    class="col s12 waves-effect waves-light btn-large mystylebutton green darken-4"
+                                    style="border-radius:100px"><i class="material-icons">check</i></button></div>
+                        </div>
+                    </div>
+                </form>
         </div>
         <div class="col s12 m6 l3"></div>
     </div>

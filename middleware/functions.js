@@ -79,15 +79,27 @@ functionObject.submitted = function(foundset) {
     for (var i = 0; i < foundset.question.length; i++) {
         header.push(foundset.question[i])
     }
-    header.push("Registration No")
     ws_data.push(header)
-    for (var i = 0; i < foundset.answer.length; i++) {
-        for (var j = 0; j < foundset.answer[i].answer.length; j++) {
-            data.push(foundset.answer[i].answer[j])
+    if (foundset.uniqueid != "public") {
+        header.push("Registration No")
+        ws_data.push(header)
+        for (var i = 0; i < foundset.answer.length; i++) {
+            for (var j = 0; j < foundset.answer[i].answer.length; j++) {
+                data.push(foundset.answer[i].answer[j])
+            }
+            data.push(foundset.answer[i].registrationno)
+            ws_data.push(data)
+            data = [];
         }
-        data.push(foundset.answer[i].registrationno)
-        ws_data.push(data)
-        data = [];
+    }
+    else {
+        for (var i = 0; i < foundset.answer[0].answer.length; i++) {
+            for (var k = 0; k < foundset.answer[0].answer[i].length; k++) {
+                data.push(foundset.answer[0].answer[i][k])
+            }
+            ws_data.push(data)
+            data = [];
+        }
     }
     var ws = XLSX.utils.aoa_to_sheet(ws_data);
     XLSX.utils.book_append_sheet(wb, ws, sheet)

@@ -7,12 +7,17 @@
             <div class="card mystyle hoverable">
                 <div class="card-content white-text">
                     <span class="card-title"><%= questionno.name %></span>
+                    <hr>
                     <p>Created By: <%=questionno.creator.name%></p>
                     <p>Created On: <%= questionno.created.toDateString() %></p>
                     <p>Created For:
+                        <% if(questionno.uniqueid == "public"){ %>
+                        <%=questionno.uniqueid.toUpperCase()%>
+                        <% }else{%>
                         <%=questionno.uniqueid.substring(0,3).toUpperCase()%>
                         /<%=questionno.uniqueid.substring(3,4).toUpperCase()%>
-                        /<%=questionno.uniqueid.substring(4,5).toUpperCase()%></p>
+                        /<%=questionno.uniqueid.substring(4,5).toUpperCase()%>
+                        <% } %></p>
                 </div>
                 <% if(currentuser.type == "faculty"){%>
                 <div class="card-action">
