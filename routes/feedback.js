@@ -40,23 +40,37 @@ router.get("/display/:id/publicfeedback", function(req, res) {
 });
 //PUBLIC FEEDBACK ROUTE
 router.post("/display/:id/publicfeedback", function(req, res) {
-    Answer.find({ questionid: req.params.id }, function(err, foundans) {
+    Question.findById(req.params.id, function(err, foundqn) {
         if (err) {
             console.log(err)
         }
         else {
-            if (typeof(req.body.answer) == "string") {
-                var temp = [];
-                temp.push(req.body.answer)
-                foundans[0].answer.push(temp);
+            if (!foundqn.complete) {
+                Answer.find({ questionid: req.params.id }, function(err, foundans) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        if (typeof(req.body.answer) == "string") {
+                            var temp = [];
+                            temp.push(req.body.answer)
+                            foundans[0].answer.push(temp);
+                        }
+                        else {
+                            foundans[0].answer.push(req.body.answer);
+                        }
+                        foundans[0].save();
+                        req.flash("toast", "Thank You, You Have Submitted Your Response.")
+                        res.redirect("/")
+                    }
+                })
             }
-            else {
-                foundans[0].answer.push(req.body.answer);
+            else{
+                req.flash("toast","Sorry, No Longer Accepting Responses.");
+                res.redirect("/")
             }
-            foundans[0].save();
-            req.flash("toast", "Thank You, You Have Submitted Your Response.")
-            res.redirect("/")
         }
+
     })
 })
 //PRIVATE FEEDBACK ROUTE
