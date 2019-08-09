@@ -65,8 +65,8 @@ router.post("/display/:id/publicfeedback", function(req, res) {
                     }
                 })
             }
-            else{
-                req.flash("toast","Sorry, No Longer Accepting Responses.");
+            else {
+                req.flash("toast", "Sorry, No Longer Accepting Responses.");
                 res.redirect("/")
             }
         }
@@ -75,32 +75,73 @@ router.post("/display/:id/publicfeedback", function(req, res) {
 })
 //PRIVATE FEEDBACK ROUTE
 router.post("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
-    Answer.create(req.body, function(err, submitan) {
+    // Answer.create(req.body, function(err, submitan) {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else {
+    //         Question.findById(req.params.id, function(err, submitqn) {
+    //             if (err) {
+    //                 console.log(err)
+    //             }
+    //             else {
+    //                 User.findById(req.user.id, function(err, founduser) {
+    //                     if (err) {
+    //                         console.log(err)
+    //                     }
+    //                     else {
+    //                         founduser.answer.push(submitan);
+    //                         founduser.questionresponse.push(submitqn);
+    //                         founduser.questionpending.remove(submitqn.id)
+    //                         founduser.save()
+    //                     }
+    //                 })
+    //                 submitan.questionid = submitqn._id;
+    //                 submitan.registrationno = req.user.registrationno;
+    //                 submitan.save();
+    //                 submitqn.answer.push(submitan);
+    //                 submitqn.save(function(err, save) {
+    //                     if (err) {
+    //                         console.log(err);
+    //                     }
+    //                     else {
+    //                         req.flash("toast", "Feedback Submitted.")
+    //                         res.redirect("/student/" + req.user.id)
+    //                     }
+    //                 })
+
+    //             }
+    //         })
+    //     }
+    // })
+    Question.findById(req.params.id, function(err, foundqn) {
         if (err) {
-            console.log(err);
+            console.log(err)
         }
         else {
-            Question.findById(req.params.id, function(err, submitqn) {
-                if (err) {
-                    console.log(err)
-                }
-                else {
-                    User.findById(req.user.id, function(err, founduser) {
-                        if (err) {
-                            console.log(err)
-                        }
-                        else {
-                            founduser.answer.push(submitan);
-                            founduser.questionresponse.push(submitqn);
-                            founduser.questionpending.remove(submitqn.id)
-                            founduser.save()
-                        }
-                    })
-                    submitan.questionid = submitqn._id;
-                    submitan.registrationno = req.user.registrationno;
-                    submitan.save();
-                    submitqn.answer.push(submitan);
-                    submitqn.save(function(err, save) {
+            if (!foundqn.complete) {
+                Answer.create(req.body, function(err, submitans) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        User.findById(req.user.id, function(err, founduser) {
+                            if (err) {
+                                console.log(err)
+                            }
+                            else {
+                                founduser.answer.push(submitans);
+                                founduser.questionresponse.push(foundqn);
+                                founduser.questionpending.remove(foundqn.id)
+                                founduser.save()
+                            }
+                        })
+                    }
+                    submitans.questionid = foundqn._id;
+                    submitans.registrationno = req.user.registrationno;
+                    submitans.save();
+                    foundqn.answer.push(submitans);
+                    foundqn.save(function(err, save) {
                         if (err) {
                             console.log(err);
                         }
@@ -109,12 +150,15 @@ router.post("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
                             res.redirect("/student/" + req.user.id)
                         }
                     })
-
-                }
-            })
+                })
+            }else{
+                req.flash("toast","Not Accepting Feedback");
+                res.redirect("/student/" + req.user.id)
+            }
         }
     })
 })
+
 router.get("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id).populate("answer").populate("creator").exec(function(err, foundqn) {
         if (err) {
