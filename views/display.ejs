@@ -35,7 +35,7 @@
                             href="/lockunlock/<%=foundset._id%>/unlock"><i class="material-icons ">lock_open</i></a>
                         <% } %>
                         <% if(foundset.uniqueid == "public"){ %>
-                        <a  href="/display/<%=foundset._id%>/publicfeedback"
+                        <a onclick="myAlert()" data-clipboard-text="https://kollect-app-619.herokuapp.com/display/<%=foundset._id%>/publicfeedback"
                             id="link" class="waves-effect waves-light btn-large mystylebutton"><i
                                 class="material-icons ">link</i></a>
                         <% } %>
