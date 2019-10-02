@@ -231,7 +231,7 @@
         <hr>
         <div class="row">
             <div class="col s6"><button class="col s12 dropdown-trigger waves-effect waves-light btn mystylebutton green darken-4 " data-target='dropdown1'><i class="material-icons">add</i></button></div>
-            <div class="col s6"><button type="submit"
+            <div class="col s6"><button type="submit" onclick="deletion()"
                     class="col s12 waves-effect waves-light btn mystylebutton red darken-4"><i
                         class="material-icons">clear</i></button></div>
         </div>
@@ -240,13 +240,13 @@
 </div>
 
 <ul id='dropdown1' class='dropdown-content'>
-    <li><a href="#!">Text</a></li>
-    <li><a href="#!">Date</a></li>
-    <li><a href="#!">Email</a></li>
-    <li><a href="#!">Number</a></li>
-    <li><a href="#!">Url</a></li>
+    <li><a href="#!" onclick="insertion('text')">Text</a></li>
+    <li><a href="#!" onclick="insertion('date')">Date</a></li>
+    <li><a href="#!" onclick="insertion('email')">Email</a></li>
+    <li><a href="#!" onclick="insertion('number')">Number</a></li>
+    <li><a href="#!" onclick="insertion('url')">Url</a></li>
 </ul>
   
   
-<script src="/scripts/privatenew.js"></script>
+<script src="/scripts/new.js"></script>
 <% include ./partials/footer %>

@@ -95,7 +95,7 @@ router.post("/new/public", middleware.isLoggedIn, middleware.checkType, function
                 else {
                     console.log("Public Answer File Created");
                     submitqn.key = key;
-                    submitqn.complete = false;
+                    submitqn.complete = true;
                     submitqn.creator = req.user._id;
                     submitqn.uniqueid = "public";
                     submitqn.answer.push(created)

@@ -1,5 +1,4 @@
 var button = document.querySelectorAll("button");
-var a = document.querySelectorAll("a");
 var div = document.getElementById("customdiv");
 var length = div.getElementsByTagName("div").length;
 var temp = length;
@@ -8,24 +7,6 @@ for (var i = 0; i < length; i++) {
     action.push("text");
 }
 button[0].setAttribute("value", action)
-a[15].addEventListener("click", function() {
-    insertion("text")
-});
-a[16].addEventListener("click", function() {
-    insertion("date")
-});
-a[17].addEventListener("click", function() {
-    insertion("email")
-});
-a[18].addEventListener("click", function() {
-    insertion("number")
-});
-a[19].addEventListener("click", function() {
-    insertion("url")
-});
-// button[1].addEventListener("click", insertion);
-button[2].addEventListener("click", deletion);
-
 
 function insertion(para) {
     length++;

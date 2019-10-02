@@ -1,0 +1,46 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 l3"></div>
+        <div class="col s12 m6 l6 z-depth-1 mystyleother customborder">
+            <h3>Feedback</h3>
+            <hr>
+            <% if(foundset.uniqueid == "public"){%>
+            <form action="/display/<%=foundset._id%>/publicfeedback" method="POST">
+                <% }else{ %>
+                <form action="/display/<%=foundset._id%>/feedback" method="POST">
+                    <% } %>
+                    <div class="input-field">
+                        <h6>Created By: <%=foundset.creator.name%></h6>
+                        <h6>Created On: <%=foundset.created.toDateString()%></h6>
+                        <h6>Question Set: <%= foundset.name.toUpperCase()%></h6>
+                    </div>
+                    <hr>
+                    <%    for(var i = 0; i < foundset.question.length; i++){ %>
+                    <% if(foundset.key[i] == "checkbox"){%>
+                    <div class="input-field">
+                        <label for="checkbox"><%= i+1 %>: <%= foundset.question[i] %></label>
+                        <input type="text" name="checkbox" class="" id="checkbox" required disabled>
+                    </div>
+                    <% } %>
+                    <% } %>
+                    <div class="row">
+                        <div class="hide-on-small-only show-on-medium-and-up">
+                            <div class="col s12"><button type="submit" name="action"
+                                    class="col s12 waves-effect waves-light btn mystylebutton green darken-4"><i
+                                        class="material-icons">check</i></button></div>
+                        </div>
+                        <div class="show-on-small hide-on-med-and-up">
+                            <div class="col s12"><button type="submit" name="action"
+                                    class="col s12 waves-effect waves-light btn-large mystylebutton green darken-4"
+                                    style="border-radius:100px"><i class="material-icons">check</i></button></div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+        <div class="col s12 m6 l3"></div>
+    </div>
+</div>
+
+<% include ./partials/footer %>
