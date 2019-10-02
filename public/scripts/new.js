@@ -29,6 +29,7 @@ function insertion(para) {
 
 function deletion() {
     var remove = document.getElementById("customdiv");
+    action.pop()
     if (length != temp) {
         length--;
         remove.removeChild(remove.lastChild)
