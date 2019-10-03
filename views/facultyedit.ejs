@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <select name="User[gender]" required>
-                            <option value="" disabled selected>Gender:</option>
+                            <option value="<%=founduser.gender%>" selected><%=(founduser.gender[0].toUpperCase() + founduser.gender.substring(1))%></option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>

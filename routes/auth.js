@@ -80,8 +80,8 @@ router.get("/search", function(req, res) {
 })
 // REGISTER
 router.get("/studentregister", function(req, res) {
-    res.render("studentregister", {
-        pageTitle: "Complete Your Registration"
+    res.render("student_login_register", {
+        pageTitle: "Complete Your Registration",login:"none",register:"block"
     })
 });
 
@@ -181,8 +181,8 @@ router.post("/studentregister", parser.single("image"), function(req, res) {
 
 // LOGIN
 router.get("/login", function(req, res) {
-    res.render("login", {
-        pageTitle: "Login Page"
+    res.render("student_login_register", {
+        pageTitle: "Login Page",login:"block",register:"none"
     });
 });
 

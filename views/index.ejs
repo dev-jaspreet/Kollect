@@ -6,7 +6,8 @@
         <div class="col s12 m6 l4">
             <div class="card mystyle hoverable">
                 <div class="card-content white-text">
-                    <span class="card-title"><%= questionno.name %></span>
+                    <span class="card-title"><%= questionno.name %><img class="circle right" width="40" height="40" src="<%=questionno.creator.image.imageurl%>"></span>
+                    <span></span>
                     <hr>
                     <p>Created By: <%=questionno.creator.name%></p>
                     <p>Created On: <%= questionno.created.toDateString() %></p>
