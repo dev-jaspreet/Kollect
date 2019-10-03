@@ -28,10 +28,10 @@
             <a class="col s12 black-text waves-effect waves-light btn-large my modal-trigger" href="#student"><i
                     class="material-icons right">search</i>Search Student(s)</a>
         </div>
-        <div class="col s12 m6 l8">
+        <div class="col s12 m6 l8 ">
             <div class="row">
                 <% for(var i=0;i<founduser.questioncreator.length;i++){%>
-                <div class="col s12 m6 l6">
+                <div class="col s12 m6 l6 reveal">
                     <div class="card mystyle hoverable">
                         <div class="card-content white-text">
                             <span class="card-title">Question Set: <%=i+1%></span>
@@ -69,5 +69,7 @@
         </nav>
     </div>
 </div>
-
+<script>
+    ScrollReveal({reset: true }).reveal('.reveal')
+</script>
 <% include ./partials/footer %>

@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <% qns.forEach(function(questionno){ %>
-        <div class="col s12 m6 l4">
+        <div class="col s12 m6 l4 reveal">
             <div class="card mystyle hoverable">
                 <div class="card-content white-text">
                     <span class="card-title"><%= questionno.name %><img class="circle right" width="40" height="40" src="<%=questionno.creator.image.imageurl%>"></span>
@@ -49,5 +49,7 @@
         </nav>
     </div>
 </div>
-
+<script>
+    ScrollReveal({reset: true }).reveal('.reveal')
+</script>
 <% include ./partials/footer %>
