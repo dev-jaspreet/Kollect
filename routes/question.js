@@ -14,7 +14,7 @@ router.get("/new/private", middleware.isLoggedIn, middleware.checkType, function
 
 router.post("/new/private/filter", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     qnid = req.body.department + req.body.section + req.body.year;
-    res.render("new", { count: -1, filter: true, pageTitle: "Count: Creation Page" });
+    res.render("new", { count: -1, filter: true, pageTitle: "Count: Creation Page", qnid: qnid });
 });
 
 router.post("/new/private/count", middleware.isLoggedIn, middleware.checkType, function(req, res) {
@@ -227,8 +227,10 @@ router.delete("/display/:id", middleware.isLoggedIn, function(req, res) {
         else {
             path = "csvs/" + foundqn.name + " " + foundqn.uniqueid + " SUBMITTED" + ".xlsx"
             fs.unlinkSync(path)
-            path = "csvs/" + foundqn.name + " " + foundqn.uniqueid + " PENDING" + ".xlsx"
-            fs.unlinkSync(path)
+            if (foundqn.uniqueid != "public") {
+                path = "csvs/" + foundqn.name + " " + foundqn.uniqueid + " PENDING" + ".xlsx"
+                fs.unlinkSync(path)
+            }
             User.find({ type: "student", uniqueid: foundqn.uniqueid }, function(err, foundusers) {
                 if (err) {
                     console.log(err)

@@ -1,5 +1,4 @@
 <% include ./partials/header %>
-
 <div class="container">
     <div class="row">
         <div class="col s12 m6 l4">
@@ -27,6 +26,9 @@
             </div>
             <a class="col s12 black-text waves-effect waves-light btn-large my modal-trigger" href="#student"><i
                     class="material-icons right">search</i>Search Student(s)</a>
+                    <div class="row"></div>
+            <a class="col s12 black-text waves-effect waves-light btn-large my modal-trigger" href="#class"><i
+                    class="material-icons right">contact_mail</i>Export Class List</a>
         </div>
         <div class="col s12 m6 l8 ">
             <div class="row">
@@ -61,6 +63,23 @@
                     <div class="input-field">
                         <input id="search" type="search" style="border-radius:100px" name="search"
                             placeholder="Search By Name or E.g. CSE/B/4" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+</div>
+<div id="class" class="modal customborder mystyle">
+    <div class="modal-content mystyle white-text">
+        <h4>Export Class List</h4>
+        <nav style="border-radius:100px">
+            <div class="nav-wrapper my" style="border-radius:100px">
+                <form action="/exportclass" method="GET">
+                    <div class="input-field">
+                        <input id="search" type="search" style="border-radius:100px" name="search"
+                            placeholder="Search By UniqueId or E.g. CSE/B/4" required>
                         <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                         <i class="material-icons">close</i>
                     </div>

@@ -20,8 +20,6 @@ var authRoutes = require("./routes/auth"),
 
 
 mongoose.connect("mongodb+srv://jaspreet:singh@cluster0-aw4yr.mongodb.net/Kollect?retryWrites=true&w=majority", { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, autoIndex: true });
-
-// mongoose.connect("mongodb://localhost/Questionnaire", { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true });
 app.use(enforce.HTTPS({ trustProtoHeader: true }))
 app.use(flash());
 app.set("view engine", "ejs");

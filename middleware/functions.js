@@ -131,4 +131,27 @@ functionObject.pending = function(foundusers, foundset) {
     XLSX.writeFile(wb, name);
 }
 
+functionObject.exportclass = function(foundusers, code) {
+    var wb = XLSX.utils.book_new();
+    var sheet = "SheetJS";
+    var ws_data = [];
+    var header = ["Username", "Name", "Registration No", "Gender", "Email", "Phone"];
+    var data = [];
+    var name = "csvs/" + code.toUpperCase() + "_" + "CLASSLIST" + ".xlsx"
+    ws_data.push(header)
+    foundusers.forEach(function(founduser) {
+        data.push(founduser.username)
+        data.push(founduser.name)
+        data.push(founduser.registrationno)
+        data.push(founduser.gender)
+        data.push(founduser.email)
+        data.push(founduser.phone)
+        ws_data.push(data)
+        data = [];
+    })
+    var ws = XLSX.utils.aoa_to_sheet(ws_data);
+    XLSX.utils.book_append_sheet(wb, ws, sheet)
+    XLSX.writeFile(wb, name);
+}
+
 module.exports = functionObject;

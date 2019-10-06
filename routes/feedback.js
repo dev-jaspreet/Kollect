@@ -3,7 +3,20 @@ var express = require("express"),
     Question = require("../models/questionbank"),
     User = require("../models/user"),
     Answer = require("../models/answerbank"),
-    middleware = require("../middleware/functions");
+    middleware = require("../middleware/functions"),
+    multer = require('multer'),
+    mime = require('mime-types');
+
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + "." + mime.extension(file.mimetype))
+    }
+})
+
+var upload = multer({ storage: storage })
 
 router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id).populate("creator").exec(function(err, foundset) {
@@ -39,7 +52,9 @@ router.get("/display/:id/publicfeedback", function(req, res) {
     })
 });
 //PUBLIC FEEDBACK ROUTE
-router.post("/display/:id/publicfeedback", function(req, res) {
+router.post("/display/:id/publicfeedback", upload.array("fileupload"), function(req, res) {
+    //console.log(req.body.answer)
+    console.log(req.files)
     Question.findById(req.params.id, function(err, foundqn) {
         if (err) {
             console.log(err)
@@ -54,6 +69,11 @@ router.post("/display/:id/publicfeedback", function(req, res) {
                         if (typeof(req.body.answer) == "string") {
                             var temp = [];
                             temp.push(req.body.answer)
+                            foundans[0].answer.push(temp);
+                        }
+                        else if (req.body.answer == undefined) {
+                            var temp = [];
+                            temp.push("dummyanswer")
                             foundans[0].answer.push(temp);
                         }
                         else {
@@ -151,8 +171,9 @@ router.post("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
                         }
                     })
                 })
-            }else{
-                req.flash("toast","Not Accepting Feedback");
+            }
+            else {
+                req.flash("toast", "Not Accepting Feedback");
                 res.redirect("/student/" + req.user.id)
             }
         }

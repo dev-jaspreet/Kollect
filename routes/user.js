@@ -133,4 +133,27 @@ router.get("/searchstudent", middleware.isLoggedIn, function(req, res) {
     })
 })
 
+router.get("/exportclass", middleware.isLoggedIn, function(req, res) {
+    var code = JSON.stringify(req.query);
+    code = code.replace(/[^a-zA-Z0-9]/g, "");
+    code = code.substr(6)
+    console.log(code)
+    User.find({ type: "student", $text: { $search: code } }, function(err, foundusers) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            if (foundusers.length) {
+                console.log(foundusers)
+                middleware.exportclass(foundusers, code)
+                res.download("csvs/" + (code.toUpperCase() + "_" + "CLASSLIST" + ".xlsx"))
+            }
+            else {
+                req.flash("toast", "Invalid Query Entered")
+                res.redirect("/faculty/" + req.user.id)
+            }
+        }
+    })
+})
+
 module.exports = router;
