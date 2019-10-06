@@ -8,7 +8,7 @@
     "short_name": "Kollect",
     "theme_color": "#4ecca3",
     "description": "Web portal designed to ease Data collection and Exportation.",
-    "orientation": "natural",
+    "orientation": "portrait",
     "background_color": "#232931",
     "related_applications": [],
     "prefer_related_applications": false,
