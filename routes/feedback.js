@@ -7,11 +7,15 @@ var express = require("express"),
     multer = require('multer'),
     mime = require('mime-types');
 
+var filenamepublic, filenameprivate;
+
+
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, 'uploads')
     },
     filename: function(req, file, cb) {
+        filenamepublic = file.fieldname + '-' + Date.now() + "." + mime.extension(file.mimetype);
         cb(null, file.fieldname + '-' + Date.now() + "." + mime.extension(file.mimetype))
     }
 })
@@ -71,9 +75,9 @@ router.post("/display/:id/publicfeedback", upload.array("fileupload"), function(
                             temp.push(req.body.answer)
                             foundans[0].answer.push(temp);
                         }
-                        else if (req.body.answer == undefined) {
+                        else if (req.files.length) {
                             var temp = [];
-                            temp.push("dummyanswer")
+                            temp.push(filenamepublic)
                             foundans[0].answer.push(temp);
                         }
                         else {

@@ -1,7 +1,9 @@
 .sidenav-trigger {
     color: black;
 }
-
+.pagination li.active{
+    background-color: #4ecca3;
+}
 .test {
     /*width: 300px;*/
     /*height: 300px;*/

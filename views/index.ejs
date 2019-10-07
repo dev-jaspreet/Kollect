@@ -2,33 +2,46 @@
 
 <div class="container">
     <div class="row">
-        <% qns.forEach(function(questionno){ %>
+        <% for(var i = 0; i < foundqns.length;i++){ %>
         <div class="col s12 m6 l4 reveal">
             <div class="card mystyle hoverable">
                 <div class="card-content white-text">
-                    <span class="card-title"><%= questionno.name %><img class="circle right" width="40" height="40" src="<%=questionno.creator.image.imageurl%>"></span>
+                    <span class="card-title"><%= foundqns[i].name %><img class="circle right" width="40" height="40" src="<%=foundqns[i].creator.image.imageurl%>"></span>
                     <span></span>
                     <hr>
-                    <p>Created By: <%=questionno.creator.name%></p>
-                    <p>Created On: <%= questionno.created.toDateString() %></p>
+                    <p>Created By: <%=foundqns[i].creator.name%></p>
+                    <p>Created On: <%= foundqns[i].created.toDateString() %></p>
                     <p>Created For:
-                        <% if(questionno.uniqueid == "public"){ %>
-                        <%=questionno.uniqueid.toUpperCase()%>
+                        <% if(foundqns[i].uniqueid == "public"){ %>
+                        <%=foundqns[i].uniqueid.toUpperCase()%>
                         <% }else{%>
-                        <%=questionno.uniqueid.substring(0,3).toUpperCase()%>
-                        /<%=questionno.uniqueid.substring(3,4).toUpperCase()%>
-                        /<%=questionno.uniqueid.substring(4,5).toUpperCase()%>
+                        <%=foundqns[i].uniqueid.substring(0,3).toUpperCase()%>
+                        /<%=foundqns[i].uniqueid.substring(3,4).toUpperCase()%>
+                        /<%=foundqns[i].uniqueid.substring(4,5).toUpperCase()%>
                         <% } %></p>
                 </div>
                 <% if(currentuser.type == "faculty"){%>
                 <div class="card-action">
                     <a class="waves-effect waves-light btn mystylebutton pulse"
-                        href="/display/<%= questionno._id%>">Open</a>
+                        href="/display/<%= foundqns[i]._id%>">Open</a>
                 </div>
                 <% } %>
             </div>
         </div>
-        <% })%>
+        <% }%>
+        <div class="col s12 center">
+            <ul class="pagination">
+                <li class="waves-effect"><a href="/index/<%=parseInt(index)-1%>"><i class="material-icons">chevron_left</i></a></li>
+                <% for(var i=0;i<(maxlength)/15;i++){ %>
+                <% if(index == i){ %>
+                <li class="active"><a href="/index/<%=i%>"><%=i+1%></a></li>
+                
+                <% }else{ %>
+                <li class="waves-effect"><a href="/index/<%=i%>"><%=i+1%></a></li>
+                <% } } %>
+                <li class="waves-effect"><a href="/index/<%=parseInt(index)+1%>"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
+        </div>
     </div>
 </div>
 

@@ -16,11 +16,20 @@ cloudinary.config({
 var defaultimage = "https://res.cloudinary.com/dq1nhsxii/image/upload/v1563621730/Questionnaire_profile/default_j9ok4c.jpg";
 const storage = cloudinaryStorage({ cloudinary: cloudinary, folder: "Questionnaire_profile", allowedFormats: ["jpg", "png"], transformation: [{ width: 500, height: 500, crop: "limit" }] });
 const parser = multer({ storage: storage });
+var maxlength;
 
 router.get("/", function(req, res) {
     // res.render("cover", { pageTitle: "Kollect" });
     if (req.isAuthenticated()) {
-        res.redirect("/index")
+        Question.find({}).exec(function(err, foundqns) {
+            if (err) {
+                console.log(err)
+            }
+            else {
+                maxlength = foundqns.length;
+            }
+        })
+        res.redirect("/index/0")
     }
     else {
         res.render("cover", { pageTitle: "Kollect" })
@@ -28,12 +37,21 @@ router.get("/", function(req, res) {
 })
 
 // HOMEPAGE
-router.get("/index", middleware.isLoggedIn, function(req, res) {
-    Question.find({}).populate("creator").exec(function(err, qns) {
+router.get("/index/:index", middleware.isLoggedIn, function(req, res) {
+    var index = req.params.index;
+    if (req.params.index == -1) {
+        index = 0;
+    }
+
+    Question.find({}).populate("creator").skip(index * 15).limit(15).exec(function(err, foundqns) {
+        // console.log(foundqns)
         if (err) {
             console.log(err);
         }
         else {
+            if (!foundqns.length) {
+                res.redirect("/index/" + (index - 1))
+            }
             User.findById(req.user.id, function(err, founduser) {
                 if (err) {
                     console.log(err)
@@ -54,7 +72,7 @@ router.get("/index", middleware.isLoggedIn, function(req, res) {
                     }
                 }
             })
-            res.render("index", { qns: qns, pageTitle: "Homepage" })
+            res.render("index", { index: index, maxlength: maxlength, foundqns: foundqns, pageTitle: "Homepage" })
         }
     })
 })
@@ -81,7 +99,9 @@ router.get("/search", function(req, res) {
 // REGISTER
 router.get("/studentregister", function(req, res) {
     res.render("student_login_register", {
-        pageTitle: "Complete Your Registration",login:"none",register:"block"
+        pageTitle: "Complete Your Registration",
+        login: "none",
+        register: "block"
     })
 });
 
@@ -182,7 +202,9 @@ router.post("/studentregister", parser.single("image"), function(req, res) {
 // LOGIN
 router.get("/login", function(req, res) {
     res.render("student_login_register", {
-        pageTitle: "Login Page",login:"block",register:"none"
+        pageTitle: "Login Page",
+        login: "block",
+        register: "none"
     });
 });
 

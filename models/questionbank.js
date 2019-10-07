@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+    // mongoosePaginate = require('mongoose-paginate');
 
 var questionSchema = mongoose.Schema({
     name: String,
@@ -11,7 +12,7 @@ var questionSchema = mongoose.Schema({
         ref: "User"
     },
     question: [],
-    key:[],
+    key: [],
     answer: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Answer"
