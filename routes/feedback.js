@@ -57,8 +57,6 @@ router.get("/display/:id/publicfeedback", function(req, res) {
 });
 //PUBLIC FEEDBACK ROUTE
 router.post("/display/:id/publicfeedback", upload.array("fileupload"), function(req, res) {
-    //console.log(req.body.answer)
-    console.log(req.files)
     Question.findById(req.params.id, function(err, foundqn) {
         if (err) {
             console.log(err)
@@ -70,19 +68,22 @@ router.post("/display/:id/publicfeedback", upload.array("fileupload"), function(
                         console.log(err)
                     }
                     else {
-                        if (typeof(req.body.answer) == "string") {
-                            var temp = [];
+                        var temp = [];
+                        var j = 0;
+                        if (typeof(req.body.answer) == "object") {
+                            for (var i = 0; i < foundqn.key.length; i++) {
+                                if (foundqn.key[i] == "file") {
+                                    temp.push(filenamepublic)
+                                }
+                                else {
+                                    temp.push(req.body.answer[j])
+                                    j++;
+                                }
+                            }
+                        }else{
                             temp.push(req.body.answer)
-                            foundans[0].answer.push(temp);
                         }
-                        else if (req.files.length) {
-                            var temp = [];
-                            temp.push(filenamepublic)
-                            foundans[0].answer.push(temp);
-                        }
-                        else {
-                            foundans[0].answer.push(req.body.answer);
-                        }
+                        foundans[0].answer.push(temp)
                         foundans[0].save();
                         req.flash("toast", "Thank You, You Have Submitted Your Response.")
                         res.redirect("/")
