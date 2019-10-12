@@ -19,7 +19,6 @@ const parser = multer({ storage: storage });
 var maxlength;
 
 router.get("/", function(req, res) {
-    // res.render("cover", { pageTitle: "Kollect" });
     if (req.isAuthenticated()) {
         Question.find({}).exec(function(err, foundqns) {
             if (err) {
@@ -44,7 +43,6 @@ router.get("/index/:index", middleware.isLoggedIn, function(req, res) {
     }
 
     Question.find({}).populate("creator").skip(index * 15).limit(15).exec(function(err, foundqns) {
-        // console.log(foundqns)
         if (err) {
             console.log(err);
         }

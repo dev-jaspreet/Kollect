@@ -19,7 +19,7 @@
                     <hr>
                     <%    for(var i = 0; i < foundset.question.length; i++){ %>
                     <% if(foundset.key[i] == "date"){%>
-                    <div class="input-field">
+                    <div class="input-field col s12">
                         <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
                         <input type="text" name="answer" class="datepicker" id="answer" required>
                     </div>
@@ -30,8 +30,7 @@
                             <input type="file" name="fileupload" required>
                         </div>
                         <div class="file-path-wrapper">
-                            <input class="file-path validate" placeholder=<%=foundset.question[i]%>
-                                type="text">
+                            <input class="file-path validate" placeholder=<%=foundset.question[i]%> type="text">
                         </div>
                     </div>
                     <% }else{ %>

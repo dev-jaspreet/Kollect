@@ -6,22 +6,17 @@ var express = require("express"),
     middleware = require("../middleware/functions"),
     multer = require('multer'),
     mime = require('mime-types');
-
-var filenamepublic, filenameprivate;
-
-
+var filenameupload;
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, 'uploads')
     },
     filename: function(req, file, cb) {
-        filenamepublic = file.fieldname + '-' + Date.now() + "." + mime.extension(file.mimetype);
+        filenameupload = file.fieldname + '-' + Date.now() + "." + mime.extension(file.mimetype);
         cb(null, file.fieldname + '-' + Date.now() + "." + mime.extension(file.mimetype))
     }
 })
-
 var upload = multer({ storage: storage })
-
 router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id).populate("creator").exec(function(err, foundset) {
         if (err) {
@@ -38,7 +33,6 @@ router.get("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
         }
     })
 });
-
 router.get("/display/:id/publicfeedback", function(req, res) {
     Question.findById(req.params.id).populate("creator").exec(function(err, foundset) {
         if (err) {
@@ -68,22 +62,21 @@ router.post("/display/:id/publicfeedback", upload.array("fileupload"), function(
                         console.log(err)
                     }
                     else {
-                        var temp = [];
                         var j = 0;
                         if (typeof(req.body.answer) == "object") {
                             for (var i = 0; i < foundqn.key.length; i++) {
                                 if (foundqn.key[i] == "file") {
-                                    temp.push(filenamepublic)
+                                    foundans.answer.push(filenameupload)
                                 }
                                 else {
-                                    temp.push(req.body.answer[j])
+                                    foundans.answer.push(req.body.answer[j])
                                     j++;
                                 }
                             }
-                        }else{
-                            temp.push(req.body.answer)
                         }
-                        foundans[0].answer.push(temp)
+                        else {
+                            foundans.answer.push(req.body.answer)
+                        }
                         foundans[0].save();
                         req.flash("toast", "Thank You, You Have Submitted Your Response.")
                         res.redirect("/")
@@ -99,46 +92,7 @@ router.post("/display/:id/publicfeedback", upload.array("fileupload"), function(
     })
 })
 //PRIVATE FEEDBACK ROUTE
-router.post("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
-    // Answer.create(req.body, function(err, submitan) {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     else {
-    //         Question.findById(req.params.id, function(err, submitqn) {
-    //             if (err) {
-    //                 console.log(err)
-    //             }
-    //             else {
-    //                 User.findById(req.user.id, function(err, founduser) {
-    //                     if (err) {
-    //                         console.log(err)
-    //                     }
-    //                     else {
-    //                         founduser.answer.push(submitan);
-    //                         founduser.questionresponse.push(submitqn);
-    //                         founduser.questionpending.remove(submitqn.id)
-    //                         founduser.save()
-    //                     }
-    //                 })
-    //                 submitan.questionid = submitqn._id;
-    //                 submitan.registrationno = req.user.registrationno;
-    //                 submitan.save();
-    //                 submitqn.answer.push(submitan);
-    //                 submitqn.save(function(err, save) {
-    //                     if (err) {
-    //                         console.log(err);
-    //                     }
-    //                     else {
-    //                         req.flash("toast", "Feedback Submitted.")
-    //                         res.redirect("/student/" + req.user.id)
-    //                     }
-    //                 })
-
-    //             }
-    //         })
-    //     }
-    // })
+router.post("/display/:id/feedback", upload.array("fileupload"), middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id, function(err, foundqn) {
         if (err) {
             console.log(err)
@@ -146,10 +100,21 @@ router.post("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
         else {
             if (!foundqn.complete) {
                 Answer.create(req.body, function(err, submitans) {
+                    submitans.answer = []
                     if (err) {
                         console.log(err)
                     }
                     else {
+                        var j = 0;
+                        for (var i = 0; i < foundqn.key.length; i++) {
+                            if (foundqn.key[i] == "file") {
+                                submitans.answer.push(filenameupload)
+                            }
+                            else {
+                                submitans.answer.push(req.body.answer[j])
+                                j++;
+                            }
+                        }
                         User.findById(req.user.id, function(err, founduser) {
                             if (err) {
                                 console.log(err)
@@ -157,7 +122,7 @@ router.post("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
                             else {
                                 founduser.answer.push(submitans);
                                 founduser.questionresponse.push(foundqn);
-                                founduser.questionpending.remove(foundqn.id)
+                                founduser.questionpending.remove(foundqn.id);
                                 founduser.save()
                             }
                         })
@@ -184,7 +149,7 @@ router.post("/display/:id/feedback", middleware.isLoggedIn, function(req, res) {
         }
     })
 })
-
+//FEEDBACK EDIT ROUTE GET
 router.get("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
     Question.findById(req.params.id).populate("answer").populate("creator").exec(function(err, foundqn) {
         if (err) {
@@ -208,10 +173,9 @@ router.get("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
         }
     })
 })
-
+//FEEDBACK UPDATE POST
 router.put("/feedbackedit/:id", middleware.isLoggedIn, function(req, res) {
     req.body.Answer.body = req.sanitize(req.body.Answer.body);
-    // console.log(req.body)
     Answer.findByIdAndUpdate(req.params.id, req.body.Answer, function(err, foundset) {
         if (err) {
             console.log(err);
