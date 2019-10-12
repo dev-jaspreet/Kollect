@@ -34,7 +34,7 @@ router.post("/new/private", middleware.isLoggedIn, middleware.checkType, functio
         }
         else {
             submitqn.key = key;
-            submitqn.complete = false;
+            submitqn.complete = true;
             submitqn.creator = req.user._id;
             submitqn.uniqueid = qnid;
             submitqn.save();
