@@ -47,9 +47,11 @@ router.get("/index/:index", middleware.isLoggedIn, function(req, res) {
             console.log(err);
         }
         else {
-            if (!foundqns.length) {
-                res.redirect("/index/" + (index - 1))
-            }
+            // console.log(foundqns)
+            // if (!foundqns.length) {
+            //     console.log("$$$$$$$$$$$")
+            //     res.redirect("/index/" + (index - 1))
+            // }
             User.findById(req.user.id, function(err, founduser) {
                 if (err) {
                     console.log(err)
@@ -208,7 +210,7 @@ router.get("/login", function(req, res) {
 
 router.post('/login',
     passport.authenticate('local', {
-        successRedirect: '/index',
+        successRedirect: '/index/0',
         failureRedirect: '/login'
     }),
     function(req, res) {}

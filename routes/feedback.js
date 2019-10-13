@@ -63,20 +63,25 @@ router.post("/display/:id/publicfeedback", upload.array("fileupload"), function(
                     }
                     else {
                         var j = 0;
-                        if (typeof(req.body.answer) == "object") {
-                            for (var i = 0; i < foundqn.key.length; i++) {
-                                if (foundqn.key[i] == "file") {
-                                    foundans.answer.push(filenameupload)
-                                }
-                                else {
-                                    foundans.answer.push(req.body.answer[j])
-                                    j++;
-                                }
+                        var k = 0;
+                        var temparray = [];
+                        for (var i = 0; i < foundqn.key.length; i++) {
+                            if (foundqn.key[i] == "file") {
+                                temparray.push(filenameupload)
+                            }
+                            else if (foundqn.key[i] == "checkbox") {
+                                temparray.push(req.body["answer" + k.toString()])
+                                k++;
+                            }
+                            else if (typeof(req.body.answer) == "string" && foundqn.key.length == 1) {
+                                temparray.push(req.body.answer)
+                            }
+                            else{
+                                temparray.push(req.body.answer[j])
+                                j++;
                             }
                         }
-                        else {
-                            foundans.answer.push(req.body.answer)
-                        }
+                        foundans[0].answer.push(temparray)
                         foundans[0].save();
                         req.flash("toast", "Thank You, You Have Submitted Your Response.")
                         res.redirect("/")

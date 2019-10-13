@@ -31,9 +31,13 @@
                         <a class="waves-effect waves-light btn-large mystylebutton"
                             href="/lockunlock/<%=foundset._id%>/lock"><i class="material-icons ">lock_outline</i></a>
                         <% }else{ %>
+                        <% if(!foundset.checkoption.length){ %>
+                        <a class="waves-effect waves-light btn-large mystylebutton"
+                            href="/optioninput/<%=foundset._id%>"><i class="material-icons ">done_all</i></a>
+                        <% }else{%>
                         <a class="waves-effect waves-light btn-large mystylebutton"
                             href="/lockunlock/<%=foundset._id%>/unlock"><i class="material-icons ">lock_open</i></a>
-                        <% } %>
+                        <% } } %>
                         <% if(foundset.uniqueid == "public"){ %>
                         <a onclick="myAlert()" data-clipboard-text="https://kollect-app-619.herokuapp.com/display/<%=foundset._id%>/publicfeedback"
                             id="link" class="waves-effect waves-light btn-large mystylebutton"><i
@@ -48,10 +52,15 @@
                             href="/lockunlock/<%=foundset._id%>/lock"><i
                                 class="material-icons right">lock_outline</i>Lock</a>
                         <% }else{ %>
+                        <% if(!foundset.checkoption.length){ %>
+                        <a class="waves-effect waves-light btn mystylebutton"
+                            href="/optioninput/<%=foundset._id%>"><i
+                                class="material-icons right">done_all</i>Add Option(s)</a>
+                        <% }else{ %>
                         <a class="waves-effect waves-light btn mystylebutton"
                             href="/lockunlock/<%=foundset._id%>/unlock"><i
                                 class="material-icons right">lock_open</i>Unlock</a>
-                        <% } %>
+                        <% } } %>
                         <% if(foundset.uniqueid == "public"){ %>
                         <a onclick="myAlert()" data-clipboard-text="https://kollect-app-619.herokuapp.com/display/<%=foundset._id%>/publicfeedback"
                             class="waves-effect waves-light btn mystylebutton"><i

@@ -79,9 +79,9 @@ router.post("/new/public/publiccount", middleware.isLoggedIn, middleware.checkTy
     }
     res.render("publicform", { count: count, pageTitle: "Questions: Creation Page" });
 });
-
 router.post("/new/public", middleware.isLoggedIn, middleware.checkType, function(req, res) {
     // req.body.Question.body = req.sanitize(req.body.Question.body);
+    var flag = false;
     var key = (req.body.action).split(",");
     Question.create(req.body, function(err, submitqn) {
         if (err) {
@@ -95,6 +95,15 @@ router.post("/new/public", middleware.isLoggedIn, middleware.checkType, function
                 else {
                     console.log("Public Answer File Created");
                     submitqn.key = key;
+                    for(var i =0;i<key.length;i++){
+                        if(key[i] == "checkbox"){
+                            submitqn.complete = true;
+                            flag = true;
+                        }
+                    }
+                    if(!flag){
+                        submitqn.checkoption.push("dummycheck")
+                    }
                     submitqn.complete = true;
                     submitqn.creator = req.user._id;
                     submitqn.uniqueid = "public";
@@ -265,4 +274,39 @@ router.delete("/display/:id", middleware.isLoggedIn, function(req, res) {
     res.redirect("/index")
 })
 
+router.get("/optioninput/:id", function(req, res) {
+    Question.findById(req.params.id, function(err, foundset) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            res.render("optioninput", { foundset: foundset, pageTitle: "Options Page" })
+        }
+    })
+})
+
+router.post("/optioninput/:id/checkdone", middleware.isLoggedIn, middleware.checkType, function(req, res) {
+    var arr = []
+    var temp = []
+    var splitslasharray = req.body.action.split(",")
+    for (var i = 0; i < splitslasharray.length; i++) {
+        if (splitslasharray[i] != "/") {
+            temp.push(splitslasharray[i])
+        }
+        else {
+            arr.push(temp)
+            temp = []
+        }
+    }
+    Question.findById(req.params.id, function(err, foundset) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            foundset.checkoption = arr;
+            foundset.save();
+            res.redirect("/display/" + req.params.id)
+        }
+    })
+})
 module.exports = router;

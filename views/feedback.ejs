@@ -17,12 +17,25 @@
                         <h6>Question Set: <%= foundset.name.toUpperCase()%></h6>
                     </div>
                     <hr>
+                    <% var count = 0 %>
                     <%    for(var i = 0; i < foundset.question.length; i++){ %>
                     <% if(foundset.key[i] == "date"){%>
                     <div class="input-field col s12">
                         <label for="answer"><%= i+1 %>: <%= foundset.question[i] %></label>
                         <input type="text" name="answer" class="datepicker" id="answer" required>
                     </div>
+                    <% }else if(foundset.key[i] == "checkbox"){ %>
+                    <p><%=foundset.question[i]%></p>
+                    <%for(var j=0;j<foundset.checkoption[count].length;j++){%>
+                    <span>
+                      <label>
+                        <input type="radio" class="with-gap" name="answer<%=count%>" value="<%=foundset.checkoption[count][j]%>" required/>
+                        <span><%=foundset.checkoption[count][j]%></span>
+                      </label>
+                    </span>
+                    <% } %>
+                    <hr>
+                    <% count++ %>
                     <% }else if (foundset.key[i] == "file"){ %>
                     <div class="file-field input-field col s12">
                         <div class="btn mystylebutton">

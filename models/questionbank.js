@@ -13,6 +13,7 @@ var questionSchema = mongoose.Schema({
     },
     question: [],
     key: [],
+    checkoption:[],
     answer: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Answer"
