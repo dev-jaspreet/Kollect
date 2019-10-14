@@ -43,11 +43,12 @@
                 <% }else{ %>
                 <li class="waves-effect"><a href="/index/<%=i%>"><%=i+1%></a></li>
                 <% } %>
+                <% } %>
                 <% if((maxlength/15)-1 > index){ %>
                 <li class="waves-effect"><a href="/index/<%=parseInt(index)+1%>"><i class="material-icons">chevron_right</i></a></li>
                 <% }else{ %>
                 <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
-                <% } } %>
+                <% } %>
             </ul>
         </div>
     </div>
