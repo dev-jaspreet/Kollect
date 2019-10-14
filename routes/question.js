@@ -93,7 +93,7 @@ router.post("/new/public", middleware.isLoggedIn, middleware.checkType, function
                     console.log(err);
                 }
                 else {
-                    console.log("Public Answer File Created");
+                    // console.log("Public Answer File Created");
                     submitqn.key = key;
                     for(var i =0;i<key.length;i++){
                         if(key[i] == "checkbox"){
@@ -111,7 +111,6 @@ router.post("/new/public", middleware.isLoggedIn, middleware.checkType, function
                     submitqn.save();
                 }
             });
-
             User.findById(req.user.id, function(err, founduser) {
                 if (err) {
                     console.log(err);

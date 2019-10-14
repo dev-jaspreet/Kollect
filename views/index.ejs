@@ -6,7 +6,8 @@
         <div class="col s12 m6 l4 reveal">
             <div class="card mystyle hoverable">
                 <div class="card-content white-text">
-                    <span class="card-title"><%= foundqns[i].name %><img class="circle right" width="40" height="40" src="<%=foundqns[i].creator.image.imageurl%>"></span>
+                    <span class="card-title"><%= foundqns[i].name %><img class="circle right" width="40" height="40"
+                            src="<%=foundqns[i].creator.image.imageurl%>"></span>
                     <span></span>
                     <hr>
                     <p>Created By: <%=foundqns[i].creator.name%></p>
@@ -32,22 +33,24 @@
         <div class="col s12 center">
             <ul class="pagination">
                 <% if(index == 0){ %>
-                <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+                <li class="waves-effect"><a href=""><i class="material-icons">chevron_left</i></a></li>
                 <% }else{ %>
-                <li class="waves-effect"><a href="/index/<%=parseInt(index)-1%>"><i class="material-icons">chevron_left</i></a></li>
+                <li class="waves-effect"><a href="/index/<%=parseInt(index)-1%>"><i
+                            class="material-icons">chevron_left</i></a></li>
                 <% } %>
                 <% for(var i=0;i<(maxlength)/15;i++){ %>
                 <% if(index == i){ %>
                 <li class="active"><a href="/index/<%=i%>"><%=i+1%></a></li>
-                
+
                 <% }else{ %>
                 <li class="waves-effect"><a href="/index/<%=i%>"><%=i+1%></a></li>
                 <% } %>
                 <% } %>
                 <% if((maxlength/15)-1 > index){ %>
-                <li class="waves-effect"><a href="/index/<%=parseInt(index)+1%>"><i class="material-icons">chevron_right</i></a></li>
+                <li class="waves-effect"><a href="/index/<%=parseInt(index)+1%>"><i
+                            class=" material-icons">chevron_right</i></a></li>
                 <% }else{ %>
-                <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
+                <li class="waves-effect"><a href=""><i class="material-icons">chevron_right</i></a></li>
                 <% } %>
             </ul>
         </div>
@@ -72,6 +75,8 @@
     </div>
 </div>
 <script>
-    ScrollReveal({reset: true }).reveal('.reveal')
+    ScrollReveal({
+        reset: true
+    }).reveal('.reveal')
 </script>
 <% include ./partials/footer %>
