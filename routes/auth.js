@@ -17,17 +17,16 @@ var defaultimage = "https://res.cloudinary.com/dq1nhsxii/image/upload/v156362173
 const storage = cloudinaryStorage({ cloudinary: cloudinary, folder: "Questionnaire_profile", allowedFormats: ["jpg", "png"], transformation: [{ width: 500, height: 500, crop: "limit" }] });
 const parser = multer({ storage: storage });
 var maxlength;
-
+Question.find({}).exec(function(err, foundqns) {
+    if (err) {
+        console.log(err)
+    }
+    else {
+        maxlength = foundqns.length;
+    }
+})
 router.get("/", function(req, res) {
     if (req.isAuthenticated()) {
-        Question.find({}).exec(function(err, foundqns) {
-            if (err) {
-                console.log(err)
-            }
-            else {
-                maxlength = foundqns.length;
-            }
-        })
         res.redirect("/index/0")
     }
     else {
@@ -37,6 +36,7 @@ router.get("/", function(req, res) {
 
 // HOMEPAGE
 router.get("/index/:index", middleware.isLoggedIn, function(req, res) {
+    console.log("maxlength is " + maxlength)
     var index = req.params.index;
     if (req.params.index < 0) {
         index = 0;

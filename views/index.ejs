@@ -38,10 +38,9 @@
                 <li class="waves-effect"><a href="/index/<%=parseInt(index)-1%>"><i
                             class="material-icons">chevron_left</i></a></li>
                 <% } %>
-                <% for(var i=0;i<(maxlength)/15;i++){ %>
+                <% for(var i = 0;i < (maxlength)/15; i++){ %>
                 <% if(index == i){ %>
                 <li class="active"><a href="/index/<%=i%>"><%=i+1%></a></li>
-
                 <% }else{ %>
                 <li class="waves-effect"><a href="/index/<%=i%>"><%=i+1%></a></li>
                 <% } %>
