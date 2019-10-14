@@ -17,15 +17,21 @@ var defaultimage = "https://res.cloudinary.com/dq1nhsxii/image/upload/v156362173
 const storage = cloudinaryStorage({ cloudinary: cloudinary, folder: "Questionnaire_profile", allowedFormats: ["jpg", "png"], transformation: [{ width: 500, height: 500, crop: "limit" }] });
 const parser = multer({ storage: storage });
 var maxlength;
-Question.find({}).exec(function(err, foundqns) {
-    if (err) {
-        console.log(err)
-    }
-    else {
-        maxlength = foundqns.length;
-    }
-})
+var searchindex;
+
+function getMaxlength() {
+    Question.find({}).exec(function(err, foundqns) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            maxlength = foundqns.length;
+        }
+    })
+}
+
 router.get("/", function(req, res) {
+    getMaxlength();
     if (req.isAuthenticated()) {
         res.redirect("/index/0")
     }
@@ -36,7 +42,7 @@ router.get("/", function(req, res) {
 
 // HOMEPAGE
 router.get("/index/:index", middleware.isLoggedIn, function(req, res) {
-    console.log("maxlength is " + maxlength)
+    getMaxlength();
     var index = req.params.index;
     if (req.params.index < 0) {
         index = 0;
@@ -85,12 +91,15 @@ router.get("/search", function(req, res) {
             console.log(err)
         }
         else {
+            console.log(sorted)
+            maxlength = sorted.length;
+            console.log("maxlength is is " + maxlength)
             if (sorted.length) {
-                res.render("index", { qns: sorted, pageTitle: "Homepage" })
+                res.render("index", { index: -1, maxlength: maxlength, foundqns: sorted, pageTitle: "Homepage" })
             }
             else {
                 req.flash("toast", "Query String Did Not Match")
-                res.redirect("/index")
+                res.redirect("/index/0")
             }
         }
     })
