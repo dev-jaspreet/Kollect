@@ -38,10 +38,9 @@ router.get("/", function(req, res) {
 // HOMEPAGE
 router.get("/index/:index", middleware.isLoggedIn, function(req, res) {
     var index = req.params.index;
-    if (req.params.index == -1) {
+    if (req.params.index < 0) {
         index = 0;
     }
-
     Question.find({}).populate("creator").skip(index * 15).limit(15).exec(function(err, foundqns) {
         if (err) {
             console.log(err);

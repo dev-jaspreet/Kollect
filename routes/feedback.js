@@ -111,15 +111,34 @@ router.post("/display/:id/feedback", upload.array("fileupload"), middleware.isLo
                     }
                     else {
                         var j = 0;
+                        var k = 0;
+                        var temparray = [];
+                        // for (var i = 0; i < foundqn.key.length; i++) {
+                        //     if (foundqn.key[i] == "file") {
+                        //         submitans.answer.push(filenameupload)
+                        //     }
+                        //     else {
+                        //         submitans.answer.push(req.body.answer[j])
+                        //         j++;
+                        //     }
+                        // }
                         for (var i = 0; i < foundqn.key.length; i++) {
                             if (foundqn.key[i] == "file") {
-                                submitans.answer.push(filenameupload)
+                                temparray.push(filenameupload)
                             }
-                            else {
-                                submitans.answer.push(req.body.answer[j])
+                            else if (foundqn.key[i] == "checkbox") {
+                                temparray.push(req.body["answer" + k.toString()])
+                                k++;
+                            }
+                            else if (typeof(req.body.answer) == "string" && foundqn.key.length == 1) {
+                                temparray.push(req.body.answer)
+                            }
+                            else{
+                                temparray.push(req.body.answer[j])
                                 j++;
                             }
                         }
+                        submitans.answer = temparray
                         User.findById(req.user.id, function(err, founduser) {
                             if (err) {
                                 console.log(err)

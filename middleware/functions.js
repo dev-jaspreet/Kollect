@@ -70,6 +70,7 @@ functionObject.bulkmail = function(body, emails) {
 }
 
 functionObject.submitted = function(foundset) {
+    // console.log(foundset)
     var wb = XLSX.utils.book_new();
     var sheet = "SheetJS";
     var ws_data = [];
@@ -79,7 +80,6 @@ functionObject.submitted = function(foundset) {
     for (var i = 0; i < foundset.question.length; i++) {
         header.push(foundset.question[i])
     }
-    ws_data.push(header)
     if (foundset.uniqueid != "public") {
         header.push("Registration No")
         ws_data.push(header)
@@ -93,6 +93,7 @@ functionObject.submitted = function(foundset) {
         }
     }
     else {
+        ws_data.push(header)
         for (var i = 0; i < foundset.answer[0].answer.length; i++) {
             for (var k = 0; k < foundset.answer[0].answer[i].length; k++) {
                 data.push(foundset.answer[0].answer[i][k])
