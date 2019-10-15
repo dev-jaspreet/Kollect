@@ -1,7 +1,7 @@
 // var chips = document.getElementsByClassName("chips");
 var a = document.getElementsByClassName("atag")
 var input = document.getElementsByTagName("input");
-var button = document.querySelector("button")
+var button = document.querySelectorAll("button")
 var action = [];
 var chip;
 var close = [];
@@ -16,7 +16,8 @@ function optionfinal(id) {
         close[i][0].remove()
     }
     action.push("/")
-    button.setAttribute("value", action)
+    button[0].setAttribute("value", action)
+    button[1].setAttribute("value", action)
     a[id].style.display = "none";
     input[id].style.display = "none";
     close = []

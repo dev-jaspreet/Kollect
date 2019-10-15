@@ -12,9 +12,11 @@
                 <form action="/display/<%=foundset._id%>/feedback" method="POST" enctype="multipart/form-data">
                     <% } %>
                     <div class="input-field">
+                        <blockquote style="border-left-color:#4ecca3">
                         <h6>Created By: <%=foundset.creator.name%></h6>
                         <h6>Created On: <%=foundset.created.toDateString()%></h6>
                         <h6>Question Set: <%= foundset.name.toUpperCase()%></h6>
+                        </blockquote>
                     </div>
                     <hr>
                     <% var count = 0 %>

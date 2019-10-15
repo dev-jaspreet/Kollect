@@ -23,26 +23,45 @@
                         <p>Created For: <%=foundset.uniqueid.toUpperCase()%></p>
                         <% } %>
                     <p>Created on: <%= foundset.created.toDateString() %></p>
+                    <div class="hide-on-small-only show-on-medium-and-up">
                     <hr>
-                    <div class="show-on-small hide-on-med-and-up center-align">
-                        <a class="waves-effect waves-light btn-large mystylebutton"
-                            href="/display/<%=foundset._id%>/edit"><i class="material-icons ">edit</i></a>
-                        <% if(!foundset.complete){ %>
-                        <a class="waves-effect waves-light btn-large mystylebutton"
-                            href="/lockunlock/<%=foundset._id%>/lock"><i class="material-icons ">lock_outline</i></a>
-                        <% }else{ %>
-                        <% if(!foundset.checkoption.length){ %>
-                        <a class="waves-effect waves-light btn-large mystylebutton"
-                            href="/optioninput/<%=foundset._id%>"><i class="material-icons ">done_all</i></a>
-                        <% }else{%>
-                        <a class="waves-effect waves-light btn-large mystylebutton"
-                            href="/lockunlock/<%=foundset._id%>/unlock"><i class="material-icons ">lock_open</i></a>
-                        <% } } %>
-                        <% if(foundset.uniqueid == "public"){ %>
-                        <a onclick="myAlert()" data-clipboard-text="https://kollect-app-619.herokuapp.com/display/<%=foundset._id%>/publicfeedback"
-                            id="link" class="waves-effect waves-light btn-large mystylebutton"><i
-                                class="material-icons ">link</i></a>
-                        <% } %>
+                    </div>
+                    <div class="show-on-small hide-on-med-and-up fixed-action-btn">
+                        <a class="btn-floating btn-large" style="background-color: #4ecca3">
+                            <i class="large material-icons">mode_edit</i>
+                          </a>
+                          <ul>
+                            <li><a href="/display/<%=foundset._id%>/edit" class="btn-floating red"><i class="material-icons">edit</i></a></li>
+                            <% if(!foundset.complete){ %>
+                            <li><a href="/lockunlock/<%=foundset._id%>/lock" class="btn-floating red darken-1"><i class="material-icons">lock_outline</i></a></li>
+                            <% }else{ %>
+                            <% if(!foundset.checkoption.length){ %>
+                            <li><a href="/optioninput/<%=foundset._id%>" class="btn-floating green"><i class="material-icons">done_all</i></a></li>
+                            <% }else{%>
+                            <li><a href="/lockunlock/<%=foundset._id%>/unlock" class="btn-floating green"><i class="material-icons">lock_open</i></a></li>
+                            <% } } %>
+                            <% if(foundset.uniqueid == "public"){ %>
+                            <li><a onclick="myAlert()" id="link" data-clipboard-text="https://kollect-app-619.herokuapp.com/display/<%=foundset._id%>/publicfeedback" class="btn-floating blue"><i class="material-icons">link</i></a></li>
+                            <% } %>
+                          </ul>
+                        <!--<a class="waves-effect waves-light btn-large mystylebutton"-->
+                        <!--    href="/display/<%=foundset._id%>/edit"><i class="material-icons ">edit</i></a>-->
+                        <!--<% if(!foundset.complete){ %>-->
+                        <!--<a class="waves-effect waves-light btn-large mystylebutton"-->
+                        <!--    href="/lockunlock/<%=foundset._id%>/lock"><i class="material-icons ">lock_outline</i></a>-->
+                        <!--<% }else{ %>-->
+                        <!--<% if(!foundset.checkoption.length){ %>-->
+                        <!--<a class="waves-effect waves-light btn-large mystylebutton"-->
+                        <!--    href="/optioninput/<%=foundset._id%>"><i class="material-icons ">done_all</i></a>-->
+                        <!--<% }else{%>-->
+                        <!--<a class="waves-effect waves-light btn-large mystylebutton"-->
+                        <!--    href="/lockunlock/<%=foundset._id%>/unlock"><i class="material-icons ">lock_open</i></a>-->
+                        <!--<% } } %>-->
+                        <!--<% if(foundset.uniqueid == "public"){ %>-->
+                        <!--<a onclick="myAlert()" data-clipboard-text="https://kollect-app-619.herokuapp.com/display/<%=foundset._id%>/publicfeedback"-->
+                        <!--    id="link" class="waves-effect waves-light btn-large mystylebutton"><i-->
+                        <!--        class="material-icons ">link</i></a>-->
+                        <!--<% } %>-->
                     </div>
                     <div class="hide-on-small-only show-on-medium-and-up">
                         <a class="waves-effect waves-light btn mystylebutton" href="/display/<%=foundset._id%>/edit"><i
