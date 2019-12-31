@@ -1,0 +1,67 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 l3"></div>
+        <div class="col s12 m6 l6 z-depth-1 mystyleother customborder">
+            <h3>Faculty Updation Form</h3>
+            <form action="/facultyedit/<%=currentuser._id%>?_method=PUT" enctype="multipart/form-data" method="POST">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label for=" fname">Username:</label>
+                        <input type="text" name="User[username]" class="validate" id=" fname"
+                            value="<%=founduser.username%>" required disabled>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for=" mname">Name:</label>
+                        <input type="text" name="User[name]" class="validate" id=" mname" value="<%=founduser.name%>"
+                            required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <label for=" email">Email:</label>
+                        <input type="text" name="User[email]" class="validate" id=" email" value="<%=founduser.email%>"
+                            required>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for=" registrationno">Registration No:</label>
+                        <input type="number" name="User[registrationno]" class="validate" id=" registrationno"
+                            value="<%=founduser.registrationno%>" data-length="9" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select name="User[gender]" required>
+                            <option value="<%=founduser.gender%>" selected><%=(founduser.gender[0].toUpperCase() + founduser.gender.substring(1))%></option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <label for="gender">Select Gender:</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <label for="phone">Mobile No:</label>
+                        <input type="number" name="User[phone]" class="validate" value="<%=founduser.phone%>" id="phone"
+                            required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="file-field input-field col s12">
+                        <div class="btn mystylebutton">
+                            <span><i class="material-icons right">photo</i>File</span>
+                            <input type="file" name="image">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" placeholder="Change Your Profile Image" type="text">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Make Changes
+                    <i class="material-icons right">edit</i>
+                </button>
+        </div>
+        <div class="col s12 m6 l3"></div>
+    </div>
+</div>
+
+<% include ./partials/footer %>

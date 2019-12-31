@@ -1,0 +1,94 @@
+<% include ./partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 l4">
+            <div class="card my hoverable">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator responsive-img" src=<%= currentuser.image.imageurl %>>
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4"><strong><%=currentuser.name%></strong><i
+                            class="material-icons right tooltipped" data-position="right"
+                            data-tooltip="Hello There!">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><%=currentuser.name%><i
+                            class="material-icons right">close</i></span>
+                    <p><strong>Username: </strong><%=currentuser.username%></p>
+                    <p><strong>Registration No: </strong><%=currentuser.registrationno%></p>
+                    <p><strong>Email: </strong><%=currentuser.email%></p>
+                    <p><strong>Phone No: </strong><%=currentuser.phone%></p>
+                    <a href="/facultyedit/<%=currentuser._id%>"
+                        class="btn-floating right btn-large waves-effect waves-light red tooltipped"
+                        data-position="bottom" data-tooltip="Make Changes To Your Account"><i
+                            class="material-icons">edit</i></a>
+                </div>
+            </div>
+            <a class="col s12 black-text waves-effect waves-light btn-large my modal-trigger" href="#student"><i
+                    class="material-icons right">search</i>Search Student(s)</a>
+                    <div class="row"></div>
+            <a class="col s12 black-text waves-effect waves-light btn-large my modal-trigger" href="#class"><i
+                    class="material-icons right">contact_mail</i>Export Class List</a>
+        </div>
+        <div class="col s12 m6 l8 ">
+            <div class="row">
+                <% for(var i=0;i<founduser.questioncreator.length;i++){%>
+                <div class="col s12 m6 l6 reveal">
+                    <div class="card mystyle hoverable">
+                        <div class="card-content white-text">
+                            <span class="card-title">Question Set: <%=i+1%></span>
+                            <p>Created By: <%=founduser.questioncreator[i].name%></p>
+                            <p>Created On: <%=founduser.questioncreator[i].created.toDateString()%></p>
+                        </div>
+                        <div class="card-action">
+                            <% if(currentuser.type == "faculty"){%>
+                            <a class="waves-effect waves-light btn mystylebutton pulse"
+                                href="/display/<%=founduser.questioncreator[i].id%>">Open</a>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="student" class="modal customborder mystyle">
+    <div class="modal-content mystyle white-text">
+        <h4>Search Student(s)</h4>
+        <nav style="border-radius:100px">
+            <div class="nav-wrapper my" style="border-radius:100px">
+                <form action="/searchstudent" method="GET">
+                    <div class="input-field">
+                        <input id="search" type="search" style="border-radius:100px" name="search"
+                            placeholder="Search By Name or E.g. CSE/B/4" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+</div>
+<div id="class" class="modal customborder mystyle">
+    <div class="modal-content mystyle white-text">
+        <h4>Export Class List</h4>
+        <nav style="border-radius:100px">
+            <div class="nav-wrapper my" style="border-radius:100px">
+                <form action="/exportclass" method="GET">
+                    <div class="input-field">
+                        <input id="search" type="search" style="border-radius:100px" name="search"
+                            placeholder="Search By UniqueId or E.g. CSE/B/4" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+    </div>
+</div>
+<script>
+    ScrollReveal({reset: true }).reveal('.reveal')
+</script>
+<% include ./partials/footer %>

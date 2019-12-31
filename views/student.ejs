@@ -1,0 +1,116 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 l4">
+            <div class="card my">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator responsive-img" src=<%= currentuser.image.imageurl %>>
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4"><strong><%=currentuser.name%></strong><i
+                            class="material-icons right tooltipped" data-position="right"
+                            data-tooltip="Hello There!">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><%=currentuser.name%><i
+                            class="material-icons right">close</i></span>
+                    <p><strong>Username: </strong><%=currentuser.username%></p>
+                    <p><strong>Registration No: </strong><%=currentuser.registrationno%></p>
+                    <p><strong>Email: </strong><%=currentuser.email%></p>
+                    <p><strong>Phone No: </strong><%=currentuser.phone%></p>
+                    <a href="/studentedit/<%=currentuser._id%>"
+                        class="btn-floating right btn-large waves-effect waves-light red"><i
+                            class="material-icons">edit</i></a>
+                </div>
+            </div>
+            <div class="card mystyleother customborder">
+                <div class="card-content dark-text">
+                    <span class="card-title">Statistics</span>
+                </div>
+                <div class="card-action">
+                    <p class="red-text">Pending: <span data-badge-caption=""
+                            class="new badge red"><%=founduser.questionpending.length%></span>
+                    </p>
+                    <hr>
+                    <p class="green-text">Submitted: <span data-badge-caption=""
+                            class="new badge green"><%=founduser.questionresponse.length%></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l8">
+            <div class="row">
+                <div class="col s12">
+                    <% if(founduser.questionresponse.length){%>
+                    <ul class="collapsible expandable">
+                        <div class="collapsible-header my"><h4>Submitted Responses</h4></div>
+                        <% for(var i=0;i<founduser.questionresponse.length;i++){ %>
+                        <li>
+                            <div class="white-text collapsible-header green darken-2"><i
+                                    class="material-icons">assignment_turned_in</i><%=founduser.questionresponse[i].name%></div>
+                            <div class="collapsible-body mystyleother">
+                                <ul class="collection with-header ">
+                                    <% for(var j=0;j<founduser.questionresponse[i].question.length;j++){%>
+                                    <li class="collection-item" style="background-color: #eeeeee"><%=j+1%>:- 
+                                        <%=founduser.questionresponse[i].question[j] %> :
+                                        <%= founduser.answer[i].answer[j]%></li>
+                                    <% }%>
+                                </ul>
+                                <hr>
+                                <% if(founduser.questionresponse[i].complete == false){ %>
+                                <a href="/feedbackedit/<%=founduser.questionresponse[i].id%>"
+                                    class="btn waves-effect waves-light mystylebutton"><i
+                                        class="material-icons right">feedback</i>Edit
+                                    Feedback</a>
+                                <% }else{ %>
+                                <a disabled href="/feedbackedit/<%=founduser.questionresponse[i].id%>"
+                                    class="btn waves-effect waves-light mystylebutton"><i
+                                        class="material-icons right">feedback</i>Edit
+                                    Locked</a>
+                                <% } %>
+                            </div>
+                        </li>
+                        <% } %>
+                    </ul>
+                    <% } %>
+                    <!--</div>-->
+                    <!--<div class="col s12">-->
+                    <% if(founduser.questionpending.length){%>
+                    <ul class="collapsible expandable">
+                        <div class="collapsible-header my"><h4>Pending Responses</h4></div>
+                        <% for(var i=0;i<founduser.questionpending.length;i++){ %>
+                        <li>
+                            <div class="white-text collapsible-header red darken-2"><i
+                                    class="material-icons">assignment_late</i><%=founduser.questionpending[i].name%></div>
+                            <div class="collapsible-body mystyleother">
+                                <ul class="collection">
+                                    <% for(var j=0;j<founduser.questionpending[i].question.length;j++){ %>
+                                    <li class="collection-item" style="background-color: #eeeeee"><%=j+1%>:-
+                                        <%=founduser.questionpending[i].question[j]%>
+                                    </li>
+                                    <!--<p><%=j+1%>: <%=founduser.questionpending[i].question[j]%></p>-->
+                                    <% } %>
+                                </ul>
+                                <hr>
+                                <% if(founduser.questionpending[i].complete == false){ %>
+                                <a href="/display/<%=founduser.questionpending[i].id%>/feedback"
+                                    class="btn waves-effect waves-light mystylebutton"><i
+                                        class="material-icons right">feedback</i>Give
+                                    Feedback</a>
+                                <% }else{ %>
+                                <a disabled href="/display/<%=founduser.questionpending[i].id%>/feedback"
+                                    class="btn waves-effect waves-light mystylebutton"><i
+                                        class="material-icons right">lock_outline</i>Feedback Locked</a>
+                                <% } %>
+                            </div>
+                        </li>
+                        <% } %>
+                    </ul>
+                    <% }%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./partials/footer %>

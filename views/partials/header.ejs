@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title><%=pageTitle%></title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Jaspreet Singh Deogan">
+    <meta name="google-site-verification" content="uzo-05OhLRUOrdwRYczs0lO0Brpzxpx6nGIDR73dTQw" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#4ecca3" />
+    <meta name="description" content="Web portal designed to ease Data collection and Exportation.">
+    <link rel='manifest' href='/manifest.json'>
+    <link rel="icon" type="image/png" href="/icon/logo.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        integrity="sha256-OweaP/Ic6rsV+lysfyS4h+LM6sRwuO3euTYfr6M124g=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+        integrity="sha256-PHcOkPmOshsMBC+vtJdVr5Mwb7r0LkSVJPlPrp/IMpU=" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="/app.css">
+    <script src="https://unpkg.com/scrollreveal"></script>
+</head>
+
+<body class="animated fadeIn">
+    <% if(pageTitle != "Kollect"){ %>
+    <nav class="navcustom">
+        <div class="nav-wrapper">
+            <div class="container custom">
+                <a href="/index" class="black-text brand-logo">Kollect</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <% if(currentuser && currentuser.type == "faculty"){ %>
+                    <% if(pageTitle == "Homepage"){ %>
+                    <li><a class="black-text nav-link tooltipped waves-effect waves-light modal-trigger"
+                            data-position="bottom" data-tooltip="Filter Results" href="#filter"><i
+                                class="material-icons">filter_list</i></a></li>
+                    <% } %>
+                    
+                    <li><a class="modal-trigger black-text nav-link tooltipped waves-effect waves-light"
+                            data-position="bottom" data-tooltip="Create A New Question Set" href="#type"><i
+                                class="material-icons">assignment</i></a></li>
+                    <% } %>
+                    <% if(!currentuser){ %>
+                    <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-tooltip="Login"
+                            href="/login"><i class="material-icons">exit_to_app</i></a></li>
+                    <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-tooltip="SignUp"
+                            href="/studentregister"><i class="material-icons">person_add</i></a></li>
+                    <% } else{ %>
+                    <li>
+                        <a class="black-text nav-link tooltipped waves-effect waves-light" data-position="bottom"
+                            data-tooltip=<%=currentuser.username%>
+                            href="/<%=currentuser.type%>/<%=currentuser._id %>"><i
+                                class="material-icons">account_circle</i></a>
+                    </li>
+                    <li><a class="black-text nav-link waves-effect tooltipped waves-light" data-position="bottom"
+                            data-tooltip="Bye!" href="/logout"><i class="material-icons">power_settings_new</i></a></li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <ul class="sidenav my" id="mobile-demo">
+        <% if(!currentuser){ %>
+        <li><a class="nav-link waves-effect waves-light" href="/login">Login</a></li>
+        <li><a class="nav-link waves-effect waves-light" href="/studentregister">SignUp</a></li>
+        <% } else{ %>
+        <li>
+            <div class="user-view">
+                <div class="background mystyle">
+                    <img src=>
+                </div>
+                <a href="#user"><img class="circle" src=<%=currentuser.image.imageurl%>></a>
+                <a href="#name"><span class="white-text name"><%=currentuser.name%></span></a>
+                <a href="#email"><span class="white-text email"><%=currentuser.email%></span></a>
+            </div>
+        </li>
+        <% if(currentuser && currentuser.type == "faculty"){ %>
+        <li><a class="nav-link waves-effect waves-light modal-trigger" href="#type">New Entry</a></li>
+        <% if(pageTitle == "Homepage"){ %>
+        <li><a class="black-text nav-link waves-effect waves-light modal-trigger" href="#filter">Search</a></li>
+        <% } %>
+        <% } %>
+        <li>
+            <a class="nav-link waves-effect waves-light" href="/<%=currentuser.type%>/<%=currentuser._id %>">Profile</a>
+        </li>
+        <li><a class="nav-link waves-effect waves-light" href="/logout">LogOut</a></li>
+        <li><a onclick="share('Kollect', 'https://kollect-app-619.herokuapp.com')">Share App</a></li>
+        <% } %>
+    </ul>
+    <% } %>
+
+    <div id="type" class="row modal my">
+        <div class="col s12 m6">
+            <div class="card mystyle">
+                <div class="card-content white-text">
+                    <span class="card-title center">PUBLIC</span>
+                    <hr>
+                    <p>This option allows you to create a public form that may be filled by anyone that has access to
+                        its link.</p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect waves-light btn mystylebutton" href="/new/public">Create</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6">
+            <div class="card mystyle">
+                <div class="card-content white-text">
+                    <span class="card-title center">PRIVATE</span>
+                    <hr>
+                    <p>This option allows you to create a private form that will be available for specific people.</p>
+                </div>
+                <div class="card-action">
+                    <a class="waves-effect waves-light btn mystylebutton " href="/new/private">Create</a>
+                </div>
+            </div>
+        </div>
+    </div>

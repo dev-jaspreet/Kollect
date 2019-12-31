@@ -1,0 +1,380 @@
+<% include ./partials/header %>
+
+<% if(currentuser && foundset.creator.equals(currentuser._id)){ %>
+<% var countpen = 0 %>
+<% var countsub = 0 %>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="card mystyle">
+                <div class="card-content white-text">
+                    <span class="card-title"><strong><%=foundset.name%></strong></span>
+                    <% if(foundset.complete == false){ %>
+                    <span data-badge-caption="UNLOCKED" class="new badge red"></span>
+                    <% }else{ %>
+                    <span data-badge-caption="LOCKED" class="new badge green"></span>
+                    <% } %>
+                    <p>Created By: <%=foundset.creator.name%></p>
+                    <% if(foundset.uniqueid != "public"){ %>
+                    <p>Created For: <%=foundset.uniqueid.substring(0,3).toUpperCase()%> /
+                        <%=foundset.uniqueid.substring(3,4).toUpperCase()%> /
+                        <%=foundset.uniqueid.substring(4,5).toUpperCase()%></p>
+                        <% }else{ %>
+                        <p>Created For: <%=foundset.uniqueid.toUpperCase()%></p>
+                        <% } %>
+                    <p>Created on: <%= foundset.created.toDateString() %></p>
+                    <div class="hide-on-small-only show-on-medium-and-up">
+                    <hr>
+                    </div>
+                    <div class="show-on-small hide-on-med-and-up fixed-action-btn">
+                        <a class="waves-effect waves-light btn-floating btn-large" style="background-color: #4ecca3">
+                            <i class="large material-icons">mode_edit</i>
+                          </a>
+                          <ul>
+                            <li><a href="/display/<%=foundset._id%>/edit" class="waves-effect waves-light btn-floating red"><i class="material-icons">edit</i></a></li>
+                            <% if(!foundset.complete){ %>
+                            <li><a href="/lockunlock/<%=foundset._id%>/lock" class="waves-effect waves-light btn-floating red darken-1"><i class="material-icons">lock_outline</i></a></li>
+                            <% }else{ %>
+                            <% if(!foundset.checkoption.length){ %>
+                            <li><a href="/optioninput/<%=foundset._id%>" class="waves-effect waves-light btn-floating green"><i class="material-icons">done_all</i></a></li>
+                            <% }else{%>
+                            <li><a href="/lockunlock/<%=foundset._id%>/unlock" class="waves-effect waves-light btn-floating green"><i class="material-icons">lock_open</i></a></li>
+                            <% } } %>
+                            <% if(foundset.uniqueid == "public"){ %>
+                            <li><a onclick="myAlert()" id="link" data-clipboard-text="https://kollect-app-619.herokuapp.com/display/<%=foundset._id%>/publicfeedback" class="btn-floating blue"><i class="material-icons">link</i></a></li>
+                            <% } %>
+                          </ul>
+                        <!--<a class="waves-effect waves-light btn-large mystylebutton"-->
+                        <!--    href="/display/<%=foundset._id%>/edit"><i class="material-icons ">edit</i></a>-->
+                        <!--<% if(!foundset.complete){ %>-->
+                        <!--<a class="waves-effect waves-light btn-large mystylebutton"-->
+                        <!--    href="/lockunlock/<%=foundset._id%>/lock"><i class="material-icons ">lock_outline</i></a>-->
+                        <!--<% }else{ %>-->
+                        <!--<% if(!foundset.checkoption.length){ %>-->
+                        <!--<a class="waves-effect waves-light btn-large mystylebutton"-->
+                        <!--    href="/optioninput/<%=foundset._id%>"><i class="material-icons ">done_all</i></a>-->
+                        <!--<% }else{%>-->
+                        <!--<a class="waves-effect waves-light btn-large mystylebutton"-->
+                        <!--    href="/lockunlock/<%=foundset._id%>/unlock"><i class="material-icons ">lock_open</i></a>-->
+                        <!--<% } } %>-->
+                        <!--<% if(foundset.uniqueid == "public"){ %>-->
+                        <!--<a onclick="myAlert()" data-clipboard-text="https://kollect-app-619.herokuapp.com/display/<%=foundset._id%>/publicfeedback"-->
+                        <!--    id="link" class="waves-effect waves-light btn-large mystylebutton"><i-->
+                        <!--        class="material-icons ">link</i></a>-->
+                        <!--<% } %>-->
+                    </div>
+                    <div class="hide-on-small-only show-on-medium-and-up">
+                        <a class="waves-effect waves-light btn mystylebutton" href="/display/<%=foundset._id%>/edit"><i
+                                class="material-icons right">edit</i>Edit</a>
+                        <% if(!foundset.complete){ %>
+                        <a class="waves-effect waves-light btn mystylebutton"
+                            href="/lockunlock/<%=foundset._id%>/lock"><i
+                                class="material-icons right">lock_outline</i>Lock</a>
+                        <% }else{ %>
+                        <% if(!foundset.checkoption.length){ %>
+                        <a class="waves-effect waves-light btn mystylebutton"
+                            href="/optioninput/<%=foundset._id%>"><i
+                                class="material-icons right">done_all</i>Add Option(s)</a>
+                        <% }else{ %>
+                        <a class="waves-effect waves-light btn mystylebutton"
+                            href="/lockunlock/<%=foundset._id%>/unlock"><i
+                                class="material-icons right">lock_open</i>Unlock</a>
+                        <% } } %>
+                        <% if(foundset.uniqueid == "public"){ %>
+                        <a onclick="myAlert()" data-clipboard-text="https://kollect-app-619.herokuapp.com/display/<%=foundset._id%>/publicfeedback"
+                            class="waves-effect waves-light btn mystylebutton"><i
+                                id="link" class="material-icons right">link</i>Copy Link</a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l9">
+            <div class="row">
+                <div class="col s12 x">
+                    <ul class="tabs" style="background-color: #4ecca3">
+                        <li class="tab col s3"><a href="#test2">Delete</a></li>
+                        <% if(foundset.uniqueid != "public"){ %>
+                        <li class="tab col s3"><a href="#test3">View Pending</a></li>
+                        <% } %>
+                        <li class="tab col s3"><a class="active" href="#test5">View Submitted</a></li>
+                        <li class="tab col s3"><a href="#test4">Export To CSV</a></li>
+                    </ul>
+                </div>
+                <div id="test2" class="col s12" style="padding-top:10px">
+                    <p class="grey-text text-lighten-5">Do you really want to delete these records? This process cannot
+                        be undone.</p>
+                    <div class="hide-on-small-only show-on-medium-and-up">
+                        <a class="waves-effect waves-light btn modal-trigger mystylebutton red" href="#modal1"><i
+                                class="material-icons right">delete</i>Delete</a>
+                    </div>
+                    <div class="show-on-small hide-on-med-and-up">
+                        <a class="waves-effect waves-light btn-large modal-trigger mystylebutton red" href="#modal1"><i
+                                class="material-icons">delete</i></a>
+                    </div>
+                </div>
+                <div id="test5" class="col s12" style="padding-top:10px">
+                    <table id="testTable" class="highlight mystyleother customborder responsive-table"
+                        style="overflow:auto">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <% for(var i=0;i<foundset.question.length ;i++){ %>
+                                <th><%= foundset.question[i] %></th>
+                                <% }%>
+                                <% if(foundset.uniqueid != "public"){ %>
+                                <th>Registration No</th>
+                                <% } %>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if(foundset.uniqueid == "public"){ %>
+                            <% if(foundset.answer.length){ %>
+                            <% for(var i=0;i<foundset.answer[0].answer.length ;i++){ %>
+                            <tr>
+                                <th><%=i+1%></th>
+                                <% for(var k=0;k < foundset.answer[0].answer[i].length ;k++){ %>
+                                <td><%= foundset.answer[0].answer[i][k] %></td>
+                                <% }%>
+                            </tr>
+                            <% countsub = i+1%>
+                            <% }%>
+                            <% }%>
+                            <% }else{ %>
+                            <% for(var i=0;i<foundset.answer.length ;i++){ %>
+                            <tr>
+                                <th><%=i+1%></th>
+                                <% for(var j=0;j<foundset.answer[i].answer.length ;j++){ %>
+                                <td><%= foundset.answer[i].answer[j] %></td>
+                                <% }%>
+                                <td><%= foundset.answer[i].registrationno %></td>
+                            </tr>
+                            <% countsub = i+1%>
+                            <% }%>
+                            <% }%>
+                        </tbody>
+                    </table>
+                </div>
+                <% if(foundset.uniqueid != "public"){ %>
+                <div id="test3" class="col s12" style="padding-top:10px">
+                    <table id="pendingTable" class="highlight mystyleother customborder">
+                        <thead class="">
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Registration No.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i=0;i<foundusers.length ;i++){ %>
+                            <tr>
+                                <% if(foundusers[i].questionpending.length){ %>
+                                <% for(var j=0;j<foundusers[i].questionpending.length ;j++){ %>
+                                <% if(foundset._id.equals(foundusers[i].questionpending[j]._id)){ %>
+                                <td><%= countpen+1%></td>
+                                <td><%= foundusers[i].name%></td>
+                                <td><%= foundusers[i].registrationno%></td>
+                                <% countpen++%>
+                                <% }%>
+                                <% }%>
+                                <% }%>
+                            </tr>
+                            <% }%>
+                        </tbody>
+                    </table>
+                </div>
+                <% } %>
+                <div id="test4" class="col s12" style="padding-top:10px">
+                    <p class="grey-text text-lighten-5">Here You Can Export Either Submitted Or Pending Responses.</p>
+                    <div class="hide-on-small-only show-on-medium-and-up">
+                        <% var file = foundset.name+ " "+ foundset.uniqueid+" SUBMITTED.xlsx" %>
+                        <a class="waves-effect waves-light btn mystylebutton green darken-4"
+                            href="/download/<%=file%>"><i class="material-icons right">archive</i>Export Submitted</a>
+                            <% if(foundset.uniqueid != "public"){%>
+                        <% file = foundset.name+ " "+ foundset.uniqueid+" PENDING.xlsx" %>
+                        <a class=" waves-effect waves-light btn mystylebutton red" href="/download/<%=file%>"><i
+                                class="material-icons right">announcement</i>Export Pending</a>
+                                <% } %>
+                    </div>
+                    <div class="show-on-small hide-on-med-and-up">
+                        <% var file = foundset.name+ " "+ foundset.uniqueid+" SUBMITTED.xlsx" %>
+                        <a class="waves-effect waves-light btn-large mystylebutton green darken-4"
+                            href="/download/<%=file%>"><i class="material-icons">archive</i></a>
+                            <% if(foundset.uniqueid != "public"){%>
+                        <% file = foundset.name+ " "+ foundset.uniqueid+" PENDING.xlsx" %>
+                        <a class=" waves-effect waves-light btn-large mystylebutton red" href="/download/<%=file%>"><i
+                                class="material-icons">announcement</i></a>
+                                <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m6 l3">
+            <div class="card mystyleother customborder">
+                <div class="card-content dark-text">
+                    <span class="card-title">Statistics</span>
+                </div>
+                <div class="card-action">
+                    <% if(foundset.uniqueid != "public"){%>
+                    <p class="red-text">Pending: <span data-badge-caption="" class="new badge red"><%=countpen%></span>
+                    </p>
+                    <hr>
+                    <% } %>
+                    <p class="green-text">Submitted: <span data-badge-caption=""
+                            class="new badge green"><%=countsub%></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% countpen = 0 %>
+<% countsub = 0 %>
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4><%=foundset.name%></h4>
+        <hr>
+        <p>Are You Sure?</p>
+    </div>
+    <div class="modal-footer">
+        <form action="/display/<%=foundset._id%>?_method=DELETE" method="POST">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <button class="waves-effect waves-light btn mystylebutton red"><i
+                    class="material-icons right">delete_forever</i>Confirm</button>
+        </form>
+    </div>
+</div>
+
+<script>
+function myAlert(){
+    alert("Link Copied To Clipboard")
+}
+</script>
+<% }else{ %>
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 l8">
+            <div class="card mystyle">
+                <div class="card-content white-text">
+                    <span class="card-title"><strong><%=foundset.name%></strong></span>
+                    <p>Created By: <%=foundset.creator.name%></p>
+                    <% if(foundset.uniqueid != "public"){ %>
+                    <p>Created For: <%=foundset.uniqueid.substring(0,3).toUpperCase()%> /
+                        <%=foundset.uniqueid.substring(3,4).toUpperCase()%> /
+                        <%=foundset.uniqueid.substring(4,5).toUpperCase()%></p>
+                        <% }else{ %>
+                        <p>Created For: <%=foundset.uniqueid.toUpperCase()%></p>
+                        <% } %>
+                    <p>Created on: <%= foundset.created.toDateString() %></p>
+                </div>
+            </div>
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header green darken-1"><i class="material-icons">filter_drama</i>Submitted
+                        Responses
+                    </div>
+                    <div class="collapsible-body mystyleother">
+                        <table class="highlight">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <% for(var i=0;i<foundset.question.length ;i++){ %>
+                                    <th scope="col"><%= foundset.question[i] %></th>
+                                    <% }%>
+                                    <% if(foundset.uniqueid != "public"){ %>
+                                <th>Registration No</th>
+                                <% } %>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <% if(foundset.uniqueid == "public"){ %>
+                            <% if(foundset.answer.length){ %>
+                            <% for(var i=0;i<foundset.answer[0].answer.length ;i++){ %>
+                            <tr>
+                                <th><%=i+1%></th>
+                                <% for(var k=0;k < foundset.answer[0].answer[i].length ;k++){ %>
+                                <td><%= foundset.answer[0].answer[i][k] %></td>
+                                <% }%>
+                            </tr>
+                            <% countsub = i+1%>
+                            <% }%>
+                            <% }%>
+                            <% }else{ %>
+                            <% for(var i=0;i<foundset.answer.length ;i++){ %>
+                            <tr>
+                                <th><%=i+1%></th>
+                                <% for(var j=0;j<foundset.answer[i].answer.length ;j++){ %>
+                                <td><%= foundset.answer[i].answer[j] %></td>
+                                <% }%>
+                                <td><%= foundset.answer[i].registrationno %></td>
+                            </tr>
+                            <% countsub = i+1%>
+                            <% }%>
+                            <% }%>
+                        </tbody>
+                        </table>
+                    </div>
+                </li>
+                <% if(foundset.uniqueid != "public"){ %>
+                <li>
+                    <div class="collapsible-header red lighten-1"><i class="material-icons">filter_drama</i>Pending
+                        Responses
+                    </div>
+                    <div class="collapsible-body mystyleother">
+                        <hr>
+                        <table class="highlight">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Registration No.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% var count = 0 %>
+                                <% for(var i=0;i<foundusers.length ;i++){ %>
+                                <tr>
+                                    <% if(foundusers[i].questionpending.length){ %>
+                                    <% for(var j=0;j<foundusers[i].questionpending.length ;j++){ %>
+                                    <% if(foundset._id.equals(foundusers[i].questionpending[j]._id)){ %>
+                                    <td><%= count+1%></td>
+                                    <td><%= foundusers[i].name%></td>
+                                    <td><%= foundusers[i].registrationno%></td>
+                                    <% count++%>
+                                    <% }%>
+                                    <% }%>
+                                    <% }%>
+                                </tr>
+                                <% }%>
+                                <% count = 0%>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <div class="col s12 m6 l4">
+            <div class="card my">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src=<%=foundset.creator.image.imageurl%>>
+                </div>
+                <div class="card-content">
+                    <span
+                        class="card-title activator grey-text text-darken-4"><strong><%=foundset.creator.name%></strong><i
+                            class="material-icons right">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><%=foundset.creator.name%><i
+                            class="material-icons right">close</i></span>
+                    <p><strong>Username: </strong><%=foundset.creator.username%></p>
+                    <p><strong>Registration No: </strong><%=foundset.creator.registrationno%></p>
+                    <p><strong>Email: </strong><%=foundset.creator.email%></p>
+                    <p><strong>Phone No: </strong><%=foundset.creator.phone%></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>
+
+<% include ./partials/footer %>

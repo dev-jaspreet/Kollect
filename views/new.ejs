@@ -1,0 +1,113 @@
+<% include ./partials/header %>
+<div class="container">
+    <div class="row">
+        <% if(!filter && count == -1){ %>
+        <div class="col s12 m3"></div>
+        <div class="col s12 m6 z-depth-1 mystyleother customborder">
+            <h3>Select Branch: Section: Year</h3>
+            <form action="/new/private/filter" method="POST">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <select name="department" required>
+                            <option value="" disabled selected>Department:</option>
+                            <option value="cse">CSE</option>
+                            <option value="it ">IT</option>
+                            <option value="cce">CCE</option>
+                        </select>
+                        <label for="department">Select Department:</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <select name="section" required>
+                            <option value="" disabled selected>Section:</option>
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                            <option value="d">D</option>
+                        </select>
+                        <label for="section">Select SECTION:</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <select name="year" required>
+                            <option value="" disabled selected>Year:</option>
+                            <option value="1">First</option>
+                            <option value="2">Second</option>
+                            <option value="3">Third</option>
+                            <option value="4">Fourth</option>
+                        </select>
+                        <label for="year">Select Current Year:</label>
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light mystylebutton pulse" type="submit" name="action">Next
+                    <i class="material-icons right">queue_play_next</i>
+                </button>
+            </form>
+        </div>
+        <div class="col s12 m3"></div>
+        <% } %>
+        <% if(count == -1 && filter){ %>
+        <div class="col s12 m3"></div>
+        <div class="col s12 m6 z-depth-1 mystyleother customborder">
+            <h3>How Many Question(s) Would Like To Create?</h3>
+            <form action="/new/private/count" method="POST">
+                <div class="input-field">
+                    <label for="count">Number Of Questions: (Optional)</label>
+                    <input type="number" name="count" id="count">
+                    <small id="emailHelp" class="form-text text-muted">This Number Can Not Be Changed, By Default:
+                        0, But Can Add More Later.</small>
+                </div>
+                <button class="btn waves-effect waves-light mystylebutton" type="submit" name="action">Next
+                    <i class="material-icons right">queue_play_next</i>
+            </form>
+        </div>
+        <div class="col s12 m3"></div>
+    </div>
+    <% } %>
+    <% if(count != -1 && filter){ %>
+    <div class="col s12 m6 l3"></div>
+    <div class="col s12 m6 z-depth-1 mystyleother customborder">
+        <h3>Enter Your Desired Questions.</h3>
+        <form action="/new/private" method="POST">
+            <div class="input-field">
+                <label for="name">Set Question Bank Name</label>
+                <input type="text" name="name" class="validate" id="name" required>
+                <small id="emailHelp" class="form-text text-muted">Needed</small>
+            </div>
+            <div id="customdiv">
+                <%    for(var i = 0; i < count; i++){ %>
+                <div class="input-field">
+                    <label for="question"><%= i+1 %>: Question Type: TEXT Needed</label>
+                    <input type="text" name="question" class="validate" id="question" required>
+                </div>
+                <%    } %>
+            </div>
+            <div class="row">
+                <div class="col s6"><button class="col s12 btn waves-effect waves-light mystylebutton" type="submit"
+                        name="action">Create</button></div>
+                <div class="col s6"><a href="/index"
+                        class="col s12 btn waves-effect waves-light mystylebutton">Discard</a></div>
+            </div>
+        </form>
+        <hr>
+        <div class="row">
+            <div class="col s6"><button
+                    class="col s12 dropdown-trigger waves-effect waves-light btn mystylebutton green darken-4 "
+                    data-target='dropdown1'><i class="material-icons">add</i></button></div>
+            <div class="col s6"><button type="submit" onclick="deletion()"
+                    class="col s12 waves-effect waves-light btn mystylebutton red darken-4"><i
+                        class="material-icons">clear</i></button></div>
+        </div>
+    </div>
+    <div class="col s12 m6 l3"></div>
+    <% } %>
+</div>
+<ul id='dropdown1' class='dropdown-content'>
+    <li><a href="#!" onclick="insertion('text')">Text</a></li>
+    <li><a href="#!" onclick="insertion('date')">Date</a></li>
+    <li><a href="#!" onclick="insertion('email')">Email</a></li>
+    <li><a href="#!" onclick="insertion('number')">Number</a></li>
+    <li><a href="#!" onclick="insertion('url')">Url</a></li>
+    <li><a href="#!" onclick="insertion('file')">File</a></li>
+    <li><a href="#!" onclick="insertion('checkbox')">Checkbox</a></li>
+</ul>
+<script src="/scripts/new.js"></script>
+<% include ./partials/footer %>

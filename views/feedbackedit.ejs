@@ -1,0 +1,55 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m6 l3"></div>
+        <div class="col s12 m6 l6 z-depth-1 mystyleother customborder">
+            <h3>Edit </h3>
+            <hr>
+            <form action="/feedbackedit/<%=foundans[0].id%>?_method=PUT" method="POST">
+                <div class="input-field">
+                    <h6>Created By: <%=foundqn.creator.name%></h6>
+                    <h6>Created On: <%=foundqn.created.toDateString()%></h6>
+                    <h6>Question Set: <%= foundqn.name.toUpperCase()%></h6>
+                </div>
+                <hr>
+                <%    for(var i = 0; i < foundqn.question.length; i++){ %>
+                
+                <% if(foundqn.key[i] == "date"){%>
+                <div class="input-field">
+                    <label for="answer"><%= i+1 %>: <%= foundqn.question[i] %></label>
+                    <input type="text" name="answer" class="datepicker" id="answer" value="<%=foundans[0].answer[i]%>" required>
+                </div>
+                <% }else{ %>
+                <div class="input-field">
+                    <label for="answer"><%= i+1 %>: <%= foundqn.question[i] %></label>
+                    <input type=<%=foundqn.key[i]%> name="answer" class="validate" id="answer" value="<%=foundans[0].answer[i]%>" required>
+                </div>
+                <%    } %>
+                <%    } %>
+                <div class="row">
+                    <div class="hide-on-small-only show-on-medium-and-up">
+                        <div class="col s6"><a href="/student/<%=currentuser.id%>"
+                            class="col s12 waves-effect waves-light btn mystylebutton red darken-4"
+                            ><i class="material-icons">clear</i></a></div>
+                    <div class="col s6"><button type="submit"
+                            class="col s12 waves-effect waves-light btn mystylebutton green darken-4"
+                            ><i class="material-icons">check</i></button></div>
+                    </div>
+                    <div class="show-on-small hide-on-med-and-up">
+                        <div class="col s6"><a href="/student/<%=currentuser.id%>"
+                            class="col s12 waves-effect waves-light btn-large mystylebutton red darken-4"
+                            style="border-radius:100px"><i class="material-icons">clear</i></a></div>
+                    <div class="col s6"><button type="submit"
+                            class="col s12 waves-effect waves-light btn-large mystylebutton green darken-4"
+                            style="border-radius:100px"><i class="material-icons">check</i></button></div>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="col s12 m6 l3"></div>
+    </div>
+</div>
+
+<% include ./partials/footer %>
